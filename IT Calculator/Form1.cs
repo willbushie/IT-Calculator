@@ -52,6 +52,57 @@ namespace IT_Calculator
         // also takes into account the opeartion through operationComboBox
         private void binaryArithm_ProcessOperationButton_Click(object sender, EventArgs e)
         {
+            // store the input value from the first text box
+            int firstInt = int.Parse(binaryArith_LeftTextBox.Text);
+            // store the input value from the second text box
+            int secondInt = int.Parse(binaryArith_RightTextBox.Text);
+
+            // operation int value to later turn to a string
+            int operationAnswerInt = 0;
+
+            // error checking boolean value
+            bool error = true;
+
+            // check which operation is to requested & perform it
+            if (operationComboBox.Text == "Addition")
+            {
+                // call the binaryAddition method & store the answer
+                operationAnswerInt = base2Addition(firstInt, secondInt);
+                //update the error bool value
+                error = false;
+            }
+            else if (operationComboBox.Text == "Subtraction")
+            {
+                // call the binaryAddition method & store the answer
+                operationAnswerInt = base2Subtraction(firstInt, secondInt);
+                //update the error bool value
+                error = false;
+            }
+            else if (operationComboBox.Text == "Multiplication")
+            {
+                // call the binaryAddition method & store the answer
+                operationAnswerInt = base2Multiplication(firstInt, secondInt);
+                //update the error bool value
+                error = false;
+            }
+            else if (operationComboBox.Text == "Division")
+            {
+                // call the binaryAddition method & store the answer
+                operationAnswerInt = base2Division(firstInt, secondInt);
+                //update the error bool value
+                error = false;
+            }
+
+            // ensure there was no error, else alert the user
+            if (error == false)
+            {
+                // convert final answer from int to string & dispaly to the user in the answer text box
+                binaryArithm_AnswerTextBox.Text = operationAnswerInt.ToString();
+            }
+            else
+            {
+                // error has occured, alert the user
+            }
 
         }
 
