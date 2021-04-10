@@ -400,7 +400,7 @@ namespace IT_Calculator
         }
 
         // This method converts a dotted octet number into a base 10 number.
-        // input: dotted octet number | returns: base 2 number 
+        // input: dotted octet number | returns: base 2 number
         public int dotOctetToBase2(string numToConvert)
         {
             string OctNum = "345"; //put textbox here
