@@ -106,6 +106,8 @@ namespace IT_Calculator
         }
 
         // button press event to convert the input base from textBox1 to the desired output base into textBox2
+        // 
+        // 
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -254,6 +256,11 @@ namespace IT_Calculator
         // This code will need to be updated in the future using linked lists - TEMP CODE
         public int hexToBase2(string numToConvert)
         {
+            // general plan for the new code
+            // convert the numToConvert (hex) into base10
+            // convert the returned base10 value into base2
+            // return the base2 value
+
             String s = "1A"; //should be 1011
 
             char[] hexDec = new char[100];
@@ -338,6 +345,13 @@ namespace IT_Calculator
         // This code will need to be updated in the future using linked lists - TEMP CODE
         public int hexToBase10(string numToConvert)
         {
+            // general plan for the new code
+            // convert numToConvert (hex) to base10 - using arrays with appropriate values 
+            // array example:
+            // hex:     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f]
+            // base10:  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+            // simply compare and return values accordinly
+            
             //this is the code for hex to dec to base 10--just need for it to be implied better with the public int.
             String hexNum = "1A"; //26
             hexadecimalToDecimal(hexNum);
@@ -389,11 +403,58 @@ namespace IT_Calculator
         // input: dotted octet number | returns: base 2 number
         public int dotOctetToBase2(string numToConvert)
         {
+            string OctNum = "345"; //put textbox here
+            OctToBin(OctNum);
             return 0;
+        }
+        static void OctToBin(char[] OctNum) //converts hex to binary
+        {
+            int i = 0;
+            string binary = "";
+
+            while (i < OctNum.Length)
+            {
+                char c = OctNum[i];
+                switch (c)    //all of the "System.Consol.Write will be the line that prints into textboxs
+                {
+                    case '0':
+                        binary += "000";
+                        break;
+                    case '1':
+                        binary += "001";
+                        break;
+                    case '2':
+                        binary += "010";
+                        break;
+                    case '3':
+                        binary += "011";
+                        break;
+                    case '4':
+                        binary += "100";
+                        break;
+                    case '5':
+                        binary += "101";
+                        break;
+                    case '6':
+                        binary += "110";
+                        break;
+                    case '7':
+                        binary += "111";
+                        break;
+                    default:
+                        //print invalid OctNum
+                        System.Console.WriteLine("Invalid Octal Number: " + OctNum);
+                        break;
+                }
+                i++;
+            }
+            return binary;
         }
 
     }
 }
+
+
 
 
 /* 
@@ -548,5 +609,4 @@ public class Node
         // return nodeToRemove's nodeBefore
         return nodeToReturn;
     }
-
 }
