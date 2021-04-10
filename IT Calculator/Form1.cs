@@ -95,32 +95,184 @@ namespace IT_Calculator
 
         // This method converts a base 2 number into a base 10 number.
         // input: base 2 number | returns base 10 number
+        // This code will need to be updated in the future using linked lists - TEMP CODE
         public int base2ToBase10(int numToConvert)
         {
-            
+            int num, binVal, decVal = 0, baseVal = 1, rem; //converts binary and spits out decimal
+            num = 101; //make this the input
+            binVal = num;
+            while (num > 0)
+            {
+                rem = num % 10;
+                decVal = decVal + rem * baseVal;
+                num = num / 10;
+                baseVal = baseVal * 2;
+            }
+            Console.Write("Binary Number: " + binVal);
+            Console.Write("\nDecimal: " + decVal);
+            Console.ReadLine();
             return 0;
         }
 
         // This method converts a base 10 number into a base 2 number.
         // input: base 10 number | returns: base 2 number
+        // This code will need to be updated in the future using linked lists - TEMP CODE
+
         public int base10ToBase2(int numToConvert)
         {
+            //this code takes in a decimal and spits out the binary
+            Console.Write("Decimal: ");
+            int decimalNumber = int.Parse(Console.ReadLine());
+
+            int remainder;
+            string result = string.Empty;
+            while (decimalNumber > 0)
+            {
+                remainder = decimalNumber % 2;
+                decimalNumber /= 2;
+                result = remainder.ToString() + result;
+            }
+            Console.WriteLine("Binary:  {0}", result);
             return 0;
         }
 
         // This method converts a hexadecimal number into a base 2 number.
         // input: hexadecimal number (string) | returns: base 2 number
+        // This code will need to be updated in the future using linked lists - TEMP CODE
         public int hexToBase2(string numToConvert)
         {
+            String s = "1A"; //should be 1011
+
+            char[] hexDec = new char[100];
+            hexDec = s.ToCharArray();
+            HexToBin(hexDec);
             return 0;
+        }
+        static void HexToBin(char[] hexdec) //converts hex to binary
+        {
+            int i = 0;
+
+            while (hexdec[i] != '\u0000')
+            {
+
+                switch (hexdec[i])
+                {
+                    case '0':
+                        System.Console.Write("0000");
+                        break;
+                    case '1':
+                        System.Console.Write("0001");
+                        break;
+                    case '2':
+                        System.Console.Write("0010");
+                        break;
+                    case '3':
+                        System.Console.Write("0011");
+                        break;
+                    case '4':
+                        System.Console.Write("0100");
+                        break;
+                    case '5':
+                        System.Console.Write("0101");
+                        break;
+                    case '6':
+                        System.Console.Write("0110");
+                        break;
+                    case '7':
+                        System.Console.Write("0111");
+                        break;
+                    case '8':
+                        System.Console.Write("1000");
+                        break;
+                    case '9':
+                        System.Console.Write("1001");
+                        break;
+                    case 'A':
+                    case 'a':
+                        System.Console.Write("1010");
+                        break;
+                    case 'B':
+                    case 'b':
+                        System.Console.Write("1011");
+                        break;
+                    case 'C':
+                    case 'c':
+                        System.Console.Write("1100");
+                        break;
+                    case 'D':
+                    case 'd':
+                        System.Console.Write("1101");
+                        break;
+                    case 'E':
+                    case 'e':
+                        System.Console.Write("1110");
+                        break;
+                    case 'F':
+                    case 'f':
+                        System.Console.Write("1111");
+                        break;
+                    default:
+                        System.Console.Write("\nInvalid hexadecimal digit " +
+                                                                  hexdec[i]);
+                        break;
+                }
+                i++;
+            }
+                //return 0;
         }
 
         // This method converts a hexadecimal number into a base 10 number.
         // input: hexadecimal number (string) | returns: base 10 number
+        // This code will need to be updated in the future using linked lists - TEMP CODE
         public int hexToBase10(string numToConvert)
         {
+            //this is the code for hex to dec to base 10--just need for it to be implied better with the public int.
+            String hexNum = "1A"; //26
+            hexadecimalToDecimal(hexNum);
+
             return 0;
         }
+        //this is for the code above
+        int hexadecimalToDecimal(String hexVal)
+        {
+            int len = hexVal.Length;
+
+            // Initializing base1 value
+            // to 1, i.e 16^0
+            int base1 = 1;
+
+            int dec_val = 0;
+
+            // Extracting characters as
+            // digits from last character
+            for (int i = len - 1; i >= 0; i--)
+            {
+                // if character lies in '0'-'9',
+                // converting it to integral 0-9
+                // by subtracting 48 from ASCII value
+                if (hexVal[i] >= '0' && hexVal[i] <= '9')
+                {
+                    dec_val += (hexVal[i] - 48) * base1;
+
+                    // incrementing base1 by power
+                    base1 = base1 * 16;
+                }
+
+                // if character lies in 'A'-'F' ,
+                // converting it to integral
+                // 10 - 15 by subtracting 55
+                // from ASCII value
+                else if (hexVal[i] >= 'A' && hexVal[i] <= 'F')
+                {
+                    dec_val += (hexVal[i] - 55) * base1;
+
+                    // incrementing base1 by power
+                    base1 = base1 * 16;
+                }
+            }
+            return dec_val;
+        }
+
 
         // This method converts a dotted octet number into a base 10 number.
         // input: dotted octet number | returns: base 2 number
