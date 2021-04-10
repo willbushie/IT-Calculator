@@ -67,30 +67,72 @@ namespace IT_Calculator
         // this is the format of the inputs: (num1 + num2)
         public int base2Addition(int num1, int num2)
         {
-            
-            return 0;
+            // convert both numbers in to decimal
+            int num1Base10 = base2ToBase10(num1);
+            int num2Base10 = base2ToBase10(num2);
+
+            // complete the operation (addition)
+            int operationAnswer = num1Base10 + num2Base10;
+
+            // convert the answer back to binary, store into a returnable binary ouput
+            int base2ToReturn = base10ToBase2(operationAnswer);
+
+            // return the answer (in binary)
+            return base2ToReturn;
         }
 
         // This method subtracts two base 2 numbers and returns the answer in base 2.
         // this is the format of the inputs: (num1 - num2)
         public int base2Subtraction(int num1, int num2)
         {
-            return 0;
+            // convert both numbers in to decimal
+            int num1Base10 = base2ToBase10(num1);
+            int num2Base10 = base2ToBase10(num2);
+
+            // complete the operation (subtraction)
+            int operationAnswer = num1Base10 - num2Base10;
+
+            // convert the answer back to binary, store into a returnable binary ouput
+            int base2ToReturn = base10ToBase2(operationAnswer);
+
+            // return the answer (in binary)
+            return base2ToReturn;
         }
 
         // This method multiplies two base 2 numbers together and returns the answer in base 2.
         // this is the format of the inputs: (num1 * num2)
         public int base2Multiplication(int num1, int num2)
         {
-            LinkedList testclass = new LinkedList();
-            return 0;
+            // convert both numbers in to decimal
+            int num1Base10 = base2ToBase10(num1);
+            int num2Base10 = base2ToBase10(num2);
+
+            // complete the operation (multiplication)
+            int operationAnswer = num1Base10 * num2Base10;
+
+            // convert the answer back to binary, store into a returnable binary ouput
+            int base2ToReturn = base10ToBase2(operationAnswer);
+
+            // return the answer (in binary)
+            return base2ToReturn;
         }
 
         // This method divides two base 2 numbers together and returns the answer in base 2.
         // this is the format of the inputs: (num1 / num2)
         public int base2Division(int num1, int num2)
         {
-            return 0;
+            // convert both numbers in to decimal
+            int num1Base10 = base2ToBase10(num1);
+            int num2Base10 = base2ToBase10(num2);
+
+            // complete the operation (division)
+            int operationAnswer = num1Base10 / num2Base10;
+
+            // convert the answer back to binary, store into a returnable binary ouput
+            int base2ToReturn = base10ToBase2(operationAnswer);
+
+            // return the answer (in binary)
+            return base2ToReturn;
         }
 
         // This method converts a base 2 number into a base 10 number.
