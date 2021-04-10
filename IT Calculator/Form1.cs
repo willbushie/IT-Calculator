@@ -218,7 +218,6 @@ namespace IT_Calculator
                 }
                 i++;
             }
-                //return 0;
         }
 
         // This method converts a hexadecimal number into a base 10 number.
@@ -273,13 +272,13 @@ namespace IT_Calculator
             return dec_val;
         }
 
-
         // This method converts a dotted octet number into a base 10 number.
         // input: dotted octet number | returns: base 2 number
         public int dotOctetToBase2(string numToConvert)
         {
             return 0;
         }
+
     }
 }
 
@@ -309,7 +308,9 @@ public class LinkedList
     // initialzation of linked list - it begins empty
     public LinkedList()
     {
-
+        this.head = null;
+        this.tail = null;
+        this.length = 0;
     }
 
     // this method adds a node to the linked list
@@ -327,11 +328,28 @@ public class LinkedList
         }
         else if (this.length > 0)
         {
+            // link the current tail to newNode - call setNodeAfter()
+            this.tail.setNodeAfter(newNode);
+
+            // link the newNode to current tail - call setNodeBefore()
+            newNode.setNodeBefore(this.tail);
+
             // set the tail to newNode
             this.tail = newNode;
-            
+
             // update the list's length
             this.length++;
+        }
+    }
+
+    // this method empties a linked list - after it is done being used
+    public void clearLinkedList(LinkedList list)
+    {
+        // loop through the linked list and remove all nodes starting at tail
+        for (int count = 0; count < this.length; count++)
+        {
+            // reassign this.tail and clear the current tail node - call Node.removeNode()
+            this.tail = this.tail.removeNode();
         }
     }
 
@@ -343,14 +361,47 @@ public class LinkedList
  */
 public class Node
 {
+    // public node attributes
     public Node nodeBefore;
     public int payload;
     public Node nodeAfter;
 
+    // instance method for a node
     public Node(Node nodeBefore, int payload, Node nodeAfter)
     {
         this.nodeBefore = nodeBefore;
         this.payload = payload;
         this.nodeAfter = nodeAfter;
     }
+
+    // this method sets the nodeAfter of a node (to link the linked list together) (allowing singly LL)
+    public void setNodeAfter(Node afterNode)
+    {
+        this.nodeAfter = afterNode;
+    }
+
+    // this method set the nodeBefore of a node (to link the linked list together) (allowing doubly LL)
+    public void setNodeBefore(Node beforeNode)
+    {
+        this.nodeBefore = beforeNode;
+    }
+
+    // this method will be used in conjunction with LinkedList.clearLinkedList(LinkedList) - zero out a nodes payload
+    // it will also return the nodeToRemove's nodeBefore for easy assignment of nodeToRemove to LinkedList.tail
+    public Node removeNode()
+    {
+        // store nodeToRemove's nodeBefore to return for reassinging LinkedList.tail
+        Node nodeToReturn = this.nodeBefore;
+        
+        // null out the node's payload
+        this.payload = 0;
+
+        // null out the node's beforeNode & afterNode
+        this.nodeBefore = null;
+        this.nodeAfter = null;
+
+        // return nodeToRemove's nodeBefore
+        return nodeToReturn;
+    }
+
 }
