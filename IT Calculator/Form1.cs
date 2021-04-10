@@ -47,7 +47,7 @@ namespace IT_Calculator
          */
 
 
-        // button press to operate on the binary given in binaryArith_LeftTextBox & binaryArith_RightTextBox
+        // button press event to operate on the binary given in binaryArith_LeftTextBox & binaryArith_RightTextBox
         // and output an answer to binaryArithm_AnswerTextBox
         // also takes into account the opeartion through operationComboBox
         private void binaryArithm_ProcessOperationButton_Click(object sender, EventArgs e)
@@ -103,8 +103,15 @@ namespace IT_Calculator
             {
                 // error has occured, alert the user
             }
+        }
+
+        // button press event to convert the input base from textBox1 to the desired output base into textBox2
+        private void button1_Click(object sender, EventArgs e)
+        {
 
         }
+
+
 
 
 
@@ -199,20 +206,26 @@ namespace IT_Calculator
         // This code will need to be updated in the future using linked lists - TEMP CODE
         public int base2ToBase10(int numToConvert)
         {
-            int num, binVal, decVal = 0, baseVal = 1, rem; //converts binary and spits out decimal
-            num = 101; //make this the input
-            binVal = num;
-            while (num > 0)
+            // store numToConvert in hold variable
+            int workingConv = numToConvert;
+
+            // new linked list that will hold the converted numbers
+            LinkedList remainders = new LinkedList();
+
+            // loop to create a linked list & work with original number
+            while (workingConv >= 1)
             {
-                rem = num % 10;
-                decVal = decVal + rem * baseVal;
-                num = num / 10;
-                baseVal = baseVal * 2;
+                // store the remainder
+                int remainder = workingConv % 2;
+                // create a new node & add the node to the linked list
+                Node newLLNode = new Node(remainder);
+                remainders.addNode(newLLNode);
+                // update the working value
+                workingConv /= 2;
             }
-            Console.Write("Binary Number: " + binVal);
-            Console.Write("\nDecimal: " + decVal);
-            Console.ReadLine();
-            return 0;
+
+            // convert the linked list to returnable output & return it
+            return remainders.contentsToInt(true);
         }
 
         // This method converts a base 10 number into a base 2 number.
@@ -233,7 +246,6 @@ namespace IT_Calculator
                 decimalNumber /= 2;
                 result = remainder.ToString() + result;
             }
-            Console.WriteLine("Binary:  {0}", result);
             return 0;
         }
 
@@ -379,6 +391,7 @@ namespace IT_Calculator
         {
             return 0;
         }
+
     }
 }
 
@@ -442,6 +455,39 @@ public class LinkedList
         }
     }
 
+    // this method takes a linked list contents and returns the list contents as a single int
+    // this is useful when converting between bases - base2ToBase10() for example will use this method\
+    // takes a bool "reverse" parameter - if the list needs to be reverse from the 
+    public int contentsToInt(bool reverse)
+    {
+        // value to return once the process is complete
+        String intToReturnString = "";
+
+        // check if the return needs to reverse the linked list
+        if (reverse == true)
+        {
+            // walk through the list starting from the tail
+            // store the node currently being check
+            Node currNode = this.tail;
+
+            // walk through the list and update intToReturnString
+            for (int count = 0; count < this.length; count++)
+            {
+                // update intToReturnString
+                intToReturnString = intToReturnString + currNode.payload.ToString();
+                // advance currNode
+                currNode = currNode.nodeBefore;
+            }
+        }
+        else if (reverse == false)
+        {
+            // walk through the list starting from the head
+        }
+
+        // convert and return the final value
+        return int.Parse(intToReturnString);
+    }
+
     // this method empties a linked list - after it is done being used
     public void clearLinkedList(LinkedList list)
     {
@@ -452,7 +498,6 @@ public class LinkedList
             this.tail = this.tail.removeNode();
         }
     }
-
 }
 
 /*
@@ -467,11 +512,11 @@ public class Node
     public Node nodeAfter;
 
     // instance method for a node
-    public Node(Node nodeBefore, int payload, Node nodeAfter)
+    public Node(int payload)
     {
-        this.nodeBefore = nodeBefore;
+        this.nodeBefore = null;
         this.payload = payload;
-        this.nodeAfter = nodeAfter;
+        this.nodeAfter = null;
     }
 
     // this method sets the nodeAfter of a node (to link the linked list together) (allowing singly LL)
