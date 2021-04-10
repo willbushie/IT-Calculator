@@ -47,6 +47,14 @@ namespace IT_Calculator
          */
 
 
+        // button press to operate on the binary given in binaryArith_LeftTextBox & binaryArith_RightTextBox
+        // and output an answer to binaryArithm_AnswerTextBox
+        // also takes into account the opeartion through operationComboBox
+        private void binaryArithm_ProcessOperationButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
 
         /* 
@@ -320,7 +328,6 @@ namespace IT_Calculator
         {
             return 0;
         }
-
     }
 }
 
