@@ -235,7 +235,7 @@ namespace IT_Calculator
                     // call Mac Address (modified hex) to doted octet
                     // there is currently no method for this
                 }
-                else if (comboBox1.Text == "Mac Address")
+                else if (comboBox1.Text == "IP Address")
                 {
                     // call Mac Address (modified hex) to hex (modified)
                     // there is currently no method for this
