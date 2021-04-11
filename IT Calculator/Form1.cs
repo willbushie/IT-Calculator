@@ -37,6 +37,7 @@ namespace IT_Calculator
             InitializeComponent();
         }
 
+
         /*
          * ======================================
          *            BUTTON EVENTS
@@ -106,11 +107,144 @@ namespace IT_Calculator
         }
 
         // button press event to convert the input base from textBox1 to the desired output base into textBox2
-        // 
-        // 
+        // this method uses over 20 if statements, will look at streamlining this code in the future
         private void button1_Click(object sender, EventArgs e)
         {
+            // store the input given from the user from textBox1
+            String baseToConvert = textBox1.Text;
 
+            // check if the user has the same base for each comboBox (input base & output base)
+            if (comboBox1.Text == comboBox2.Text)
+            {
+                // alert the user the bases are the same
+            }
+
+            // find the original base given by the user from comboBox2
+            // input binary checks
+            if (comboBox2.Text == "Binary")
+            {
+                if (comboBox1.Text == "Decimal")
+                {
+                    MessageBox.Show("here");
+                    // call binary to decimal
+                    textBox2.Text = (base2ToBase10(int.Parse(baseToConvert))).ToString();
+                }
+                else if (comboBox1.Text == "Hexadecimal")
+                {
+                    // call binary to hex
+                    // there is currently no method for this
+                }
+                else if (comboBox1.Text == "IP Address")
+                {
+                    // call binary to doted octet
+                    // there is currently no method for this
+                }
+                else if (comboBox1.Text == "Mac Address")
+                {
+                    // call binary to hex (modified)
+                    // there is currently no method for this
+                }
+            }
+            // input decimal checks
+            else if (comboBox2.Text == "Decimal")
+            {
+                if (comboBox1.Text == "Bianry")
+                {
+                    // call decimal to binary
+                    textBox2.Text = (base10ToBase2(int.Parse(baseToConvert))).ToString();
+                }
+                else if (comboBox1.Text == "Hexadecimal")
+                {
+                    // call decimal to hex
+                    // there is currently no method for this
+                }
+                else if (comboBox1.Text == "IP Address")
+                {
+                    // call decimal to doted octet
+                    // there is currently no method for this
+                }
+                else if (comboBox1.Text == "Mac Address")
+                {
+                    // call decimal to hex (modified)
+                    // there is currently no method for this
+                }
+            }
+            // input hex checks
+            else if (comboBox2.Text == "Hexadecimal")
+            {
+                if (comboBox1.Text == "Bianry")
+                {
+                    // call hex to binary
+                    textBox2.Text = (base10ToBase2(int.Parse(baseToConvert))).ToString();
+                }
+                else if (comboBox1.Text == "Decimal")
+                {
+                    // call hex to decimal
+                    textBox2.Text = (hexToBase10(baseToConvert)).ToString();
+                }
+                else if (comboBox1.Text == "IP Address")
+                {
+                    // call hex to doted octet
+                    // there is currently no method for this
+                }
+                else if (comboBox1.Text == "Mac Address")
+                {
+                    // call hex to hex (modified)
+                    // there is currently no method for this
+                }
+            }
+            // input ip checks
+            else if (comboBox2.Text == "IP Address")
+            {
+                if (comboBox1.Text == "Bianry")
+                {
+                    // call IP Address to binary
+                    textBox2.Text = dotOctetToBase2(baseToConvert);
+                }
+                else if (comboBox1.Text == "Decimal")
+                {
+                    // call IP Address to decimal
+                    // there is currently no method for this
+                }
+                else if (comboBox1.Text == "Hexadecimal")
+                {
+                    // call IP Address to doted octet
+                    // there is currently no method for this
+                }
+                else if (comboBox1.Text == "Mac Address")
+                {
+                    // call IP Address to hex (modified)
+                    // there is currently no method for this
+                }
+            }
+            // input mac address checks
+            else if (comboBox2.Text == "Mac Address")
+            {
+                if (comboBox1.Text == "Bianry")
+                {
+                    // call Mac Address (modified hex) to binary\
+                    // there is currently no method for this
+                }
+                else if (comboBox1.Text == "Decimal")
+                {
+                    // call Mac Address (modified hex) to decimal
+                    // there is currently no method for this
+                }
+                else if (comboBox1.Text == "Hexadecimal")
+                {
+                    // call Mac Address (modified hex) to doted octet
+                    // there is currently no method for this
+                }
+                else if (comboBox1.Text == "Mac Address")
+                {
+                    // call Mac Address (modified hex) to hex (modified)
+                    // there is currently no method for this
+                }
+            }
+            else
+            {
+                // alert the user of an error
+            }
         }
 
 
@@ -129,6 +263,8 @@ namespace IT_Calculator
          * use other methods to complete. 
          * 
          */
+
+
 
 
         // This method adds two base 2 numbers together and returns the answer in base 2.
@@ -208,6 +344,24 @@ namespace IT_Calculator
         // This code will need to be updated in the future using linked lists - TEMP CODE
         public int base2ToBase10(int numToConvert)
         {
+            int decVal = 0, baseVal = 1, rem; //converts binary and spits out decimal
+            while (numToConvert > 0)
+            {
+                rem = numToConvert % 10;
+                decVal = decVal + rem * baseVal;
+                numToConvert = numToConvert / 10;
+                baseVal = baseVal * 2;
+            }
+            // return the base2 result
+            return baseVal;
+        }
+
+        // This method converts a base 10 number into a base 2 number.
+        // input: base 10 number | returns: base 2 number
+        // This code will need to be updated in the future using linked lists - TEMP CODE
+
+        public int base10ToBase2(int numToConvert)
+        {
             // store numToConvert in hold variable
             int workingConv = numToConvert;
 
@@ -228,27 +382,6 @@ namespace IT_Calculator
 
             // convert the linked list to returnable output & return it
             return remainders.contentsToInt(true);
-        }
-
-        // This method converts a base 10 number into a base 2 number.
-        // input: base 10 number | returns: base 2 number
-        // This code will need to be updated in the future using linked lists - TEMP CODE
-
-        public int base10ToBase2(int numToConvert)
-        {
-            //this code takes in a decimal and spits out the binary
-            Console.Write("Decimal: ");
-            int decimalNumber = int.Parse(Console.ReadLine());
-
-            int remainder;
-            string result = string.Empty;
-            while (decimalNumber > 0)
-            {
-                remainder = decimalNumber % 2;
-                decimalNumber /= 2;
-                result = remainder.ToString() + result;
-            }
-            return 0;
         }
 
         // This method converts a hexadecimal number into a base 2 number.
@@ -333,7 +466,7 @@ namespace IT_Calculator
                         break;
                     default:
                         System.Console.Write("\nInvalid hexadecimal digit " +
-                                                                  hexdec[i]);
+                        hexdec[i]);
                         break;
                 }
                 i++;
@@ -347,8 +480,9 @@ namespace IT_Calculator
         {
             // general plan for the new code
             // convert numToConvert (hex) to base10 - using arrays with appropriate values 
+            // make all char values in the numToConvert capitolized
             // array example:
-            // hex:     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f]
+            // hex:     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F]
             // base10:  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
             // simply compare and return values accordinly
             
@@ -401,13 +535,12 @@ namespace IT_Calculator
 
         // This method converts a dotted octet number into a base 10 number.
         // input: dotted octet number | returns: base 2 number
-        public int dotOctetToBase2(string numToConvert)
+        public string dotOctetToBase2(string numToConvert)
         {
-            string OctNum = "345"; //put textbox here
-            OctToBin(OctNum);
-            return 0;
+            // return the final string
+            return OctToBin(numToConvert.ToCharArray());
         }
-        static void OctToBin(char[] OctNum) //converts hex to binary
+        static string OctToBin(char[] OctNum) //converts hex to binary
         {
             int i = 0;
             string binary = "";
@@ -450,7 +583,6 @@ namespace IT_Calculator
             }
             return binary;
         }
-
     }
 }
 
