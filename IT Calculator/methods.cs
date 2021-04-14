@@ -148,8 +148,26 @@ namespace IT_Calculator
                 workingConv /= 2;
             }
 
-            // convert the linked list to returnable output & return it
-            return remainders.contentsToInt(true);
+            // conver the remainders into an int
+            String returnValueString = remainders.contentsToInt(true).ToString();
+
+            // check the length of the return int to ensure it is a correct length
+            if ((returnValueString.Length % 4) != 0)
+            {
+                // find the amount of zeros to format correclty
+                int zeros = returnValueString.Length % 4;
+                // create a string with the correct num of zeros
+                String zeroString = "";
+                for (int count = 0; count < 4; count++)
+                {
+                    zeroString += "0";
+                }
+                // append the zeros to the front of the string
+                returnValueString = zeroString + returnValueString;
+            }
+
+            // convert the returnValuestring and return
+            return int.Parse(returnValueString);
         }
 
         // This method converts a hexadecimal number into a base 2 number.
@@ -302,54 +320,225 @@ namespace IT_Calculator
         }
 
         // This method converts a dotted octet number into a base 10 number.
-        // input: dotted octet number | returns: base 2 number
+        // input: dotted octet number (IP Address) | returns: base 2 number
         public static string dotOctetToBase2(string numToConvert)
         {
-            // return the final string
-            return OctToBin(numToConvert.ToCharArray());
-        }
-        static string OctToBin(char[] OctNum) //converts hex to binary
-        {
-            int i = 0;
-            string binary = "";
+            // creation of a char[] to allow easy interaction with the numToConvert
+            char[] interactiveNumToConvert = numToConvert.ToCharArray();
 
-            while (i < OctNum.Length)
+            // creation of the 4 sections to convert to binary
+            String section1 = ""; // period only after
+            String section2 = ""; // period before & after
+            String section3 = ""; // period before & after
+            String section4 = ""; // period only before
+
+            // int value to keep track of which section we are currently working with inside of the loop
+            int sectionCount = 1;
+            // int value to keep track of where in the charArray there is a period (the current period)
+            int loopLocation = 0;
+
+            // update the String sections to match the period seperated values
+            for (int count = 0; count < 4; count++)
             {
-                char c = OctNum[i];
-                switch (c)    //all of the "System.Consol.Write will be the line that prints into textboxs
+                // section1 updating
+                if (sectionCount == 1)
                 {
-                    case '0':
-                        binary += "000";
-                        break;
-                    case '1':
-                        binary += "001";
-                        break;
-                    case '2':
-                        binary += "010";
-                        break;
-                    case '3':
-                        binary += "011";
-                        break;
-                    case '4':
-                        binary += "100";
-                        break;
-                    case '5':
-                        binary += "101";
-                        break;
-                    case '6':
-                        binary += "110";
-                        break;
-                    case '7':
-                        binary += "111";
-                        break;
-                    default:
-                        //print invalid OctNum
-                        System.Console.WriteLine("Invalid Octal Number: " + OctNum);
-                        break;
+                    // continue looping starting at 0 in the char array until a seperator is found
+                    while (interactiveNumToConvert[loopLocation].ToString() != ".")
+                    {
+                        // update the section string
+                        section1 += interactiveNumToConvert[loopLocation];
+                        // update the loopLocation
+                        loopLocation++;
+                    }
                 }
-                i++;
+                // section2 updating
+                else if (sectionCount == 2)
+                {
+                    // advance loopLocation else it would be a period at that location
+                    loopLocation++;
+                    // continue looping starting at location after the seperator (period)
+                    while (interactiveNumToConvert[loopLocation].ToString() != ".")
+                    {
+                        // update the section string
+                        section2 += interactiveNumToConvert[loopLocation];
+                        // update the loopLocation
+                        loopLocation++;
+                    }
+                }
+                // section3 updating
+                else if (sectionCount == 3)
+                {
+                    // advance loopLocation else it would be a period at that location
+                    loopLocation++;
+                    // continue looping starting at location after the seperator (period) 
+                    while (interactiveNumToConvert[loopLocation].ToString() != ".")
+                    {
+                        // update the section string
+                        section3 += interactiveNumToConvert[loopLocation];
+                        // update the loopLocation
+                        loopLocation++;
+                    }
+                }
+                // section4 updating
+                else if (sectionCount ==4)
+                {
+                    // advance loopLocation else it would be a period at that location
+                    loopLocation++;
+                    // continue looping starting at location after the seperator (period)
+                    // break when the end is found
+                    while (loopLocation < interactiveNumToConvert.Length)
+                    {
+                        // update the section string
+                        section4 += interactiveNumToConvert[loopLocation];
+                        // update the loopLocation
+                        loopLocation++;
+                    }
+                }
+                // advance selection loop
+                sectionCount++;
             }
-            return binary;
+
+            // convert all working sections into ints & store into an int[] for easy access when first converting to binary
+            int section1Int = int.Parse(section1);
+            int section2Int = int.Parse(section2);
+            int section3Int = int.Parse(section3);
+            int section4Int = int.Parse(section4);
+            int[] sectionIntsToConvert = {section1Int, section2Int, section3Int, section4Int};
+
+            // declare the strings to hold the converted values & store into a String[] for easy access inside the loop
+            String section1String = "";
+            String section2String = "";
+            String section3String = "";
+            String section4String = "";
+            String[] sectionStringsConverted = {section1String, section2String, section3String, section4String};
+
+            // int array to be used in the conversion for binary
+            int[] octalToBinaryArray = {128, 64, 32, 16, 8, 4, 2, 1};
+
+            // convert all working sections into binary using a loop
+            for (int count = 0; count < 4; count++)
+            {
+                // variable for the currnent section int value being used in the loop
+                int currSectionInt = sectionIntsToConvert[count];
+                // convert to binary within a loop
+                for (int innerCount = 0; innerCount < 8; innerCount++)
+                {
+                    // check if the current octalToBinary value is possible
+                    if (octalToBinaryArray[innerCount] <= currSectionInt)
+                    {
+                        // place a 1 on the string
+                        sectionStringsConverted[count] += "1";
+                        // update the value of the sectionIntsToConvert
+                        currSectionInt -= octalToBinaryArray[innerCount];
+                    }
+                    else
+                    {
+                        // place a 0 on the string
+                        sectionStringsConverted[count] += "0";
+                    }
+                }
+            }
+
+            // ensure the returned are 8 bits long
+            // section1 check
+            if (sectionStringsConverted[0].Length < 8)
+            {
+                // find how many zeros are needed to correct the ouput
+                int addZeros = 8 - sectionStringsConverted[0].Length;
+                // create a string with the appropriate amount of zeros
+                String zeros = "";
+                for (int count = 0; count < addZeros; count++)
+                {
+                    zeros += "0";
+                }
+                // append zeros to the front of the string
+                sectionStringsConverted[0] += zeros;
+            }
+            // section2 check
+            if (sectionStringsConverted[1].Length < 8)
+            {
+                // find how many zeros are needed to correct the ouput
+                int addZeros = 8 - sectionStringsConverted[1].Length;
+                // create a string with the appropriate amount of zeros
+                String zeros = "";
+                for (int count = 0; count < addZeros; count++)
+                {
+                    zeros += "0";
+                }
+                // append zeros to the front of the string
+                sectionStringsConverted[1] += zeros;
+            }
+            // section3 check
+            if (sectionStringsConverted[2].Length < 8)
+            {
+                // find how many zeros are needed to correct the ouput
+                int addZeros = 8 - sectionStringsConverted[2].Length;
+                // create a string with the appropriate amount of zeros
+                String zeros = "";
+                for (int count = 0; count < addZeros; count++)
+                {
+                    zeros += "0";
+                }
+                // append zeros to the front of the string
+                sectionStringsConverted[2] += zeros;
+            }
+            // section4 check
+            if (sectionStringsConverted[3].Length < 8)
+            {
+                // find how many zeros are needed to correct the ouput
+                int addZeros = 8 - sectionStringsConverted[3].Length;
+                // create a string with the appropriate amount of zeros
+                String zeros = "";
+                for (int count = 0; count < addZeros; count++)
+                {
+                    zeros += "0";
+                }
+                // append zeros to the front of the string
+                sectionStringsConverted[3] += zeros;
+            }
+
+            // place all of the section binary together into one string
+            String returnString = "";
+            returnString += sectionStringsConverted[0];
+            returnString += sectionStringsConverted[1];
+            returnString += sectionStringsConverted[2];
+            returnString += sectionStringsConverted[3];
+
+            // return the final string
+            return returnString;
+        }
+
+        // this method converts a hex input string into a formatted mac address
+        public static String hexToHexMod(String inputString)
+        {
+            // input string into char array for easy interaction
+            char[] interactionArray = inputString.ToCharArray();
+            // string variable to return
+            String returnString = "";
+            // counter to track where in the inputstring the loop currently is
+            int placementCounter = 0;
+            // build the new string to return using a loop
+            for (int count = 0; count < interactionArray.Length; count++)
+            {
+                // check the palcementCount build the returnString
+                if (placementCounter < 2)
+                {
+                    // add to the string normally
+                    returnString += interactionArray[count];
+                    // advance placementCounter
+                    placementCounter++;
+                }
+                else if (placementCounter == 2)
+                {
+                    // add ":" in addition to the next char in the string
+                    returnString += ":";
+                    returnString += interactionArray[count];
+                    // reset placementCounter
+                    placementCounter = 1;
+                }
+            }
+            return returnString;
         }
 
         // this method converts a hex input string into a formatted mac address
