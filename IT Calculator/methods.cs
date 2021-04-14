@@ -320,7 +320,7 @@ namespace IT_Calculator
         }
 
         // This method converts a dotted octet number into a base 10 number.
-        // input: dotted octet number | returns: base 2 number
+        // input: dotted octet number (IP Address) | returns: base 2 number
         public static string dotOctetToBase2(string numToConvert)
         {
             // creation of a char[] to allow easy interaction with the numToConvert
@@ -399,18 +399,53 @@ namespace IT_Calculator
                 sectionCount++;
             }
 
-            // convert the sections into ints, and call to convert into base2 and store as strings
-            String section1BinaryFinal = methods.base10ToBase2(int.Parse(section1)).ToString();
-            String section2BinaryFinal = methods.base10ToBase2(int.Parse(section2)).ToString();
-            String section3BinaryFinal = methods.base10ToBase2(int.Parse(section3)).ToString();
-            String section4BinaryFinal = methods.base10ToBase2(int.Parse(section4)).ToString();
+            // convert all working sections into ints & store into an int[] for easy access when first converting to binary
+            int section1Int = int.Parse(section1);
+            int section2Int = int.Parse(section2);
+            int section3Int = int.Parse(section3);
+            int section4Int = int.Parse(section4);
+            int[] sectionIntsToConvert = {section1Int, section2Int, section3Int, section4Int};
+
+            // declare the strings to hold the converted values & store into a String[] for easy access inside the loop
+            String section1String = "";
+            String section2String = "";
+            String section3String = "";
+            String section4String = "";
+            String[] sectionStringsConverted = {section1String, section2String, section3String, section4String};
+
+            // int array to be used in the conversion for binary
+            int[] octalToBinaryArray = {128, 64, 32, 16, 8, 4, 2, 1};
+
+            // convert all working sections into binary using a loop
+            for (int count = 0; count < 4; count++)
+            {
+                // variable for the currnent section int value being used in the loop
+                int currSectionInt = sectionIntsToConvert[count];
+                // convert to binary within a loop
+                for (int innerCount = 0; innerCount < 8; innerCount++)
+                {
+                    // check if the current octalToBinary value is possible
+                    if (octalToBinaryArray[innerCount] <= currSectionInt)
+                    {
+                        // place a 1 on the string
+                        sectionStringsConverted[count] += "1";
+                        // update the value of the sectionIntsToConvert
+                        currSectionInt -= octalToBinaryArray[innerCount];
+                    }
+                    else
+                    {
+                        // place a 0 on the string
+                        sectionStringsConverted[count] += "0";
+                    }
+                }
+            }
 
             // ensure the returned are 8 bits long
-            // section1Binary check
-            if (section1BinaryFinal.Length < 8)
+            // section1 check
+            if (sectionStringsConverted[0].Length < 8)
             {
                 // find how many zeros are needed to correct the ouput
-                int addZeros = 8 - section1BinaryFinal.Length;
+                int addZeros = 8 - sectionStringsConverted[0].Length;
                 // create a string with the appropriate amount of zeros
                 String zeros = "";
                 for (int count = 0; count < addZeros; count++)
@@ -418,13 +453,13 @@ namespace IT_Calculator
                     zeros += "0";
                 }
                 // append zeros to the front of the string
-                section1BinaryFinal += zeros;
+                sectionStringsConverted[0] += zeros;
             }
-            // section2Binary check
-            if (section2BinaryFinal.Length < 8)
+            // section2 check
+            if (sectionStringsConverted[1].Length < 8)
             {
                 // find how many zeros are needed to correct the ouput
-                int addZeros = 8 - section2BinaryFinal.Length;
+                int addZeros = 8 - sectionStringsConverted[1].Length;
                 // create a string with the appropriate amount of zeros
                 String zeros = "";
                 for (int count = 0; count < addZeros; count++)
@@ -432,13 +467,13 @@ namespace IT_Calculator
                     zeros += "0";
                 }
                 // append zeros to the front of the string
-                section2BinaryFinal += zeros;
+                sectionStringsConverted[1] += zeros;
             }
-            // section3Binary check
-            if (section3BinaryFinal.Length < 8)
+            // section3 check
+            if (sectionStringsConverted[2].Length < 8)
             {
                 // find how many zeros are needed to correct the ouput
-                int addZeros = 8 - section3BinaryFinal.Length;
+                int addZeros = 8 - sectionStringsConverted[2].Length;
                 // create a string with the appropriate amount of zeros
                 String zeros = "";
                 for (int count = 0; count < addZeros; count++)
@@ -446,13 +481,13 @@ namespace IT_Calculator
                     zeros += "0";
                 }
                 // append zeros to the front of the string
-                section3BinaryFinal += zeros;
+                sectionStringsConverted[2] += zeros;
             }
-            // section4Binary check
-            if (section4BinaryFinal.Length < 8)
+            // section4 check
+            if (sectionStringsConverted[3].Length < 8)
             {
                 // find how many zeros are needed to correct the ouput
-                int addZeros = 8 - section4BinaryFinal.Length;
+                int addZeros = 8 - sectionStringsConverted[3].Length;
                 // create a string with the appropriate amount of zeros
                 String zeros = "";
                 for (int count = 0; count < addZeros; count++)
@@ -460,15 +495,15 @@ namespace IT_Calculator
                     zeros += "0";
                 }
                 // append zeros to the front of the string
-                section4BinaryFinal += zeros;
+                sectionStringsConverted[3] += zeros;
             }
 
             // place all of the section binary together into one string
             String returnString = "";
-            returnString += section1BinaryFinal;
-            returnString += section2BinaryFinal;
-            returnString += section3BinaryFinal;
-            returnString += section4BinaryFinal;
+            returnString += sectionStringsConverted[0];
+            returnString += sectionStringsConverted[1];
+            returnString += sectionStringsConverted[2];
+            returnString += sectionStringsConverted[3];
 
             // return the final string
             return returnString;
