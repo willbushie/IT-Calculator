@@ -1,7 +1,20 @@
-﻿using System;
-
-
-/* 
+﻿/*
+ * CSC370 - Group Project - IT Calculator
+ * 
+ * Purpose: 
+ *  This is an IT calculator to help aid in simple conversion
+ *  between different bases, as well as allow easy base 2
+ *  arithmatic. 
+ * 
+ * Developers on the project & roles:
+ *      Hannah Neymeyer - Team Lead
+ *      Caden Flowers - Front End Developer
+ *      Nicholas Johnson - Architect/Designer
+ *      William Bushie - Programmer
+ * 
+ *
+ * 
+ * 
  * ======================================
  *           HELPFUL CLASSES
  * ======================================
@@ -10,6 +23,9 @@
  * unique features for the application.
  * 
  */
+
+
+using System;
 
 
 /*
