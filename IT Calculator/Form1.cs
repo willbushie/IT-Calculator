@@ -197,7 +197,7 @@ namespace IT_Calculator
             // input ip checks
             else if (comboBox2.Text == "IP Address")
             {
-                if (comboBox1.Text == "Bianry")
+                if (comboBox1.Text == "Binary")
                 {
                     // call IP Address to binary
                     textBox2.Text = methods.dotOctetToBase2(baseToConvert);

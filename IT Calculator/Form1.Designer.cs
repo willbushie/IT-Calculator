@@ -264,8 +264,8 @@ namespace IT_Calculator
             "Binary",
             "Decimal",
             "Hexadecimal",
-            "IP Address ",
-            "Mac Address "});
+            "IP Address",
+            "Mac Address"});
             this.comboBox2.Location = new System.Drawing.Point(125, 293);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox2.Name = "comboBox2";
