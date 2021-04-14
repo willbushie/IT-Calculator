@@ -191,7 +191,7 @@ namespace IT_Calculator
                 else if (comboBox1.Text == "Mac Address")
                 {
                     // call hex to hex (modified)
-                    // there is currently no method for this
+                    textBox2.Text = methods.hexToHexMod(baseToConvert).ToString();
                 }
             }
             // input ip checks

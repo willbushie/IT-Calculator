@@ -1,4 +1,20 @@
-﻿/* 
+﻿/*
+ * CSC370 - Group Project - IT Calculator
+ * 
+ * Purpose: 
+ *  This is an IT calculator to help aid in simple conversion
+ *  between different bases, as well as allow easy base 2
+ *  arithmatic. 
+ * 
+ * Developers on the project & roles:
+ *      Hannah Neymeyer - Team Lead
+ *      Caden Flowers - Front End Developer
+ *      Nicholas Johnson - Architect/Designer
+ *      William Bushie - Programmer
+ * 
+ *
+ * 
+ * 
  * ======================================
  *           CALLABLE METHODS
  * ======================================
@@ -334,6 +350,38 @@ namespace IT_Calculator
                 i++;
             }
             return binary;
+        }
+
+        // this method converts a hex input string into a formatted mac address
+        public static String hexToHexMod(String inputString)
+        {
+            // input string into char array for easy interaction
+            char[] interactionArray = inputString.ToCharArray();
+            // string variable to return
+            String returnString = "";
+            // counter to track where in the inputstring the loop currently is
+            int placementCounter = 0;
+            // build the new string to return using a loop
+            for (int count = 0; count < interactionArray.Length; count++)
+            {
+                // check the palcementCount build the returnString
+                if (placementCounter < 2)
+                {
+                    // add to the string normally
+                    returnString += interactionArray[count];
+                    // advance placementCounter
+                    placementCounter++;
+                }
+                else if (placementCounter == 2)
+                {
+                    // add ":" in addition to the next char in the string
+                    returnString += ":";
+                    returnString += interactionArray[count];
+                    // reset placementCounter
+                    placementCounter = 1;
+                }
+            }
+            return returnString;
         }
     }
 }
