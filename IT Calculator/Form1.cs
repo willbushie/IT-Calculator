@@ -149,7 +149,7 @@ namespace IT_Calculator
             // input decimal checks
             else if (comboBox2.Text == "Decimal")
             {
-                if (comboBox1.Text == "Bianry")
+                if (comboBox1.Text == "Binary")
                 {
                     // call decimal to binary
                     textBox2.Text = (methods.base10ToBase2(int.Parse(baseToConvert))).ToString();
@@ -173,10 +173,10 @@ namespace IT_Calculator
             // input hex checks
             else if (comboBox2.Text == "Hexadecimal")
             {
-                if (comboBox1.Text == "Bianry")
+                if (comboBox1.Text == "Binary")
                 {
                     // call hex to binary
-                    textBox2.Text = (methods.base10ToBase2(int.Parse(baseToConvert))).ToString();
+                    textBox2.Text = methods.hexToBase2(baseToConvert);
                 }
                 else if (comboBox1.Text == "Decimal")
                 {
@@ -221,7 +221,7 @@ namespace IT_Calculator
             // input mac address checks
             else if (comboBox2.Text == "Mac Address")
             {
-                if (comboBox1.Text == "Bianry")
+                if (comboBox1.Text == "Binary")
                 {
                     // call Mac Address (modified hex) to binary\
                     // there is currently no method for this

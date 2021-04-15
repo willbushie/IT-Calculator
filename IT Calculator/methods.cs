@@ -109,19 +109,46 @@ namespace IT_Calculator
 
         // This method converts a base 2 number into a base 10 number.
         // input: base 2 number | returns base 10 number
-        // This code will need to be updated in the future using linked lists - TEMP CODE
         public static int base2ToBase10(int numToConvert)
         {
-            int decVal = 0, baseVal = 1, rem; //converts binary and spits out decimal
-            while (numToConvert > 0)
+            // store the input as a string
+            String numToConvertString = numToConvert.ToString();
+            // numToConvertString to char[] for easier access in the conversion loop
+            char[] base2CharArray = numToConvertString.ToCharArray();
+
+            // int value to be returned after the conversion
+            int returnInt = 0;
+            // int value to display which place (base2) we are at in the loop
+            int placeLocation = 1;
+            // reverse loop to create the base 10 number
+            for (int count = base2CharArray.Length-1; count >= 0; count--)
             {
-                rem = numToConvert % 10;
-                decVal = decVal + rem * baseVal;
-                numToConvert = numToConvert / 10;
-                baseVal = baseVal * 2;
+                String currentString = base2CharArray[count].ToString();
+                // check which place in the binary string we are at
+                // check if at the ones place
+                if (placeLocation == 1)
+                {
+                    // check if there is a number to add
+                    if (currentString == "1")
+                    {
+                        // add the number to the returnInt (in this case, we are in the ones place, so add a 1)
+                        returnInt = returnInt + 1;
+                    }
+                }
+                else
+                {
+                    // check if there is a number to add
+                    if (currentString == "1")
+                    {
+                        // add the number to the returnInt (add the curent placement value)
+                        returnInt = returnInt + placeLocation;
+                    }
+                }
+                // update placeLocation value (multiply by 2 to get the correct base 2 placement)
+                placeLocation = placeLocation * 2;
             }
             // return the base2 result
-            return baseVal;
+            return returnInt;
         }
 
         // This method converts a base 10 number into a base 2 number.
@@ -171,92 +198,51 @@ namespace IT_Calculator
         }
 
         // This method converts a hexadecimal number into a base 2 number.
-        // input: hexadecimal number (string) | returns: base 2 number
-        // This code will need to be updated in the future using linked lists - TEMP CODE
-        public static int hexToBase2(string numToConvert)
+        // input: hexadecimal number (string) | returns: base 2 number 
+        public static String hexToBase2(string numToConvert)
         {
-            // general plan for the new code
-            // convert the numToConvert (hex) into base10
-            // convert the returned base10 value into base2
-            // return the base2 value
+            // String array for the hex values
+            String[] hexValues = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
+            // string array for the binary values 
+            String[] binaryValues = {"0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001", "1010", "1011", "1100", "1101", "1110", "1111"};
 
-            String s = "1A"; //should be 1011
-
-            char[] hexDec = new char[100];
-            hexDec = s.ToCharArray();
-            HexToBin(hexDec);
-            return 0;
-        }
-        static void HexToBin(char[] hexdec) //converts hex to binary
-        {
-            int i = 0;
-
-            while (hexdec[i] != '\u0000')
+            // convert to char array
+            char[] tempCharArray = numToConvert.ToCharArray();
+            // convert to string array
+            String[] stringArray = new string[tempCharArray.Length];
+            // loop to make everything lowercase
+            for (int count = 0; count < tempCharArray.Length; count++)
             {
-
-                switch (hexdec[i])
-                {
-                    case '0':
-                        System.Console.Write("0000");
-                        break;
-                    case '1':
-                        System.Console.Write("0001");
-                        break;
-                    case '2':
-                        System.Console.Write("0010");
-                        break;
-                    case '3':
-                        System.Console.Write("0011");
-                        break;
-                    case '4':
-                        System.Console.Write("0100");
-                        break;
-                    case '5':
-                        System.Console.Write("0101");
-                        break;
-                    case '6':
-                        System.Console.Write("0110");
-                        break;
-                    case '7':
-                        System.Console.Write("0111");
-                        break;
-                    case '8':
-                        System.Console.Write("1000");
-                        break;
-                    case '9':
-                        System.Console.Write("1001");
-                        break;
-                    case 'A':
-                    case 'a':
-                        System.Console.Write("1010");
-                        break;
-                    case 'B':
-                    case 'b':
-                        System.Console.Write("1011");
-                        break;
-                    case 'C':
-                    case 'c':
-                        System.Console.Write("1100");
-                        break;
-                    case 'D':
-                    case 'd':
-                        System.Console.Write("1101");
-                        break;
-                    case 'E':
-                    case 'e':
-                        System.Console.Write("1110");
-                        break;
-                    case 'F':
-                    case 'f':
-                        System.Console.Write("1111");
-                        break;
-                    default:
-                        System.Console.Write("\nInvalid hexadecimal digit " +
-                        hexdec[i]);
-                        break;
-                }
-                i++;
+                // update the string[] at count with tempCharArray & make that lowercase
+                stringArray[count] = tempCharArray[count].ToString().ToLower();
             }
+            // int array to store the corresponding locations for each hex location
+            int[] hexLocations = new int[tempCharArray.Length];
+
+            // loop to check each item in stringArray
+            for (int count = 0; count <= stringArray.Length-1; count++)
+            {
+                // loop to find the corresponding hexValue array location for the current item
+                for (int hexValueLocation = 0; hexValueLocation <= hexValues.Length-1; hexValueLocation++)
+                {
+                    // does the current value match the value from the hexValues array?
+                    if (stringArray[count] == hexValues[hexValueLocation])
+                    {
+                        // add the value to the hexLocations array
+                        hexLocations[count] = hexValueLocation;
+                    }
+                }
+            }
+            // String value to return 
+            String returnString = "";
+            // loop to create the final string to return in base 2
+            for (int count = 0; count < hexLocations.Length; count++)
+            {
+                // add the correct binary number to the return String
+                returnString = returnString + binaryValues[hexLocations[count]];
+            }
+            // return the final string
+            return returnString;
         }
 
         // This method converts a hexadecimal number into a base 10 number.
@@ -523,6 +509,7 @@ namespace IT_Calculator
             {
                 // check the palcementCount build the returnString
                 if (placementCounter < 2)
+
                 {
                     // add to the string normally
                     returnString += interactionArray[count];
@@ -530,31 +517,6 @@ namespace IT_Calculator
                     placementCounter++;
                 }
                 else if (placementCounter == 2)
-                {
-                    // add ":" in addition to the next char in the string
-                    returnString += ":";
-                    returnString += interactionArray[count];
-                    // reset placementCounter
-                    placementCounter = 1;
-                }
-            }
-            return returnString;
-        }
-
-        // this method converts a hex input string into a formatted mac address
-        public static String hexToHexMod(String inputString)
-        {
-            // input string into char array for easy interaction
-            char[] interactionArray = inputString.ToCharArray();
-            // string variable to return
-            String returnString = "";
-            // counter to track where in the inputstring the loop currently is
-            int placementCounter = 0;
-            // build the new string to return using a loop
-            for (int count = 0; count < interactionArray.Length; count++)
-            {
-                // check the palcementCount build the returnString
-                if (placementCounter < 2)
                 {
                     // add to the string normally
                     returnString += interactionArray[count];
