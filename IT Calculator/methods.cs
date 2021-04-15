@@ -196,92 +196,30 @@ namespace IT_Calculator
         }
 
         // This method converts a hexadecimal number into a base 2 number.
-        // input: hexadecimal number (string) | returns: base 2 number
-        // This code will need to be updated in the future using linked lists - TEMP CODE
-        public static int hexToBase2(string numToConvert)
+        // input: hexadecimal number (string) | returns: base 2 number 
+        public static String hexToBase2(string numToConvert)
         {
-            // general plan for the new code
-            // convert the numToConvert (hex) into base10
-            // convert the returned base10 value into base2
-            // return the base2 value
+            // String array for the hex values
+            String[] hexValues = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
+            // string array for the binary values 
+            String[] binaryValues = {"0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001", "1010", "1011", "1100", "1101", "1110", "1111"};
 
-            String s = "1A"; //should be 1011
-
-            char[] hexDec = new char[100];
-            hexDec = s.ToCharArray();
-            HexToBin(hexDec);
-            return 0;
-        }
-        static void HexToBin(char[] hexdec) //converts hex to binary
-        {
-            int i = 0;
-
-            while (hexdec[i] != '\u0000')
+            // convert to char array
+            char[] tempCharArray = numToConvert.ToCharArray();
+            // convert to string array
+            String[] stringArray = new string[tempCharArray.Length];
+            // loop to make everything lowercase
+            for (int count = 0; count < tempCharArray.Length; count++)
             {
-
-                switch (hexdec[i])
-                {
-                    case '0':
-                        System.Console.Write("0000");
-                        break;
-                    case '1':
-                        System.Console.Write("0001");
-                        break;
-                    case '2':
-                        System.Console.Write("0010");
-                        break;
-                    case '3':
-                        System.Console.Write("0011");
-                        break;
-                    case '4':
-                        System.Console.Write("0100");
-                        break;
-                    case '5':
-                        System.Console.Write("0101");
-                        break;
-                    case '6':
-                        System.Console.Write("0110");
-                        break;
-                    case '7':
-                        System.Console.Write("0111");
-                        break;
-                    case '8':
-                        System.Console.Write("1000");
-                        break;
-                    case '9':
-                        System.Console.Write("1001");
-                        break;
-                    case 'A':
-                    case 'a':
-                        System.Console.Write("1010");
-                        break;
-                    case 'B':
-                    case 'b':
-                        System.Console.Write("1011");
-                        break;
-                    case 'C':
-                    case 'c':
-                        System.Console.Write("1100");
-                        break;
-                    case 'D':
-                    case 'd':
-                        System.Console.Write("1101");
-                        break;
-                    case 'E':
-                    case 'e':
-                        System.Console.Write("1110");
-                        break;
-                    case 'F':
-                    case 'f':
-                        System.Console.Write("1111");
-                        break;
-                    default:
-                        System.Console.Write("\nInvalid hexadecimal digit " +
-                        hexdec[i]);
-                        break;
-                }
-                i++;
+                // update the string[] at count with tempCharArray at count & make that lowercase
+                stringArray[count] = tempCharArray[count].ToString().ToLower();
             }
+
+            // int array to store the corresponding locations for each hex location
+            int[] hexLocations = new int[tempCharArray.Length];
+
+            // return the final string
+            return hexLocations[0].ToString();
         }
 
         // This method converts a hexadecimal number into a base 10 number.
