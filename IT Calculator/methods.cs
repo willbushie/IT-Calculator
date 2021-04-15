@@ -213,15 +213,36 @@ namespace IT_Calculator
             // loop to make everything lowercase
             for (int count = 0; count < tempCharArray.Length; count++)
             {
-                // update the string[] at count with tempCharArray at count & make that lowercase
+                // update the string[] at count with tempCharArray & make that lowercase
                 stringArray[count] = tempCharArray[count].ToString().ToLower();
             }
-
             // int array to store the corresponding locations for each hex location
             int[] hexLocations = new int[tempCharArray.Length];
 
+            // loop to check each item in stringArray
+            for (int count = 0; count <= stringArray.Length-1; count++)
+            {
+                // loop to find the corresponding hexValue array location for the current item
+                for (int hexValueLocation = 0; hexValueLocation <= hexValues.Length-1; hexValueLocation++)
+                {
+                    // does the current value match the value from the hexValues array?
+                    if (stringArray[count] == hexValues[hexValueLocation])
+                    {
+                        // add the value to the hexLocations array
+                        hexLocations[count] = hexValueLocation;
+                    }
+                }
+            }
+            // String value to return 
+            String returnString = "";
+            // loop to create the final string to return in base 2
+            for (int count = 0; count < hexLocations.Length; count++)
+            {
+                // add the correct binary number to the return String
+                returnString = returnString + binaryValues[hexLocations[count]];
+            }
             // return the final string
-            return hexLocations[0].ToString();
+            return returnString;
         }
 
         // This method converts a hexadecimal number into a base 10 number.
