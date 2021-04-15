@@ -495,6 +495,57 @@ namespace IT_Calculator
             return returnString;
         }
 
+        // this method converts binary input into hex format
+        public static String base2ToHex(String inputString)
+        {
+            // String array for the hex values
+            String[] hexValues = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f" };
+            // string array for the binary values 
+            String[] binaryValues = { "0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001", "1010", "1011", "1100", "1101", "1110", "1111" };
+
+            // ensure the input is formatted correclty (in base 2, add zeros to the front if necessary)
+            if ((inputString.Length % 4) != 0)
+            {
+                // find the amount of zeros to format correclty
+                int zeros = 4 - (inputString.Length % 4);
+                // check if there are no zeros needed to be added
+                if (zeros != 4)
+                {
+                    // create a string with the correct num of zeros
+                    String zeroString = "";
+                    for (int count = 0; count < zeros; count++)
+                    {
+                        zeroString += "0";
+                    }
+                    // append the zeros to the front of the string
+                    inputString = zeroString + inputString;
+                }
+            }
+
+            // find the number of 4 digit binary sections
+            int sections = inputString.Length / 4;
+
+            // string array to hold the 4 digit binary sections
+            String[] binarySectionStrings = new string[sections];
+
+            // convert the inputstring to a char array for easier interaction in the conversion loops
+            char[] tempCharArray = inputString.ToCharArray();
+
+            // variable to keep track of the location in the 
+            int currentLoopLocation = 0;
+
+            // conver the input string into a string array seperated into sections of 4
+            for (int count = 0; count < sections; count++)
+            {
+                // loop through tempCharArray to build one section, starting at currentLoopLocation
+
+            }
+
+            // return the final string
+            return "";
+        }
+
+
         // this method converts a hex input string into a formatted mac address
         public static String hexToHexMod(String inputString)
         {
