@@ -113,37 +113,39 @@ namespace IT_Calculator
         {
             // store the input as a string
             String numToConvertString = numToConvert.ToString();
-            // numToConvertString to char[] for easier access in the converison loop
+            // numToConvertString to char[] for easier access in the conversion loop
             char[] base2CharArray = numToConvertString.ToCharArray();
+
             // int value to be returned after the conversion
             int returnInt = 0;
             // int value to display which place (base2) we are at in the loop
             int placeLocation = 1;
             // reverse loop to create the base 10 number
-            for (int count = base2CharArray.Length-1; count > 0; count--)
+            for (int count = base2CharArray.Length-1; count >= 0; count--)
             {
+                String currentString = base2CharArray[count].ToString();
                 // check which place in the binary string we are at
                 // check if at the ones place
                 if (placeLocation == 1)
                 {
                     // check if there is a number to add
-                    if (base2CharArray[count].ToString() == "1")
+                    if (currentString == "1")
                     {
                         // add the number to the returnInt (in this case, we are in the ones place, so add a 1)
-                        returnInt =+ 1;
+                        returnInt = returnInt + 1;
                     }
                 }
                 else
                 {
                     // check if there is a number to add
-                    if (base2CharArray[count].ToString() == "1")
+                    if (currentString == "1")
                     {
                         // add the number to the returnInt (add the curent placement value)
-                        returnInt =+ placeLocation;
+                        returnInt = returnInt + placeLocation;
                     }
                 }
                 // update placeLocation value (multiply by 2 to get the correct base 2 placement)
-                placeLocation *= 2;
+                placeLocation = placeLocation * 2;
             }
             // return the base2 result
             return returnInt;
