@@ -509,6 +509,14 @@ namespace IT_Calculator
             {
                 // check the palcementCount build the returnString
                 if (placementCounter < 2)
+
+                {
+                    // add to the string normally
+                    returnString += interactionArray[count];
+                    // advance placementCounter
+                    placementCounter++;
+                }
+                else if (placementCounter == 2)
                 {
                     // add to the string normally
                     returnString += interactionArray[count];
