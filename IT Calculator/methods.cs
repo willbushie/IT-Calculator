@@ -495,6 +495,97 @@ namespace IT_Calculator
             return returnString;
         }
 
+        // this method converts binary input into hex format
+        // this takes in a string of binary numbers and a bool for the mac address functionality
+        // if this bool is false, it will simply return a hex string with no seperators.
+        // if this bool is true, it will return a hex string in the format of a mac address
+        // This method does not check the input for a correct macAddress length
+        public static String base2ToHex(String inputString, bool macAddress)
+        {
+            // String array for the hex values
+            String[] hexValues = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f" };
+            // string array for the binary values 
+            String[] binaryValues = { "0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001", "1010", "1011", "1100", "1101", "1110", "1111" };
+            
+            // ensure the input is formatted correclty (in base 2, add zeros to the front if necessary)
+            if ((inputString.Length % 4) != 0)
+            {
+
+                // find the amount of zeros to format correclty
+                int zeros = 4 - (inputString.Length % 4);
+                // check if there are no zeros needed to be added
+                if (zeros != 4)
+                {
+                    // create a string with the correct num of zeros
+                    String zeroString = "";
+                    for (int count = 0; count < zeros; count++)
+                    {
+                        zeroString += "0";
+                    }
+                    // append the zeros to the front of the string
+                    inputString = zeroString + inputString;
+                }
+            }
+
+            // find the number of 4 digit binary sections
+            int sections = inputString.Length / 4;
+
+            // string array to hold the 4 digit binary sections
+            String[] binarySectionStrings = new string[sections];
+
+            // convert the inputstring to a char array for easier interaction in the conversion loops
+            char[] tempCharArray = inputString.ToCharArray();
+
+            // variable to keep track of the location in the starting location of the inner loop
+            int currentLoopLocation = 0;
+
+            // convert the input string into a string array seperated into sections of 4 numbers each [0000, 0000, 0000,...]
+            for (int count = 0; count < sections; count++)
+            {
+                // temp string to hold each section's values
+                String tempBinaryString = "";
+                // loop through tempCharArray to build one section, starting at currentLoopLocation
+                for (int innerCount = 0; innerCount < 4; innerCount++)
+                {
+                    // add the piece to a running string
+                    tempBinaryString += tempCharArray[currentLoopLocation].ToString();
+                    // advance currentLoopLocation
+                    currentLoopLocation++;
+                }
+                // update the binarySectionsString array
+                binarySectionStrings[count] = tempBinaryString;
+            }
+
+            // string to return after conversion
+            String hexReturnString = "";
+
+            // loop to build the returnHexString
+            for (int count = 0; count < binarySectionStrings.Length; count++)
+            {
+                // loop to find the corresponing hex value based on the current binary section
+                for (int innerCount = 0; innerCount < 15; innerCount++)
+                {
+                    // check the current binary section against the binaryValues array
+                    if (binarySectionStrings[count] == binaryValues[innerCount])
+                    {
+                        // update the hexReturnString getting the correct value from hexValues array
+                        hexReturnString += hexValues[innerCount];
+
+                        // check if this is not the end of the binarySectionString - in order to add a colen if not
+                        // check if macAddress is true and the count + 1 is evently divisible by 2 - to place a colen every 2 characters
+                        if (count != binarySectionStrings.Length - 1 && macAddress == true && (count+1) % 2 == 0)
+                        {
+                            hexReturnString = hexReturnString + ":";
+                        }
+                    }
+                }
+            }
+
+            // return hexReturnString
+            return hexReturnString;
+        }
+
+
         // this method converts a hex input string into a formatted mac address
         public static String hexToHexMod(String inputString)
         {
@@ -510,13 +601,6 @@ namespace IT_Calculator
                 // check the palcementCount build the returnString
                 if (placementCounter < 2)
 
-                {
-                    // add to the string normally
-                    returnString += interactionArray[count];
-                    // advance placementCounter
-                    placementCounter++;
-                }
-                else if (placementCounter == 2)
                 {
                     // add to the string normally
                     returnString += interactionArray[count];
