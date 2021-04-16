@@ -247,7 +247,6 @@ namespace IT_Calculator
 
         // This method converts a hexadecimal number into a base 10 number.
         // input: hexadecimal number (string) | returns: base 10 number
-        // This code will need to be updated in the future using linked lists - TEMP CODE
         public static int hexToBase10(string numToConvert)
         {
             // general plan for the new code
@@ -257,6 +256,15 @@ namespace IT_Calculator
             // hex:     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F]
             // base10:  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
             // simply compare and return values accordinly
+
+            // String array for the hex values
+            String[] hexValues = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f" };
+            // string array for the binary values 
+            String[] decimalvalues = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" };
+
+
+
+
 
             //this is the code for hex to dec to base 10--just need for it to be implied better with the public int.
             String hexNum = "1A"; //26
