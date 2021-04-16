@@ -496,13 +496,17 @@ namespace IT_Calculator
         }
 
         // this method converts binary input into hex format
-        public static String base2ToHex(String inputString)
+        // this takes in a string of binary numbers and a bool for the mac address functionality
+        // if this bool is false, it will simply return a hex string with no seperators.
+        // if this bool is true, it will return a hex string in the format of a mac address
+        // This method does not check the input for a correct macAddress length
+        public static String base2ToHex(String inputString, bool macAddress)
         {
             // String array for the hex values
             String[] hexValues = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f" };
             // string array for the binary values 
             String[] binaryValues = { "0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001", "1010", "1011", "1100", "1101", "1110", "1111" };
-
+            
             // ensure the input is formatted correclty (in base 2, add zeros to the front if necessary)
             if ((inputString.Length % 4) != 0)
             {
@@ -531,18 +535,53 @@ namespace IT_Calculator
             // convert the inputstring to a char array for easier interaction in the conversion loops
             char[] tempCharArray = inputString.ToCharArray();
 
-            // variable to keep track of the location in the 
+            // variable to keep track of the location in the starting location of the inner loop
             int currentLoopLocation = 0;
 
-            // conver the input string into a string array seperated into sections of 4
+            // convert the input string into a string array seperated into sections of 4 numbers each [0000, 0000, 0000,...]
             for (int count = 0; count < sections; count++)
             {
+                // temp string to hold each section's values
+                String tempBinaryString = "";
                 // loop through tempCharArray to build one section, starting at currentLoopLocation
-
+                for (int innerCount = 0; innerCount < 4; innerCount++)
+                {
+                    // add the piece to a running string
+                    tempBinaryString += tempCharArray[currentLoopLocation].ToString();
+                    // advance currentLoopLocation
+                    currentLoopLocation++;
+                }
+                // update the binarySectionsString array
+                binarySectionStrings[count] = tempBinaryString;
             }
 
-            // return the final string
-            return "";
+            // string to return after conversion
+            String hexReturnString = "";
+
+            // loop to build the returnHexString
+            for (int count = 0; count < binarySectionStrings.Length; count++)
+            {
+                // loop to find the corresponing hex value based on the current binary section
+                for (int innerCount = 0; innerCount < 15; innerCount++)
+                {
+                    // check the current binary section against the binaryValues array
+                    if (binarySectionStrings[count] == binaryValues[innerCount])
+                    {
+                        // update the hexReturnString getting the correct value from hexValues array
+                        hexReturnString += hexValues[innerCount];
+
+                        // check if this is not the end of the binarySectionString - in order to add a colen if not
+                        // check if macAddress is true and the count + 1 is evently divisible by 2 - to place a colen every 2 characters
+                        if (count != binarySectionStrings.Length - 1 && macAddress == true && (count+1) % 2 == 0)
+                        {
+                            hexReturnString = hexReturnString + ":";
+                        }
+                    }
+                }
+            }
+
+            // return hexReturnString
+            return hexReturnString;
         }
 
 

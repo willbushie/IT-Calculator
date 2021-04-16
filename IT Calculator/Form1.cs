@@ -133,7 +133,7 @@ namespace IT_Calculator
                 else if (comboBox1.Text == "Hexadecimal")
                 {
                     // call binary to hex
-                    // there is currently no method for this
+                    textBox2.Text = methods.base2ToHex(baseToConvert, false);
                 }
                 else if (comboBox1.Text == "IP Address")
                 {
@@ -142,8 +142,8 @@ namespace IT_Calculator
                 }
                 else if (comboBox1.Text == "Mac Address")
                 {
-                    // call binary to hex (modified)
-                    // there is currently no method for this
+                    // call binary to hex and call for macAddress functionality
+                    textBox2.Text = methods.base2ToHex(baseToConvert, true);
                 }
             }
             // input decimal checks
