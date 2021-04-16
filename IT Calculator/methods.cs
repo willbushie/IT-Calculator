@@ -510,6 +510,7 @@ namespace IT_Calculator
             // ensure the input is formatted correclty (in base 2, add zeros to the front if necessary)
             if ((inputString.Length % 4) != 0)
             {
+
                 // find the amount of zeros to format correclty
                 int zeros = 4 - (inputString.Length % 4);
                 // check if there are no zeros needed to be added
@@ -600,13 +601,6 @@ namespace IT_Calculator
                 // check the palcementCount build the returnString
                 if (placementCounter < 2)
 
-                {
-                    // add to the string normally
-                    returnString += interactionArray[count];
-                    // advance placementCounter
-                    placementCounter++;
-                }
-                else if (placementCounter == 2)
                 {
                     // add to the string normally
                     returnString += interactionArray[count];
