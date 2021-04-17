@@ -325,10 +325,55 @@ namespace IT_Calculator
             return returnString;
         }
 
+        // This method converts a binary number to a dottet octet (IP Address)
+        // input: base2 (String) | returns: dottect octet number (String)
+        // this method DOES check for correct input length
+        public static String base2ToDotOct(String numToConvert)
+        {
+            // check the input lenght 
+            if (numToConvert.Length == 32)
+            {
+                // convert numToConvert to a char array for easier interaction 
+                char[] tempCharArray = numToConvert.ToCharArray();
+                
+                // string array to hold the 4 sections of binary
+                String[] binarySectionsArray = new String[4];
+
+                // int variable to keep track of current location within the tempCharArray
+                int charArrayLocation = 0;
+
+                // loop to walk through the tempCharArray to build the 4 string sections for binarySectionsArray
+                for (int sections = 0; sections < 4; sections ++)
+                {
+                    // temp section string holder that will be used to store a single section of 8 
+                    String tempStringHolder = "";
+
+                    // loop to build a single section of 8 characters
+                    for (int single = 0; single < 8; single++)
+                    {
+                        // start at charArrayLocation & add to the tempStringHolder
+                        tempStringHolder += tempCharArray[charArrayLocation].ToString();
+                        // update charArrayLocation value
+                        charArrayLocation++;
+                    }
+                    // add the tempStringHolder value to the current location in the binarySectionsArray
+                    binarySectionsArray[sections] = tempStringHolder;
+                }
+
+                // once the string sections have been built, convert them to dotted octet
+                //CURRENT LOCATION TO CONTINUE
+            }
+            else if (numToConvert.Length < 32 || numToConvert.Length > 32)
+            {
+                // return an error to the user
+            }
+        }
+
+
 
         // This method converts a dotted octet number into a base 10 number.
         // input: dotted octet number (IP Address) | returns: base 2 number
-        public static string dotOctetToBase2(string numToConvert)
+        public static String dotOctetToBase2(string numToConvert)
         {
             // creation of a char[] to allow easy interaction with the numToConvert
             char[] interactiveNumToConvert = numToConvert.ToCharArray();
