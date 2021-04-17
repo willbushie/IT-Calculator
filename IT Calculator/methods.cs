@@ -249,68 +249,33 @@ namespace IT_Calculator
         // input: hexadecimal number (string) | returns: base 10 number
         public static int hexToBase10(string numToConvert)
         {
-            // general plan for the new code
-            // convert numToConvert (hex) to base10 - using arrays with appropriate values 
-            // make all char values in the numToConvert capitolized
-            // array example:
-            // hex:     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F]
-            // base10:  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-            // simply compare and return values accordinly
-
             // String array for the hex values
             String[] hexValues = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f" };
             // string array for the binary values 
             String[] decimalvalues = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" };
 
+            // convert numToConvert into a char array for easier interaciton in the conversion loops
+            char[] hexCharArray = numToConvert.ToCharArray();
 
-
-
-
-            //this is the code for hex to dec to base 10--just need for it to be implied better with the public int.
-            String hexNum = "1A"; //26
-            hexadecimalToDecimal(hexNum);
-
-            return 0;
-        }
-        //this is for the code above
-        public static int hexadecimalToDecimal(String hexVal)
-        {
-            int len = hexVal.Length;
-
-            // Initializing base1 value
-            // to 1, i.e 16^0
-            int base1 = 1;
-
-            int dec_val = 0;
-
-            // Extracting characters as
-            // digits from last character
-            for (int i = len - 1; i >= 0; i--)
+            // return string of decimal values
+            String returnString = "";
+            
+            // loop through the numToConvertString
+            for (int count = 0; count < numToConvert.Length; count++)
             {
-                // if character lies in '0'-'9',
-                // converting it to integral 0-9
-                // by subtracting 48 from ASCII value
-                if (hexVal[i] >= '0' && hexVal[i] <= '9')
+                // find the corresponding decimal value and build returnString
+                for (int innerCount = 0; innerCount < 16; innerCount++)
                 {
-                    dec_val += (hexVal[i] - 48) * base1;
-
-                    // incrementing base1 by power
-                    base1 = base1 * 16;
-                }
-
-                // if character lies in 'A'-'F' ,
-                // converting it to integral
-                // 10 - 15 by subtracting 55
-                // from ASCII value
-                else if (hexVal[i] >= 'A' && hexVal[i] <= 'F')
-                {
-                    dec_val += (hexVal[i] - 55) * base1;
-
-                    // incrementing base1 by power
-                    base1 = base1 * 16;
+                    // check the current value being evaluated against the hex values array
+                    if (hexCharArray[count].ToString() == hexValues[innerCount])
+                    {
+                        // update the returnString with the corresponding value from decimal values array
+                        returnString += decimalvalues[innerCount];
+                    }
                 }
             }
-            return dec_val;
+            // return the final decimal string
+            return returnString;
         }
 
         // This method converts a dotted octet number into a base 10 number.
