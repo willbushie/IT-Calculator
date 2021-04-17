@@ -152,7 +152,8 @@ namespace IT_Calculator
                 if (comboBox1.Text == "Binary")
                 {
                     // call decimal to binary
-                    textBox2.Text = (methods.base10ToBase2(int.Parse(baseToConvert))).ToString();
+                    // thie method needs more work
+                    //textBox2.Text = (methods.base10ToBase2(int.Parse(baseToConvert))).ToString();
                 }
                 else if (comboBox1.Text == "Hexadecimal")
                 {

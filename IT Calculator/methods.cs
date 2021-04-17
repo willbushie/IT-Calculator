@@ -247,7 +247,7 @@ namespace IT_Calculator
 
         // This method converts a hexadecimal number into a base 10 number.
         // input: hexadecimal number (string) | returns: base 10 number
-        public static int hexToBase10(string numToConvert)
+        public static String hexToBase10(string numToConvert)
         {
             // String array for the hex values
             String[] hexValues = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f" };
@@ -257,8 +257,8 @@ namespace IT_Calculator
             // convert numToConvert into a char array for easier interaciton in the conversion loops
             char[] hexCharArray = numToConvert.ToCharArray();
 
-            // return string of decimal values
-            String returnString = "";
+            // int build return of decimal values
+            int returnInt = 0;
             
             // loop through the numToConvertString
             for (int count = 0; count < numToConvert.Length; count++)
@@ -270,12 +270,12 @@ namespace IT_Calculator
                     if (hexCharArray[count].ToString() == hexValues[innerCount])
                     {
                         // update the returnString with the corresponding value from decimal values array
-                        returnString += decimalvalues[innerCount];
+                        returnInt += int.Parse(decimalvalues[innerCount]);
                     }
                 }
             }
             // return the final decimal string
-            return returnString;
+            return returnInt.ToString();
         }
 
         // This method converts a decimal number (base10) to a hexadecimal number OR a formatted mac address
@@ -288,37 +288,70 @@ namespace IT_Calculator
             // string array for the binary values 
             String[] decimalvalues = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" };
 
-            // convert numToConvert into a char array for easier interaciton in the conversion loops
-            char[] decimalCharArray = numToConvert.ToCharArray();
+            // convert the numToConvert into an int value
+            int numToConvertInt = int.Parse(numToConvert);
+            
+            // linked list to keep track of the remainders from the converting
+            LinkedList remainders = new LinkedList();
 
-            // return string of hex values
+            // int value to keep track of the current value being worked with
+            int currentIntValue = numToConvertInt;
+
+            // bool value to continue the creation of the linked list loop
+            bool continueLinkedList = true;
+
+            // creation of linked list process
+            while (continueLinkedList == true)
+            {
+                // coninue like normal
+                if (numToConvertInt >= 1)
+                {
+                    // get the decimals points by dividing by 16 
+                    Double firstOperation = numToConvertInt / 16;
+                    // split on the decimal point and use the second string & then convert to an int
+                    String[] doubleSplit = firstOperation.ToString().Split('.');
+                    // multiply decimals by 16
+                    int payloadToAdd = int.Parse(doubleSplit[1]) * 16;
+                    // create a new node
+                    Node nodeToAdd = new Node(payloadToAdd);
+                    // divide by 16 and store the new value
+                    currentIntValue %= 16;
+                    // store the remainder into the linked list
+                    remainders.addNode(nodeToAdd);
+                }
+                // if numToConvertInt less than 1, run one last time and exit while loop
+                else if (numToConvertInt < 1)
+                {
+                    // get the decimals points by dividing by 16 
+                    Double firstOperation = numToConvertInt / 16;
+                    // split on the decimal point and use the second string & then convert to an int
+                    String[] doubleSplit = firstOperation.ToString().Split('.');
+                    // multiply decimals by 16
+                    int payloadToAdd = int.Parse(doubleSplit[1]) * 16;
+                    // create a new node
+                    Node nodeToAdd = new Node(payloadToAdd);
+                    // store the remainder into the linked list
+                    remainders.addNode(nodeToAdd);
+                    // update continueLinkedList bool
+                    continueLinkedList = false;
+                }
+            }
+
+            // returnable string of hex values
             String returnString = "";
 
-            // int variable to keep track of the seperator
-            int seperatorLocationCount = 0;
-
-            // loop through the numToConvertString
-            for (int count = 0; count < numToConvert.Length; count++)
+            // loop to walk through the linked list and build the returnString
+            for (int count = remainders.length-1; count >= 0; count--)
             {
-                // find the corresponding decimal value and build returnString
-                for (int innerCount = 0; innerCount < 16; innerCount++)
+                // loop through the decimal values array to find the corresponding hex value
+                for (int innerCount = 0; innerCount < 15; innerCount++)
                 {
-                    // check the current value being evaluated against the decimal values array
-                    if (hexCharArray[count].ToString() == hexValues[innerCount])
+                    // check if the current value matches the linked list value
+                    if (remainders.getAtIndex(count).ToString() == decimalvalues[innerCount])
                     {
-                        // update the returnString with the corresponding value from hex values array
+                        // build onto the return string the corresponding hex value
                         returnString += hexValues[innerCount];
-                        // check if mac address is true and add a seperator every 2 characters and its not at the end of the returnString
-                        if (macAddress == true && seperatorLocationCount == 2 && count < (numToConvert.Length-1))
-                        {
-                            // add the seperator to the returnString
-                            returnString += ":";
-                            // reset seperatorLocationCount
-                            seperatorLocationCount = 0;
-                        }
                     }
-                    // update seperatorLocationCount
-                    seperatorLocationCount++;
                 }
             }
             // return the final decimal string
@@ -366,7 +399,10 @@ namespace IT_Calculator
             else if (numToConvert.Length < 32 || numToConvert.Length > 32)
             {
                 // return an error to the user
+                return "error";
             }
+            // return the final string
+            return "final string return";
         }
 
 
