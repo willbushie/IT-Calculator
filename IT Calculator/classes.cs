@@ -107,7 +107,7 @@ namespace IT_Calculator
                 // walk through the list starting from the head
             }
 
-            // convert and return the final value
+            // convert and return the final value   // THIS IS WHERE THE FORMAT ERROR IS 
             return int.Parse(intToReturnString);
         }
 
