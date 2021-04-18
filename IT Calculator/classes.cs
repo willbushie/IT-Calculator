@@ -1,7 +1,20 @@
-﻿using System;
-
-
-/* 
+﻿/*
+ * CSC370 - Group Project - IT Calculator
+ * 
+ * Purpose: 
+ *  This is an IT calculator to help aid in simple conversion
+ *  between different bases, as well as allow easy base 2
+ *  arithmatic. 
+ * 
+ * Developers on the project & roles:
+ *      Hannah Neymeyer - Team Lead
+ *      Caden Flowers - Front End Developer
+ *      Nicholas Johnson - Architect/Designer
+ *      William Bushie - Programmer
+ * 
+ *
+ * 
+ * 
  * ======================================
  *           HELPFUL CLASSES
  * ======================================
@@ -10,6 +23,9 @@
  * unique features for the application.
  * 
  */
+
+
+using System;
 
 
 /*
@@ -91,7 +107,7 @@ namespace IT_Calculator
                 // walk through the list starting from the head
             }
 
-            // convert and return the final value
+            // convert and return the final value   // THIS IS WHERE THE FORMAT ERROR IS 
             return int.Parse(intToReturnString);
         }
 
@@ -104,6 +120,25 @@ namespace IT_Calculator
                 // reassign this.tail and clear the current tail node - call Node.removeNode()
                 this.tail = this.tail.removeNode();
             }
+        }
+
+        // This method finds the corresponding value at a passed index 
+        public int getAtIndex(int index)
+        {
+            // int value to keep track of the current location
+            int currentLocation = 0;
+            // node value to denote the current node being checked
+            Node currentNode = this.head;
+            // loop through the linked list until the proper location is found
+            while (currentLocation < index)
+            {
+                // advance the node until location is found
+                currentNode = currentNode.nodeAfter;
+                // advance currentLocation
+                currentLocation++;
+            }
+            // return the value at that location as an int
+            return currentNode.getPayload();
         }
     }
 
@@ -155,6 +190,17 @@ namespace IT_Calculator
 
             // return nodeToRemove's nodeBefore
             return nodeToReturn;
+        }
+        
+        // this method will return a nodes payload as an int
+        public int getPayload()
+        {
+            // int value to hold the paylaod
+            int payloadToReturn = 0;
+            // assign the payload
+            payloadToReturn = this.payload;
+            // return the payload
+            return payloadToReturn;
         }
     }
 }

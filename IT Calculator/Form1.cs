@@ -133,7 +133,7 @@ namespace IT_Calculator
                 else if (comboBox1.Text == "Hexadecimal")
                 {
                     // call binary to hex
-                    // there is currently no method for this
+                    textBox2.Text = methods.base2ToHex(baseToConvert, false);
                 }
                 else if (comboBox1.Text == "IP Address")
                 {
@@ -142,22 +142,23 @@ namespace IT_Calculator
                 }
                 else if (comboBox1.Text == "Mac Address")
                 {
-                    // call binary to hex (modified)
-                    // there is currently no method for this
+                    // call binary to hex and call for macAddress functionality
+                    textBox2.Text = methods.base2ToHex(baseToConvert, true);
                 }
             }
             // input decimal checks
             else if (comboBox2.Text == "Decimal")
             {
-                if (comboBox1.Text == "Bianry")
+                if (comboBox1.Text == "Binary")
                 {
                     // call decimal to binary
-                    textBox2.Text = (methods.base10ToBase2(int.Parse(baseToConvert))).ToString();
+                    // thie method needs more work
+                    //textBox2.Text = (methods.base10ToBase2(int.Parse(baseToConvert))).ToString();
                 }
                 else if (comboBox1.Text == "Hexadecimal")
                 {
                     // call decimal to hex
-                    // there is currently no method for this
+                    textBox2.Text = methods.base10ToHex(baseToConvert, false);
                 }
                 else if (comboBox1.Text == "IP Address")
                 {
@@ -167,16 +168,16 @@ namespace IT_Calculator
                 else if (comboBox1.Text == "Mac Address")
                 {
                     // call decimal to hex (modified)
-                    // there is currently no method for this
+                    textBox2.Text = methods.base10ToHex(baseToConvert, true);
                 }
             }
             // input hex checks
             else if (comboBox2.Text == "Hexadecimal")
             {
-                if (comboBox1.Text == "Bianry")
+                if (comboBox1.Text == "Binary")
                 {
                     // call hex to binary
-                    textBox2.Text = (methods.base10ToBase2(int.Parse(baseToConvert))).ToString();
+                    textBox2.Text = methods.hexToBase2(baseToConvert);
                 }
                 else if (comboBox1.Text == "Decimal")
                 {
@@ -191,13 +192,13 @@ namespace IT_Calculator
                 else if (comboBox1.Text == "Mac Address")
                 {
                     // call hex to hex (modified)
-                    // there is currently no method for this
+                    textBox2.Text = methods.hexToHexMod(baseToConvert).ToString();
                 }
             }
             // input ip checks
             else if (comboBox2.Text == "IP Address")
             {
-                if (comboBox1.Text == "Bianry")
+                if (comboBox1.Text == "Binary")
                 {
                     // call IP Address to binary
                     textBox2.Text = methods.dotOctetToBase2(baseToConvert);
@@ -221,7 +222,7 @@ namespace IT_Calculator
             // input mac address checks
             else if (comboBox2.Text == "Mac Address")
             {
-                if (comboBox1.Text == "Bianry")
+                if (comboBox1.Text == "Binary")
                 {
                     // call Mac Address (modified hex) to binary\
                     // there is currently no method for this
@@ -246,6 +247,11 @@ namespace IT_Calculator
             {
                 // alert the user of an error
             }
+        }
+
+        private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Types of Conversions allowed:" + "\n" + "Base(2, 10, or 16) to Base(2, 10, or 16)" + "\n" + "Decimal IP Address to Binary IP Address" + "\n" + "Hexadecimal Mac Address to Binary & Decimal Mac Address" + "\n" + "\n" + "Common Errors:" + "\n" + "Unable to go from a normal base # to a dotted octet." + "\n" + "Can't go from Dotted Octet to a normal base number.", "Help");
         }
     }
 }
