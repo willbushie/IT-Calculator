@@ -248,5 +248,10 @@ namespace IT_Calculator
                 // alert the user of an error
             }
         }
+
+        private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Types of Conversions allowed:" + "\n" + "Base(2, 10, or 16) to Base(2, 10, or 16)" + "\n" + "Decimal IP Address to Binary IP Address" + "\n" + "Hexadecimal Mac Address to Binary & Decimal Mac Address" + "\n" + "\n" + "Common Errors:" + "\n" + "Unable to go from a normal base # to a dotted octet." + "\n" + "Can't go from Dotted Octet to a normal base number.", "Help");
+        }
     }
 }
