@@ -384,6 +384,37 @@ namespace IT_Calculator
             return returnString;
         }
 
+        // this method convers a base 10 number into a correclty formatted ip address
+        // this methods DOES NOT check for correct input length
+        // this method more or less converts a decimal number to an octal number
+        // input: base10 number (string) | output: ip address (string)
+        public static String base10ToDotOct(String numToConvert)
+        {
+            // creation of the linked list that will be used to store the remainders of the conversion operations
+            LinkedList remainders = new LinkedList();
+
+            // int variable to keep track of the conversion operations being completed
+            int numToOperate = int.Parse(numToConvert);
+
+            // conversion loop of the original string
+            while (numToOperate > 0)
+            {
+                // divide by 8, store the remainder into the linked list
+                Node remainder = new Node(numToOperate % 8);
+                // update the numToOperate
+                numToOperate /= 8;
+            }
+            // MAY NEED TO UPDATE THIS OPERATION 
+
+            // reverse the remainders linked list
+            int octalNum = remainders.contentsToInt(true);
+
+            // NEEDS TO BE FORMATTED FOR AN IP ADDRESS OUPUT
+            // return the IP address
+            return octalNum.ToString();
+
+        }
+
         // This method converts a binary number to a dottet octet (IP Address)
         // input: base2 (String) | returns: dottect octet number (String)
         // this method DOES check for correct input length

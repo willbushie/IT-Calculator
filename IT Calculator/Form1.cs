@@ -165,7 +165,7 @@ namespace IT_Calculator
                 {
                     // call decimal to doted octet
                     // there is currently no method for this
-                    textBox2.Text = "Unable to complete this method.";
+                    textBox2.Text = methods.base10ToDotOct(baseToConvert);
                 }
                 else if (comboBox1.Text == "Mac Address")
                 {
