@@ -198,9 +198,35 @@ namespace IT_Calculator
         }
 
         // This method converts a hexadecimal number into a base 2 number.
-        // input: hexadecimal number (string) | returns: base 2 number 
-        public static String hexToBase2(string numToConvert)
+        // input: hexadecimal number (string), macAddress (bool) | returns: base 2 number 
+        // this method will also ouput take in a correctly formatted mac adress and remove the formatting
+        // if the bool macAddress is true
+        public static String hexToBase2(string numToConvert, bool macAddress)
         {
+            // check for mac address value
+            if (macAddress == true)
+            {
+                // temp char array to remove the sepeartors
+                char[] macAddressCharArray = numToConvert.ToCharArray();
+                // new string to build to be used for conversion
+                String conversionString = "";
+                // remove the seperators (assumed to be ":") remove all seperators
+                for (int currLocation = 0; currLocation < macAddressCharArray.Length; currLocation++)
+                {
+                    // check if the current char is a seperator
+                    if (macAddressCharArray[currLocation].ToString() != ":")
+                    {
+                        // add the currLocation value to conversionString
+                        conversionString += macAddressCharArray[currLocation].ToString();
+                    }
+                }
+            }
+            // otherwise, reset the numToConver value to conversionString
+            else
+            {
+                conversionString = numToConvert;
+            }
+
             // String array for the hex values
             String[] hexValues = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
             // string array for the binary values 

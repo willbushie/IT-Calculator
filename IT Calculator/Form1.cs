@@ -139,6 +139,7 @@ namespace IT_Calculator
                 {
                     // call binary to doted octet
                     // there is currently no method for this
+                    textBox2.Text = "Unable to complete this method.";
                 }
                 else if (comboBox1.Text == "Mac Address")
                 {
@@ -164,6 +165,7 @@ namespace IT_Calculator
                 {
                     // call decimal to doted octet
                     // there is currently no method for this
+                    textBox2.Text = "Unable to complete this method.";
                 }
                 else if (comboBox1.Text == "Mac Address")
                 {
@@ -177,7 +179,7 @@ namespace IT_Calculator
                 if (comboBox1.Text == "Binary")
                 {
                     // call hex to binary
-                    textBox2.Text = methods.hexToBase2(baseToConvert);
+                    textBox2.Text = methods.hexToBase2(baseToConvert, false);
                 }
                 else if (comboBox1.Text == "Decimal")
                 {
@@ -188,6 +190,7 @@ namespace IT_Calculator
                 {
                     // call hex to doted octet
                     // there is currently no method for this
+                    textBox2.Text = "Unable to complete this method.";
                 }
                 else if (comboBox1.Text == "Mac Address")
                 {
@@ -207,16 +210,19 @@ namespace IT_Calculator
                 {
                     // call IP Address to decimal
                     // there is currently no method for this
+                    textBox2.Text = "Unable to complete this method.";
                 }
                 else if (comboBox1.Text == "Hexadecimal")
                 {
                     // call IP Address to doted octet
                     // there is currently no method for this
+                    textBox2.Text = "Unable to complete this method.";
                 }
                 else if (comboBox1.Text == "Mac Address")
                 {
                     // call IP Address to hex (modified)
                     // there is currently no method for this
+                    textBox2.Text = "Unable to complete this method.";
                 }
             }
             // input mac address checks
@@ -224,23 +230,26 @@ namespace IT_Calculator
             {
                 if (comboBox1.Text == "Binary")
                 {
-                    // call Mac Address (modified hex) to binary\
-                    // there is currently no method for this
+                    // call Mac Address (modified hex) to binary
+                    textBox2.Text = methods.hexToBase2(baseToConvert, true);
                 }
                 else if (comboBox1.Text == "Decimal")
                 {
                     // call Mac Address (modified hex) to decimal
                     // there is currently no method for this
+                    textBox2.Text = "Unable to complete this method.";
                 }
                 else if (comboBox1.Text == "Hexadecimal")
                 {
                     // call Mac Address (modified hex) to doted octet
                     // there is currently no method for this
+                    textBox2.Text = "Unable to complete this method.";
                 }
                 else if (comboBox1.Text == "IP Address")
                 {
                     // call Mac Address (modified hex) to hex (modified)
                     // there is currently no method for this
+                    textBox2.Text = "Unable to complete this method.";
                 }
             }
             else
