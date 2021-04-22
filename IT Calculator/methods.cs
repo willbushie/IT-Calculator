@@ -316,7 +316,7 @@ namespace IT_Calculator
 
             // convert the numToConvert into an int value
             int numToConvertInt = int.Parse(numToConvert);
-            
+
             // linked list to keep track of the remainders from the converting
             LinkedList remainders = new LinkedList();
 
@@ -329,34 +329,21 @@ namespace IT_Calculator
             // creation of linked list process
             while (continueLinkedList == true)
             {
-                // coninue like normal
-                if (numToConvertInt >= 1)
+                // complete conversion operations and store the remainders accordingly
+                if (numToConvertInt >= 16)
                 {
-                    // get the decimals points by dividing by 16 
-                    Double firstOperation = numToConvertInt / 16;
-                    // split on the decimal point and use the second string & then convert to an int
-                    String[] doubleSplit = firstOperation.ToString().Split('.');
-                    // multiply decimals by 16
-                    int payloadToAdd = int.Parse(doubleSplit[1]) * 16;
-                    // create a new node
-                    Node nodeToAdd = new Node(payloadToAdd);
-                    // divide by 16 and store the new value
-                    currentIntValue %= 16;
-                    // store the remainder into the linked list
-                    remainders.addNode(nodeToAdd);
+                    // divide by 16, create new node and store remainder into linked list
+                    int remainder1 = numToConvertInt % 16;
+                    Node nodeToAdd1 = new Node(remainder1);
+                    remainders.addNode(nodeToAdd1);
+                    // update numToConvertInt
+                    numToConvertInt /= 16;
                 }
-                // if numToConvertInt less than 1, run one last time and exit while loop
-                else if (numToConvertInt < 1)
+                else if (numToConvertInt < 16)
                 {
-                    // get the decimals points by dividing by 16 
-                    Double firstOperation = numToConvertInt / 16;
-                    // split on the decimal point and use the second string & then convert to an int
-                    String[] doubleSplit = firstOperation.ToString().Split('.');
-                    // multiply decimals by 16
-                    int payloadToAdd = int.Parse(doubleSplit[1]) * 16;
-                    // create a new node
-                    Node nodeToAdd = new Node(payloadToAdd);
-                    // store the remainder into the linked list
+                    // divide by 16, create new node and store remainder into linked list
+                    int remainder = numToConvertInt % 16;
+                    Node nodeToAdd = new Node(numToConvertInt);
                     remainders.addNode(nodeToAdd);
                     // update continueLinkedList bool
                     continueLinkedList = false;
@@ -367,10 +354,10 @@ namespace IT_Calculator
             String returnString = "";
 
             // loop to walk through the linked list and build the returnString
-            for (int count = remainders.length-1; count >= 0; count--)
+            for (int count = remainders.length - 1; count >= 0; count--)
             {
                 // loop through the decimal values array to find the corresponding hex value
-                for (int innerCount = 0; innerCount < 15; innerCount++)
+                for (int innerCount = 0; innerCount <= 15; innerCount++)
                 {
                     // check if the current value matches the linked list value
                     if (remainders.getAtIndex(count).ToString() == decimalvalues[innerCount])
@@ -380,6 +367,7 @@ namespace IT_Calculator
                     }
                 }
             }
+
             // return the final decimal string
             return returnString;
         }
