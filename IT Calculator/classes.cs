@@ -97,7 +97,7 @@ namespace IT_Calculator
                 for (int count = 0; count < this.length; count++)
                 {
                     // update intToReturnString
-                    intToReturnString = intToReturnString + currNode.payload.ToString();
+                    intToReturnString += currNode.payload.ToString();
                     // advance currNode
                     currNode = currNode.nodeBefore;
                 }
@@ -105,6 +105,17 @@ namespace IT_Calculator
             else if (reverse == false)
             {
                 // walk through the list starting from the head
+                // store the node currenlty being checked
+                Node currNode = this.head;
+
+                // walk through the list and update intToReturnString
+                for (int count = 0; count < this.length; count++)
+                {
+                    // update intToReturnString
+                    intToReturnString += currNode.payload.ToString();
+                    // advance currNode
+                    currNode = currNode.nodeAfter;
+                }
             }
 
             // convert and return the final value   // THIS IS WHERE THE FORMAT ERROR IS 
