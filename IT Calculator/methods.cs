@@ -203,13 +203,13 @@ namespace IT_Calculator
         // if the bool macAddress is true
         public static String hexToBase2(string numToConvert, bool macAddress)
         {
+            // new string to build to be used for conversion
+            String conversionString = "";
             // check for mac address value
             if (macAddress == true)
             {
                 // temp char array to remove the sepeartors
                 char[] macAddressCharArray = numToConvert.ToCharArray();
-                // new string to build to be used for conversion
-                String conversionString = "";
                 // remove the seperators (assumed to be ":") remove all seperators
                 for (int currLocation = 0; currLocation < macAddressCharArray.Length; currLocation++)
                 {
