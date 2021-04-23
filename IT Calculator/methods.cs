@@ -89,24 +89,6 @@ namespace IT_Calculator
             return base2ToReturn;
         }
 
-        // This method divides two base 2 numbers together and returns the answer in base 2.
-        // this is the format of the inputs: (num1 / num2)
-        public static int base2Division(int num1, int num2)
-        {
-            // convert both numbers in to decimal
-            int num1Base10 = base2ToBase10(num1);
-            int num2Base10 = base2ToBase10(num2);
-
-            // complete the operation (division)
-            int operationAnswer = num1Base10 / num2Base10;
-
-            // convert the answer back to binary, store into a returnable binary ouput
-            int base2ToReturn = base10ToBase2(operationAnswer);
-
-            // return the answer (in binary)
-            return base2ToReturn;
-        }
-
         // This method converts a base 2 number into a base 10 number.
         // input: base 2 number | returns base 10 number
         public static int base2ToBase10(int numToConvert)
@@ -153,7 +135,6 @@ namespace IT_Calculator
 
         // This method converts a base 10 number into a base 2 number.
         // input: base 10 number | returns: base 2 number
-        // This code will need to be updated in the future using linked lists - TEMP CODE
 
         public static int base10ToBase2(int numToConvert)
         {
@@ -194,8 +175,9 @@ namespace IT_Calculator
             }
 
             // convert the returnValuestring and return
+            return int.Parse(returnValueString);
             // check for errors - THIS TRY CATCH STATMENT DOES NOT WORK CORRECTLY, IT STILL ERRORS
-            try
+/*            try
             {
                 // return the value like normal
                 return int.Parse(returnValueString);
@@ -216,7 +198,7 @@ namespace IT_Calculator
                 // return the new value
                 return int.Parse(newReturnValueString);
             }
-        }
+*/        }
 
         // This method converts a hexadecimal number into a base 2 number.
         // input: hexadecimal number (string), macAddress (bool) | returns: base 2 number 
