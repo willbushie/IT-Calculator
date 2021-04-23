@@ -421,7 +421,6 @@ namespace IT_Calculator
             // NEEDS TO BE FORMATTED FOR AN IP ADDRESS OUPUT
             // return the IP address
             return octalNum;
-
         }
 
         // This method converts a binary number to a dottet octet (IP Address)
