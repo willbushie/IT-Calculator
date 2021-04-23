@@ -438,8 +438,52 @@ namespace IT_Calculator
                     binarySectionsArray[sections] = tempStringHolder;
                 }
 
-                // once the string sections have been built, convert them to dotted octet
-                //CURRENT LOCATION TO CONTINUE
+                // return string creation
+                String returnString = "";
+
+                // loop to convert each section into the correct octal value
+                for (int section = 0; section < 4; section++)
+                {
+                    // take the current section and conver into decimal
+                    int decimalSection = base2ToBase10(int.Parse(binarySectionsArray[section]));
+                    // linked list to hold the remainders from the operations
+                    LinkedList remainders = new LinkedList();
+                    // bool to stay in the while loop
+                    bool continueWhile = true;
+                    // convert the decimal number into octal
+                    while (continueWhile == true)
+                    {                        
+                        // divide the decimal number by 8 and keep the remainder
+                        int remainder = decimalSection % 8;
+                        // add the remainder as a node to the linked list
+                        Node nodeToAdd = new Node(remainder);
+                        // update decimalSection value
+                        decimalSection /= 2;
+                        // check if decimalSection is 0
+                        if (decimalSection == 0)
+                        {
+                            // update while loop
+                            continueWhile = false;
+                        }
+                    }
+                    // obtain the octal values by reversing the linked list of remainders
+                    String octalValue = remainders.contentsToInt(true);
+                    // check where in the return string we are (to add a period or not)
+                    if (section != 3)
+                    {
+                        // update returnString with the octalValue and a decimal point
+                        returnString += octalValue + ".";
+                    }
+                    else
+                    {
+                        // update returnString with the octalValue
+                        returnString += octalValue ;
+                    }
+                }
+
+                // return the final completed string
+                return returnString;
+
             }
             else if (numToConvert.Length < 32 || numToConvert.Length > 32)
             {
