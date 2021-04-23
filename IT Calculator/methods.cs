@@ -145,60 +145,45 @@ namespace IT_Calculator
             LinkedList remainders = new LinkedList();
 
             // loop to create a linked list & work with original number
+            // this loop excludes an input of 0 when passed, the if statement after conteracts this
             while (workingConv >= 1)
             {
                 // store the remainder
                 int remainder = workingConv % 2;
                 // create a new node & add the node to the linked list
-                Node newLLNode = new Node(remainder);
-                remainders.addNode(newLLNode);
+                Node nodeToAdd = new Node(remainder);
+                remainders.addNode(nodeToAdd);
                 // update the working value
                 workingConv /= 2;
             }
 
-            // conver the remainders into an int
-            String returnValueString = remainders.contentsToInt(true).ToString();
+            // convert the remainders into an int
+            String returnValueString = remainders.contentsToInt(true);
+
+            // check if the input numToConvert was a 0
+            if (numToConvert == 0)
+            {
+                // update returnValueString with a 0
+                returnValueString = "0";
+            }
 
             // check the length of the return int to ensure it is a correct length
             if ((returnValueString.Length % 4) != 0)
             {
                 // find the amount of zeros to format correclty
-                int zeros = returnValueString.Length % 4;
+                int zeros = 4 - (returnValueString.Length % 4);
                 // create a string with the correct num of zeros
                 String zeroString = "";
-                for (int count = 0; count < 4; count++)
+                for (int count = 0; count < zeros; count++)
                 {
                     zeroString += "0";
                 }
                 // append the zeros to the front of the string
                 returnValueString = zeroString + returnValueString;
             }
-
-            // convert the returnValuestring and return
-            return returnValueString; // THIS LINE HAS THE ERROR
-            // check for errors - THIS TRY CATCH STATMENT DOES NOT WORK CORRECTLY, IT STILL ERRORS
-/*            try
-            {
-                // return the value like normal
-                return int.Parse(returnValueString);
-            }
-            // if this error is tripped, it likely has a "-" at the front
-            // remove it and continue like normal
-            catch (System.FormatException)
-            {
-                // new return value string
-                String newReturnValueString = "";
-                // convert returnValueString to char array and remove item at location 0
-                char[] newReturnValue = returnValueString.ToCharArray();
-                // walk through char array and skip the first location to rebuild the string
-                for (int location = 1; location < newReturnValue.Length; location++)
-                {
-                    newReturnValueString += newReturnValue[location].ToString();
-                }
-                // return the new value
-                return int.Parse(newReturnValueString);
-            }
-*/        }
+            // return the final string
+            return returnValueString; // THIS LINE HAS HAD FORMAT ERRORS IN THE PAST - UNSURE IF RESOLVED
+        }
 
         // This method converts a hexadecimal number into a base 2 number.
         // input: hexadecimal number (string), macAddress (bool) | returns: base 2 number 
