@@ -37,7 +37,7 @@ namespace IT_Calculator
     {
         // This method adds two base 2 numbers together and returns the answer in base 2.
         // this is the format of the inputs: (num1 + num2)
-        public static int base2Addition(int num1, int num2)
+        public static String base2Addition(int num1, int num2)
         {
             // convert both numbers in to decimal
             int num1Base10 = base2ToBase10(num1);
@@ -47,7 +47,7 @@ namespace IT_Calculator
             int operationAnswer = num1Base10 + num2Base10;
 
             // convert the answer back to binary, store into a returnable binary ouput
-            int base2ToReturn = base10ToBase2(operationAnswer);
+            String base2ToReturn = base10ToBase2(operationAnswer);
 
             // return the answer (in binary)
             return base2ToReturn;
@@ -55,7 +55,7 @@ namespace IT_Calculator
 
         // This method subtracts two base 2 numbers and returns the answer in base 2.
         // this is the format of the inputs: (num1 - num2)
-        public static int base2Subtraction(int num1, int num2)
+        public static String base2Subtraction(int num1, int num2)
         {
             // convert both numbers in to decimal
             int num1Base10 = base2ToBase10(num1);
@@ -65,7 +65,7 @@ namespace IT_Calculator
             int operationAnswer = num1Base10 - num2Base10;
 
             // convert the answer back to binary, store into a returnable binary ouput
-            int base2ToReturn = base10ToBase2(operationAnswer);
+            String base2ToReturn = base10ToBase2(operationAnswer);
 
             // return the answer (in binary)
             return base2ToReturn;
@@ -73,7 +73,7 @@ namespace IT_Calculator
 
         // This method multiplies two base 2 numbers together and returns the answer in base 2.
         // this is the format of the inputs: (num1 * num2)
-        public static int base2Multiplication(int num1, int num2)
+        public static String base2Multiplication(int num1, int num2)
         {
             // convert both numbers in to decimal
             int num1Base10 = base2ToBase10(num1);
@@ -83,7 +83,7 @@ namespace IT_Calculator
             int operationAnswer = num1Base10 * num2Base10;
 
             // convert the answer back to binary, store into a returnable binary ouput
-            int base2ToReturn = base10ToBase2(operationAnswer);
+            String base2ToReturn = base10ToBase2(operationAnswer);
 
             // return the answer (in binary)
             return base2ToReturn;
@@ -136,7 +136,7 @@ namespace IT_Calculator
         // This method converts a base 10 number into a base 2 number.
         // input: base 10 number | returns: base 2 number
 
-        public static int base10ToBase2(int numToConvert)
+        public static String base10ToBase2(int numToConvert)
         {
             // store numToConvert in hold variable
             int workingConv = numToConvert;
@@ -175,7 +175,7 @@ namespace IT_Calculator
             }
 
             // convert the returnValuestring and return
-            return int.Parse(returnValueString);
+            return returnValueString; // THIS LINE HAS THE ERROR
             // check for errors - THIS TRY CATCH STATMENT DOES NOT WORK CORRECTLY, IT STILL ERRORS
 /*            try
             {

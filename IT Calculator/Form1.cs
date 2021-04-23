@@ -97,7 +97,7 @@ namespace IT_Calculator
                 if (firstNumNegative == true && secondNumNegative == false)
                 {
                     // call subtract secondInt from firstInt
-                    operationAnswerString = methods.base2Subtraction(secondInt, firstInt).ToString();
+                    operationAnswerString = methods.base2Subtraction(secondInt, firstInt);
                     // check the ouput string length
                     operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
                 }
@@ -105,7 +105,7 @@ namespace IT_Calculator
                 else if (firstNumNegative == false && secondNumNegative == true)
                 {
                     // call subtraction secondInt from firstInt
-                    operationAnswerString = methods.base2Subtraction(secondInt, firstInt).ToString();
+                    operationAnswerString = methods.base2Subtraction(secondInt, firstInt);
                     // check the ouput string length
                     operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
                     // place a "-" before the operationAnswerString
@@ -115,7 +115,7 @@ namespace IT_Calculator
                 else if (firstNumNegative == true && secondNumNegative == true)
                 {
                     // call addition firstInt and secondInt
-                    operationAnswerString = methods.base2Addition(firstInt, secondInt).ToString();
+                    operationAnswerString = methods.base2Addition(firstInt, secondInt);
                     // check the ouput string length
                     operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
                     // place a "-" before the operationAnswerString
@@ -133,7 +133,7 @@ namespace IT_Calculator
                     if (firstNumNegative == true && secondNumNegative == false)
                     {
                         // call binary adition
-                        operationAnswerString = methods.base2Addition(firstInt, secondInt).ToString();
+                        operationAnswerString = methods.base2Addition(firstInt, secondInt);
                         // check the length of the string
                         operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
                         // place a "-" before the operationAnswerString
@@ -143,7 +143,7 @@ namespace IT_Calculator
                     else if (firstNumNegative == false && secondNumNegative == true)
                     {
                         // call binary addition
-                        operationAnswerString = methods.base2Addition(firstInt, secondInt).ToString();
+                        operationAnswerString = methods.base2Addition(firstInt, secondInt);
                         // check the length of the string
                         operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
                     }
@@ -151,7 +151,7 @@ namespace IT_Calculator
                     else if (firstNumNegative == true && secondNumNegative == true)
                     {
                         // call subtraction secondInt from firstInt, no "-"
-                        operationAnswerString = methods.base2Subtraction(secondInt, firstInt).ToString();
+                        operationAnswerString = methods.base2Subtraction(secondInt, firstInt);
                         // check the length of the string
                         operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
                     }
@@ -159,7 +159,7 @@ namespace IT_Calculator
                     else if (firstNumNegative == false && secondNumNegative == false)
                     {
                         // switch the values in the subtraction and place a "-" before the answer
-                        operationAnswerString = methods.base2Subtraction(secondInt, firstInt).ToString();
+                        operationAnswerString = methods.base2Subtraction(secondInt, firstInt);
                         // check the length of the string
                         operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
                         // place a "-" before the operationAnswerString
@@ -173,7 +173,7 @@ namespace IT_Calculator
                     if ((firstNumNegative == true && secondNumNegative == false) || (firstNumNegative == false && secondNumNegative == true))
                     {
                         // call addition, do not add a "-"
-                        operationAnswerString = methods.base2Addition(firstInt, secondInt).ToString();
+                        operationAnswerString = methods.base2Addition(firstInt, secondInt);
                         // check the length of the string
                         operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
                     }
@@ -181,7 +181,7 @@ namespace IT_Calculator
                     if (firstNumNegative == false && secondNumNegative == false)
                     {
                         // call subtraction normally
-                        operationAnswerString = methods.base2Subtraction(firstInt, secondInt).ToString();
+                        operationAnswerString = methods.base2Subtraction(firstInt, secondInt);
                         // check the length of the string
                         operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
                     }
@@ -189,7 +189,7 @@ namespace IT_Calculator
                     if (firstNumNegative == true && secondNumNegative == true)
                     {
                         // call subtraction normally, add a "-" once the operation is completed
-                        operationAnswerString = methods.base2Subtraction(firstInt, secondInt).ToString();
+                        operationAnswerString = methods.base2Subtraction(firstInt, secondInt);
                         // check the length of the string
                         operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
                         // place a "-" before the operationAnswerString
@@ -205,7 +205,7 @@ namespace IT_Calculator
                 if ((firstNumNegative == true && secondNumNegative == false) || (firstNumNegative == false && secondNumNegative == true))
                 {
                     // call the binaryAddition method & store the answer
-                    operationAnswerString = methods.base2Multiplication(firstInt, secondInt).ToString();
+                    operationAnswerString = methods.base2Multiplication(firstInt, secondInt);
                     // check the ouput string length
                     operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
                     // place a "-" before the operationAnswerString
@@ -215,7 +215,7 @@ namespace IT_Calculator
                 else if ((firstNumNegative == true && secondNumNegative == true) || (firstNumNegative == false && secondNumNegative == false))
                 {
                     // call the binaryAddition method & store the answer
-                    operationAnswerString = methods.base2Multiplication(firstInt, secondInt).ToString();
+                    operationAnswerString = methods.base2Multiplication(firstInt, secondInt);
                     // check the ouput string length
                     operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
                 }
