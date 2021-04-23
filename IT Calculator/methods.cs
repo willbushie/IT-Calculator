@@ -831,5 +831,27 @@ namespace IT_Calculator
             }
             return returnString;
         }
+
+        // This method takes in a string of binary values, and outputs a string of the correct lenght
+        // check the length of the output string and update it accordingly if needed (from "00" to "0000")
+        public static String binaryStringFormatting(String originalString)
+        {
+            // check the length of the return int to ensure it is a correct length
+            if ((originalString.Length % 4) != 0)
+            {
+                // find the amount of zeros to format correclty
+                int zeros = originalString.Length % 4;
+                // create a string with the correct num of zeros
+                String zeroString = "";
+                for (int count = zeros; count < 4; count++)
+                {
+                    zeroString += "0";
+                }
+                // append the zeros to the front of the string
+                originalString = zeroString + originalString;
+            }
+            // return the corrected string
+            return originalString;
+        }
     }
 }

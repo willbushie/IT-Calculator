@@ -70,6 +70,8 @@ namespace IT_Calculator
             {
                 // call the binaryAddition method & store the answer
                 operationAnswerString = methods.base2Addition(firstInt, secondInt).ToString();
+                // check the ouput string length
+                operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
                 //update the error bool value
                 error = false;
             }
@@ -79,12 +81,18 @@ namespace IT_Calculator
                 if (firstInt < secondInt)
                 {
                     // switch the values in the subtraction and place a "-" before the answer
-                    operationAnswerString = "-" + methods.base2Subtraction(secondInt, firstInt).ToString(); 
+                    operationAnswerString = methods.base2Subtraction(secondInt, firstInt).ToString();
+                    // check the length of the string
+                    operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                    // place a "-" before the operationAnswerString
+                    operationAnswerString = "-" + operationAnswerString;
                 }
                 else
                 {
                     // call the binaryAddition method & store the answer
                     operationAnswerString = methods.base2Subtraction(firstInt, secondInt).ToString();
+                    // check the ouput string length
+                    operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
                 }
                 //update the error bool value
                 error = false;
@@ -93,6 +101,8 @@ namespace IT_Calculator
             {
                 // call the binaryAddition method & store the answer
                 operationAnswerString = methods.base2Multiplication(firstInt, secondInt).ToString();
+                // check the ouput string length
+                operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
                 //update the error bool value
                 error = false;
             }
@@ -100,6 +110,8 @@ namespace IT_Calculator
             {
                 // call the binaryAddition method & store the answer
                 operationAnswerString = methods.base2Division(firstInt, secondInt).ToString();
+                // check the ouput string length
+                operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
                 //update the error bool value
                 error = false;
             }
