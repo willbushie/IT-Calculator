@@ -59,8 +59,8 @@ namespace IT_Calculator
             // store the input value from the second text box
             int secondInt = int.Parse(binaryArith_RightTextBox.Text);
 
-            // operation int value to later turn to a string
-            int operationAnswerInt = 0;
+            // operation String value to later be evaluated
+            String operationAnswerString = "";
 
             // error checking boolean value
             bool error = true;
@@ -69,28 +69,37 @@ namespace IT_Calculator
             if (operationComboBox.Text == "Addition")
             {
                 // call the binaryAddition method & store the answer
-                operationAnswerInt = methods.base2Addition(firstInt, secondInt);
+                operationAnswerString = methods.base2Addition(firstInt, secondInt).ToString();
                 //update the error bool value
                 error = false;
             }
             else if (operationComboBox.Text == "Subtraction")
             {
-                // call the binaryAddition method & store the answer
-                operationAnswerInt = methods.base2Subtraction(firstInt, secondInt);
+                // check the values of the ints (if firstInt is smaller than secondInt) and act accordingly
+                if (firstInt < secondInt)
+                {
+                    // switch the values in the subtraction and place a "-" before the answer
+                    operationAnswerString = "-" + methods.base2Subtraction(secondInt, firstInt).ToString(); 
+                }
+                else
+                {
+                    // call the binaryAddition method & store the answer
+                    operationAnswerString = methods.base2Subtraction(firstInt, secondInt).ToString();
+                }
                 //update the error bool value
                 error = false;
             }
             else if (operationComboBox.Text == "Multiplication")
             {
                 // call the binaryAddition method & store the answer
-                operationAnswerInt = methods.base2Multiplication(firstInt, secondInt);
+                operationAnswerString = methods.base2Multiplication(firstInt, secondInt).ToString();
                 //update the error bool value
                 error = false;
             }
             else if (operationComboBox.Text == "Division")
             {
                 // call the binaryAddition method & store the answer
-                operationAnswerInt = methods.base2Division(firstInt, secondInt);
+                operationAnswerString = methods.base2Division(firstInt, secondInt).ToString();
                 //update the error bool value
                 error = false;
             }
@@ -99,7 +108,7 @@ namespace IT_Calculator
             if (error == false)
             {
                 // convert final answer from int to string & dispaly to the user in the answer text box
-                binaryArithm_AnswerTextBox.Text = operationAnswerInt.ToString();
+                binaryArithm_AnswerTextBox.Text = operationAnswerString;
             }
             else
             {

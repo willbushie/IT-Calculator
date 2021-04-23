@@ -194,7 +194,28 @@ namespace IT_Calculator
             }
 
             // convert the returnValuestring and return
-            return int.Parse(returnValueString);
+            // check for errors - THIS TRY CATCH STATMENT DOES NOT WORK CORRECTLY, IT STILL ERRORS
+            try
+            {
+                // return the value like normal
+                return int.Parse(returnValueString);
+            }
+            // if this error is tripped, it likely has a "-" at the front
+            // remove it and continue like normal
+            catch (System.FormatException)
+            {
+                // new return value string
+                String newReturnValueString = "";
+                // convert returnValueString to char array and remove item at location 0
+                char[] newReturnValue = returnValueString.ToCharArray();
+                // walk through char array and skip the first location to rebuild the string
+                for (int location = 1; location < newReturnValue.Length; location++)
+                {
+                    newReturnValueString += newReturnValue[location].ToString();
+                }
+                // return the new value
+                return int.Parse(newReturnValueString);
+            }
         }
 
         // This method converts a hexadecimal number into a base 2 number.
