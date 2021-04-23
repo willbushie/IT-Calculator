@@ -395,11 +395,11 @@ namespace IT_Calculator
             // MAY NEED TO UPDATE THIS OPERATION 
 
             // reverse the remainders linked list
-            int octalNum = remainders.contentsToInt(true);
+            String octalNum = remainders.contentsToInt(true);
 
             // NEEDS TO BE FORMATTED FOR AN IP ADDRESS OUPUT
             // return the IP address
-            return octalNum.ToString();
+            return octalNum;
 
         }
 
@@ -457,6 +457,8 @@ namespace IT_Calculator
                         int remainder = decimalSection % 8;
                         // add the remainder as a node to the linked list
                         Node nodeToAdd = new Node(remainder);
+                        // add that node to the linked list remainders
+                        remainders.addNode(nodeToAdd);
                         // update decimalSection value
                         decimalSection /= 2;
                         // check if decimalSection is 0
@@ -467,7 +469,7 @@ namespace IT_Calculator
                         }
                     }
                     // obtain the octal values by reversing the linked list of remainders
-                    String octalValue = remainders.contentsToInt(true);
+                    String octalValue = remainders.contentsToInt(true).ToString();
                     // check where in the return string we are (to add a period or not)
                     if (section != 3)
                     {
@@ -477,7 +479,7 @@ namespace IT_Calculator
                     else
                     {
                         // update returnString with the octalValue
-                        returnString += octalValue ;
+                        returnString += octalValue;
                     }
                 }
 

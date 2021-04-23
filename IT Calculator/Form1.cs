@@ -139,7 +139,7 @@ namespace IT_Calculator
                 {
                     // call binary to doted octet
                     // there is currently no method for this
-                    textBox2.Text = "Unable to complete this method.";
+                    textBox2.Text = methods.base2ToDotOct(baseToConvert);
                 }
                 else if (comboBox1.Text == "Mac Address")
                 {

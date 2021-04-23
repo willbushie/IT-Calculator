@@ -81,7 +81,7 @@ namespace IT_Calculator
         // this method takes a linked list contents and returns the list contents as a single int
         // this is useful when converting between bases - base2ToBase10() for example will use this method\
         // takes a bool "reverse" parameter - if the list needs to be reverse from the 
-        public int contentsToInt(bool reverse)
+        public String contentsToInt(bool reverse)
         {
             // value to return once the process is complete
             String intToReturnString = "";
@@ -119,7 +119,7 @@ namespace IT_Calculator
             }
 
             // convert and return the final value   // THIS IS WHERE THE FORMAT ERROR IS 
-            return int.Parse(intToReturnString);
+            return intToReturnString;
         }
 
         // this method empties a linked list - after it is done being used
