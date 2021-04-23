@@ -61,20 +61,46 @@ namespace IT_Calculator
             // bool values to evaluate if there is or is not a "-" before either value
             bool firstNumNegative = false;
             bool secondNumNegative = false;
+            // creation of the int variables
+            int firstInt, secondInt;
+            
             // evaluate both values
             if (firstNumCharArray[0].ToString() == "-")
             {
                 firstNumNegative = true;
+                // temp string value
+                String tempString = "";
+                // build the a string value and convert to an int to operate on
+                for (int count = 1; count < firstNumCharArray.Length; count++)
+                {
+                    tempString += firstNumCharArray[count];
+                }
+                firstInt = int.Parse(tempString);
+            }
+            else
+            {
+                // store the input value from the first text box
+                firstInt = int.Parse(binaryArith_LeftTextBox.Text);
             }
             if (secondNumCharArray[0].ToString() == "-")
             {
                 secondNumNegative = true;
+                // build the a string value and convert to an int to operate on
+                // temp string value
+                String tempString = "";
+                // build the a string value and convert to an int to operate on
+                for (int count = 1; count < secondNumCharArray.Length; count++)
+                {
+                    tempString += secondNumCharArray[count];
+                }
+                secondInt = int.Parse(tempString);
             }
+            else
+            {
+                // store the input value from the second text box
+                secondInt = int.Parse(binaryArith_RightTextBox.Text);
 
-            // store the input value from the first text box
-            int firstInt = int.Parse(binaryArith_LeftTextBox.Text);
-            // store the input value from the second text box
-            int secondInt = int.Parse(binaryArith_RightTextBox.Text);
+            }
 
             // bool value to keep account for the firstInt being larger than then secondInt (used in the subtraction process)
             bool firstLarger = false;
@@ -82,6 +108,10 @@ namespace IT_Calculator
             if (firstInt > secondInt)
             {
                 firstLarger = true;
+            }
+            else
+            {
+                firstLarger = false;
             }
 
             // operation String value to later be evaluated
@@ -93,33 +123,101 @@ namespace IT_Calculator
             // check which operation is to requested & perform it
             if (operationComboBox.Text == "Addition")
             {
-                // if only the first int is negative
-                if (firstNumNegative == true && secondNumNegative == false)
+                // operations if firstInt is larger than secondInt
+                if (firstLarger == true)
                 {
-                    // call subtract secondInt from firstInt
-                    operationAnswerString = methods.base2Subtraction(secondInt, firstInt);
-                    // check the ouput string length
-                    operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                    // if only the first int is negative
+                    if (firstNumNegative == true && secondNumNegative == false)
+                    {
+                        // call subtract firstInt from secondInt
+                        operationAnswerString = methods.base2Subtraction(firstInt, secondInt);
+                        // check the ouput string length
+                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                        // check if operationAnswerString is "0000"
+                        if (operationAnswerString != "0000")
+                        {
+                            // place a "-" before the operationAnswerString
+                            operationAnswerString = "-" + operationAnswerString;
+                        }
+                    }
+                    // if only the second int is negative
+                    else if (firstNumNegative == false && secondNumNegative == true)
+                    {
+                        // call subtraction firstInt from secondInt
+                        operationAnswerString = methods.base2Subtraction(firstInt, secondInt);
+                        // check the ouput string length
+                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                    }
+                    // if both values are negative
+                    else if (firstNumNegative == true && secondNumNegative == true)
+                    {
+                        // call addition firstInt and secondInt
+                        operationAnswerString = methods.base2Addition(firstInt, secondInt);
+                        // check the ouput string length
+                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                        // check if operationAnswerString is "0000"
+                        if (operationAnswerString != "0000")
+                        {
+                            // place a "-" before the operationAnswerString
+                            operationAnswerString = "-" + operationAnswerString;
+                        }
+                    }
+                    // if both values are positive
+                    else if (firstNumNegative == false && secondNumNegative == false)
+                    {
+                        // call addition firstInt and secondInt
+                        operationAnswerString = methods.base2Addition(firstInt, secondInt);
+                        // check the ouput string length
+                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                    }
                 }
-                // if only the second int is negative
-                else if (firstNumNegative == false && secondNumNegative == true)
+                // operations if firstInt is NOT larger than secondInt
+                else if (firstLarger == false)
                 {
-                    // call subtraction secondInt from firstInt
-                    operationAnswerString = methods.base2Subtraction(secondInt, firstInt);
-                    // check the ouput string length
-                    operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                    // place a "-" before the operationAnswerString
-                    operationAnswerString = "-" + operationAnswerString;
-                }
-                // if both values are negative
-                else if (firstNumNegative == true && secondNumNegative == true)
-                {
-                    // call addition firstInt and secondInt
-                    operationAnswerString = methods.base2Addition(firstInt, secondInt);
-                    // check the ouput string length
-                    operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                    // place a "-" before the operationAnswerString
-                    operationAnswerString = "-" + operationAnswerString;
+                    // if only the first int is negative
+                    if (firstNumNegative == true && secondNumNegative == false)
+                    {
+                        // call subtract secondInt from firstInt
+                        operationAnswerString = methods.base2Subtraction(secondInt, firstInt);
+                        // check the ouput string length
+                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                    }
+                    // if only the second int is negative
+                    else if (firstNumNegative == false && secondNumNegative == true)
+                    {
+                        // call subtraction firstInt from secondInt
+                        operationAnswerString = methods.base2Subtraction(secondInt, firstInt);
+                        // check the ouput string length
+                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                        // check if operationAnswerString is "0000"
+                        if (operationAnswerString != "0000")
+                        {
+                            // place a "-" before the operationAnswerString
+                            operationAnswerString = "-" + operationAnswerString;
+                        }
+                    }
+                    // if both values are negative
+                    else if (firstNumNegative == true && secondNumNegative == true)
+                    {
+                        // call addition firstInt and secondInt
+                        operationAnswerString = methods.base2Addition(firstInt, secondInt);
+                        // check the ouput string length
+                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                        // check if operationAnswerString is "0000"
+                        if (operationAnswerString != "0000")
+                        {
+                            // place a "-" before the operationAnswerString
+                            operationAnswerString = "-" + operationAnswerString;
+                        }
+                    }
+                    // if both values are positive
+                    else if (firstNumNegative == false && secondNumNegative == false)
+                    {
+                        // call addition firstInt and secondInt
+                        operationAnswerString = methods.base2Addition(firstInt, secondInt);
+                        // check the ouput string length
+                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                    }
                 }
                 //update the error bool value
                 error = false;
@@ -129,17 +227,21 @@ namespace IT_Calculator
                 // check if first value is larger than second 
                 if (firstLarger == true)
                 {
-                    // check if first int is negative and second int is positive 
+                    // check if only firstInt is negative 
                     if (firstNumNegative == true && secondNumNegative == false)
                     {
                         // call binary adition
                         operationAnswerString = methods.base2Addition(firstInt, secondInt);
                         // check the length of the string
                         operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                        // place a "-" before the operationAnswerString
-                        operationAnswerString = "-" + operationAnswerString;
+                        // check if operationAnswerString is "0000"
+                        if (operationAnswerString != "0000")
+                        {
+                            // place a "-" before the operationAnswerString
+                            operationAnswerString = "-" + operationAnswerString;
+                        }
                     }
-                    // check if the first int is positive and second int is negative
+                    // check if only secondInt is negative
                     else if (firstNumNegative == false && secondNumNegative == true)
                     {
                         // call binary addition
@@ -150,50 +252,72 @@ namespace IT_Calculator
                     // check if both are negative
                     else if (firstNumNegative == true && secondNumNegative == true)
                     {
-                        // call subtraction secondInt from firstInt, no "-"
-                        operationAnswerString = methods.base2Subtraction(secondInt, firstInt);
+                        // call subtraction firstInt from secondInt
+                        operationAnswerString = methods.base2Subtraction(firstInt, secondInt);
                         // check the length of the string
                         operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                        // check if operationAnswerString is "0000"
+                        if (operationAnswerString != "0000")
+                        {
+                            // place a "-" before the operationAnswerString
+                            operationAnswerString = "-" + operationAnswerString;
+                        }
                     }
                     // check if both are positive
                     else if (firstNumNegative == false && secondNumNegative == false)
                     {
-                        // switch the values in the subtraction and place a "-" before the answer
-                        operationAnswerString = methods.base2Subtraction(secondInt, firstInt);
+                        // call subtraction firstInt from secondInt
+                        operationAnswerString = methods.base2Subtraction(firstInt, secondInt);
                         // check the length of the string
                         operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                        // place a "-" before the operationAnswerString
-                        operationAnswerString = "-" + operationAnswerString;
                     }
                 }
                 // operations to follow if first is not larger than second
-                else
+                else if (firstLarger == false)
                 {
-                    // check if first int is negative and second int is positive or vise versa
-                    if ((firstNumNegative == true && secondNumNegative == false) || (firstNumNegative == false && secondNumNegative == true))
+                    // check if only firsInt is negative 
+                    if (firstNumNegative == true && secondNumNegative == false)
                     {
-                        // call addition, do not add a "-"
+                        // call addition
+                        operationAnswerString = methods.base2Addition(firstInt, secondInt);
+                        // check the length of the string
+                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                        // check if operationAnswerString is "0000"
+                        if (operationAnswerString != "0000")
+                        {
+                            // place a "-" before the operationAnswerString
+                            operationAnswerString = "-" + operationAnswerString;
+                        }
+                    }
+                    // check if only secondInt is negative
+                    else if (firstNumNegative == false && secondNumNegative == true)
+                    {
+                        // call addition firstInt and secondInt
                         operationAnswerString = methods.base2Addition(firstInt, secondInt);
                         // check the length of the string
                         operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
                     }
-                    // check if both are positive
-                    if (firstNumNegative == false && secondNumNegative == false)
+                    // check if both are negative
+                    else if (firstNumNegative == true && secondNumNegative == true)
                     {
-                        // call subtraction normally
-                        operationAnswerString = methods.base2Subtraction(firstInt, secondInt);
+                        // call subtraction secondInt from firstInt
+                        operationAnswerString = methods.base2Subtraction(secondInt, firstInt);
                         // check the length of the string
                         operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
                     }
-                    // check if both are negative
-                    if (firstNumNegative == true && secondNumNegative == true)
+                    // check if both are positive 
+                    else if (firstNumNegative == false && secondNumNegative == false)
                     {
-                        // call subtraction normally, add a "-" once the operation is completed
-                        operationAnswerString = methods.base2Subtraction(firstInt, secondInt);
+                        // call subtraction secondInt from firstInt
+                        operationAnswerString = methods.base2Subtraction(secondInt, firstInt);
                         // check the length of the string
                         operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                        // place a "-" before the operationAnswerString
-                        operationAnswerString = "-" + operationAnswerString;
+                        // check if operationAnswerString is "0000"
+                        if (operationAnswerString != "0000")
+                        {
+                            // place a "-" before the operationAnswerString
+                            operationAnswerString = "-" + operationAnswerString;
+                        }
                     }
                 }
                 //update the error bool value
@@ -208,8 +332,12 @@ namespace IT_Calculator
                     operationAnswerString = methods.base2Multiplication(firstInt, secondInt);
                     // check the ouput string length
                     operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                    // place a "-" before the operationAnswerString
-                    operationAnswerString = "-" + operationAnswerString;
+                    // check if operationAnswerString is "0000"
+                    if (operationAnswerString != "0000")
+                    {
+                        // place a "-" before the operationAnswerString
+                        operationAnswerString = "-" + operationAnswerString;
+                    }
                 }
                 // if both values are either both negative or both positive, no "-" is necessary
                 else if ((firstNumNegative == true && secondNumNegative == true) || (firstNumNegative == false && secondNumNegative == false))
@@ -281,7 +409,7 @@ namespace IT_Calculator
                 {
                     // call decimal to binary
                     // thie method needs more work
-                    //textBox2.Text = (methods.base10ToBase2(int.Parse(baseToConvert))).ToString();
+                    textBox2.Text = methods.base10ToBase2(int.Parse(baseToConvert)).ToString();
                 }
                 else if (comboBox1.Text == "Hexadecimal")
                 {
