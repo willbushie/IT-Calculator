@@ -85,8 +85,7 @@ namespace IT_Calculator
             this.operationComboBox.Items.AddRange(new object[] {
             "Addition",
             "Subtraction",
-            "Multiplication",
-            "Division"});
+            "Multiplication"});
             this.operationComboBox.Location = new System.Drawing.Point(327, 61);
             this.operationComboBox.Name = "operationComboBox";
             this.operationComboBox.Size = new System.Drawing.Size(103, 24);

@@ -89,24 +89,6 @@ namespace IT_Calculator
             return base2ToReturn;
         }
 
-        // This method divides two base 2 numbers together and returns the answer in base 2.
-        // this is the format of the inputs: (num1 / num2)
-        public static int base2Division(int num1, int num2)
-        {
-            // convert both numbers in to decimal
-            int num1Base10 = base2ToBase10(num1);
-            int num2Base10 = base2ToBase10(num2);
-
-            // complete the operation (division)
-            int operationAnswer = num1Base10 / num2Base10;
-
-            // convert the answer back to binary, store into a returnable binary ouput
-            int base2ToReturn = base10ToBase2(operationAnswer);
-
-            // return the answer (in binary)
-            return base2ToReturn;
-        }
-
         // This method converts a base 2 number into a base 10 number.
         // input: base 2 number | returns base 10 number
         public static int base2ToBase10(int numToConvert)
@@ -153,7 +135,6 @@ namespace IT_Calculator
 
         // This method converts a base 10 number into a base 2 number.
         // input: base 10 number | returns: base 2 number
-        // This code will need to be updated in the future using linked lists - TEMP CODE
 
         public static int base10ToBase2(int numToConvert)
         {
@@ -195,7 +176,29 @@ namespace IT_Calculator
 
             // convert the returnValuestring and return
             return int.Parse(returnValueString);
-        }
+            // check for errors - THIS TRY CATCH STATMENT DOES NOT WORK CORRECTLY, IT STILL ERRORS
+/*            try
+            {
+                // return the value like normal
+                return int.Parse(returnValueString);
+            }
+            // if this error is tripped, it likely has a "-" at the front
+            // remove it and continue like normal
+            catch (System.FormatException)
+            {
+                // new return value string
+                String newReturnValueString = "";
+                // convert returnValueString to char array and remove item at location 0
+                char[] newReturnValue = returnValueString.ToCharArray();
+                // walk through char array and skip the first location to rebuild the string
+                for (int location = 1; location < newReturnValue.Length; location++)
+                {
+                    newReturnValueString += newReturnValue[location].ToString();
+                }
+                // return the new value
+                return int.Parse(newReturnValueString);
+            }
+*/        }
 
         // This method converts a hexadecimal number into a base 2 number.
         // input: hexadecimal number (string), macAddress (bool) | returns: base 2 number 
@@ -395,12 +398,11 @@ namespace IT_Calculator
             // MAY NEED TO UPDATE THIS OPERATION 
 
             // reverse the remainders linked list
-            int octalNum = remainders.contentsToInt(true);
+            String octalNum = remainders.contentsToInt(true);
 
             // NEEDS TO BE FORMATTED FOR AN IP ADDRESS OUPUT
             // return the IP address
-            return octalNum.ToString();
-
+            return octalNum;
         }
 
         // This method converts a binary number to a dottet octet (IP Address)
@@ -438,8 +440,54 @@ namespace IT_Calculator
                     binarySectionsArray[sections] = tempStringHolder;
                 }
 
-                // once the string sections have been built, convert them to dotted octet
-                //CURRENT LOCATION TO CONTINUE
+                // return string creation
+                String returnString = "";
+
+                // loop to convert each section into the correct octal value
+                for (int section = 0; section < 4; section++)
+                {
+                    // take the current section and conver into decimal
+                    int decimalSection = base2ToBase10(int.Parse(binarySectionsArray[section]));
+                    // linked list to hold the remainders from the operations
+                    LinkedList remainders = new LinkedList();
+                    // bool to stay in the while loop
+                    bool continueWhile = true;
+                    // convert the decimal number into octal
+                    while (continueWhile == true)
+                    {                        
+                        // divide the decimal number by 8 and keep the remainder
+                        int remainder = decimalSection % 8;
+                        // add the remainder as a node to the linked list
+                        Node nodeToAdd = new Node(remainder);
+                        // add that node to the linked list remainders
+                        remainders.addNode(nodeToAdd);
+                        // update decimalSection value
+                        decimalSection /= 2;
+                        // check if decimalSection is 0
+                        if (decimalSection == 0)
+                        {
+                            // update while loop
+                            continueWhile = false;
+                        }
+                    }
+                    // obtain the octal values by reversing the linked list of remainders
+                    String octalValue = remainders.contentsToInt(true).ToString();
+                    // check where in the return string we are (to add a period or not)
+                    if (section != 3)
+                    {
+                        // update returnString with the octalValue and a decimal point
+                        returnString += octalValue + ".";
+                    }
+                    else
+                    {
+                        // update returnString with the octalValue
+                        returnString += octalValue;
+                    }
+                }
+
+                // return the final completed string
+                return returnString;
+
             }
             else if (numToConvert.Length < 32 || numToConvert.Length > 32)
             {
@@ -764,6 +812,28 @@ namespace IT_Calculator
                 }
             }
             return returnString;
+        }
+
+        // This method takes in a string of binary values, and outputs a string of the correct lenght
+        // check the length of the output string and update it accordingly if needed (from "00" to "0000")
+        public static String binaryStringFormatting(String originalString)
+        {
+            // check the length of the return int to ensure it is a correct length
+            if ((originalString.Length % 4) != 0)
+            {
+                // find the amount of zeros to format correclty
+                int zeros = originalString.Length % 4;
+                // create a string with the correct num of zeros
+                String zeroString = "";
+                for (int count = zeros; count < 4; count++)
+                {
+                    zeroString += "0";
+                }
+                // append the zeros to the front of the string
+                originalString = zeroString + originalString;
+            }
+            // return the corrected string
+            return originalString;
         }
     }
 }

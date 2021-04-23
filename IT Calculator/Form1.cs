@@ -54,13 +54,38 @@ namespace IT_Calculator
         // also takes into account the opeartion through operationComboBox
         private void binaryArithm_ProcessOperationButton_Click(object sender, EventArgs e)
         {
+            // check input values for an "-" before either of them
+            // store both inputs as char[] and evaluate the first location
+            char[] firstNumCharArray = binaryArith_LeftTextBox.Text.ToCharArray();
+            char[] secondNumCharArray = binaryArith_RightTextBox.Text.ToCharArray();
+            // bool values to evaluate if there is or is not a "-" before either value
+            bool firstNumNegative = false;
+            bool secondNumNegative = false;
+            // evaluate both values
+            if (firstNumCharArray[0].ToString() == "-")
+            {
+                firstNumNegative = true;
+            }
+            if (secondNumCharArray[0].ToString() == "-")
+            {
+                secondNumNegative = true;
+            }
+
             // store the input value from the first text box
             int firstInt = int.Parse(binaryArith_LeftTextBox.Text);
             // store the input value from the second text box
             int secondInt = int.Parse(binaryArith_RightTextBox.Text);
 
-            // operation int value to later turn to a string
-            int operationAnswerInt = 0;
+            // bool value to keep account for the firstInt being larger than then secondInt (used in the subtraction process)
+            bool firstLarger = false;
+            // check if the firstInt is larger than secondInt & update firstLarger bool
+            if (firstInt > secondInt)
+            {
+                firstLarger = true;
+            }
+
+            // operation String value to later be evaluated
+            String operationAnswerString = "";
 
             // error checking boolean value
             bool error = true;
@@ -68,38 +93,140 @@ namespace IT_Calculator
             // check which operation is to requested & perform it
             if (operationComboBox.Text == "Addition")
             {
-                // call the binaryAddition method & store the answer
-                operationAnswerInt = methods.base2Addition(firstInt, secondInt);
+                // if only the first int is negative
+                if (firstNumNegative == true && secondNumNegative == false)
+                {
+                    // call subtract secondInt from firstInt
+                    operationAnswerString = methods.base2Subtraction(secondInt, firstInt).ToString();
+                    // check the ouput string length
+                    operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                }
+                // if only the second int is negative
+                else if (firstNumNegative == false && secondNumNegative == true)
+                {
+                    // call subtraction secondInt from firstInt
+                    operationAnswerString = methods.base2Subtraction(secondInt, firstInt).ToString();
+                    // check the ouput string length
+                    operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                    // place a "-" before the operationAnswerString
+                    operationAnswerString = "-" + operationAnswerString;
+                }
+                // if both values are negative
+                else if (firstNumNegative == true && secondNumNegative == true)
+                {
+                    // call addition firstInt and secondInt
+                    operationAnswerString = methods.base2Addition(firstInt, secondInt).ToString();
+                    // check the ouput string length
+                    operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                    // place a "-" before the operationAnswerString
+                    operationAnswerString = "-" + operationAnswerString;
+                }
                 //update the error bool value
                 error = false;
             }
             else if (operationComboBox.Text == "Subtraction")
             {
-                // call the binaryAddition method & store the answer
-                operationAnswerInt = methods.base2Subtraction(firstInt, secondInt);
+                // check if first value is larger than second 
+                if (firstLarger == true)
+                {
+                    // check if first int is negative and second int is positive 
+                    if (firstNumNegative == true && secondNumNegative == false)
+                    {
+                        // call binary adition
+                        operationAnswerString = methods.base2Addition(firstInt, secondInt).ToString();
+                        // check the length of the string
+                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                        // place a "-" before the operationAnswerString
+                        operationAnswerString = "-" + operationAnswerString;
+                    }
+                    // check if the first int is positive and second int is negative
+                    else if (firstNumNegative == false && secondNumNegative == true)
+                    {
+                        // call binary addition
+                        operationAnswerString = methods.base2Addition(firstInt, secondInt).ToString();
+                        // check the length of the string
+                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                    }
+                    // check if both are negative
+                    else if (firstNumNegative == true && secondNumNegative == true)
+                    {
+                        // call subtraction secondInt from firstInt, no "-"
+                        operationAnswerString = methods.base2Subtraction(secondInt, firstInt).ToString();
+                        // check the length of the string
+                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                    }
+                    // check if both are positive
+                    else if (firstNumNegative == false && secondNumNegative == false)
+                    {
+                        // switch the values in the subtraction and place a "-" before the answer
+                        operationAnswerString = methods.base2Subtraction(secondInt, firstInt).ToString();
+                        // check the length of the string
+                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                        // place a "-" before the operationAnswerString
+                        operationAnswerString = "-" + operationAnswerString;
+                    }
+                }
+                // operations to follow if first is not larger than second
+                else
+                {
+                    // check if first int is negative and second int is positive or vise versa
+                    if ((firstNumNegative == true && secondNumNegative == false) || (firstNumNegative == false && secondNumNegative == true))
+                    {
+                        // call addition, do not add a "-"
+                        operationAnswerString = methods.base2Addition(firstInt, secondInt).ToString();
+                        // check the length of the string
+                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                    }
+                    // check if both are positive
+                    if (firstNumNegative == false && secondNumNegative == false)
+                    {
+                        // call subtraction normally
+                        operationAnswerString = methods.base2Subtraction(firstInt, secondInt).ToString();
+                        // check the length of the string
+                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                    }
+                    // check if both are negative
+                    if (firstNumNegative == true && secondNumNegative == true)
+                    {
+                        // call subtraction normally, add a "-" once the operation is completed
+                        operationAnswerString = methods.base2Subtraction(firstInt, secondInt).ToString();
+                        // check the length of the string
+                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                        // place a "-" before the operationAnswerString
+                        operationAnswerString = "-" + operationAnswerString;
+                    }
+                }
                 //update the error bool value
                 error = false;
             }
             else if (operationComboBox.Text == "Multiplication")
             {
-                // call the binaryAddition method & store the answer
-                operationAnswerInt = methods.base2Multiplication(firstInt, secondInt);
+                // check if either value is negative, place a "-" if so
+                if ((firstNumNegative == true && secondNumNegative == false) || (firstNumNegative == false && secondNumNegative == true))
+                {
+                    // call the binaryAddition method & store the answer
+                    operationAnswerString = methods.base2Multiplication(firstInt, secondInt).ToString();
+                    // check the ouput string length
+                    operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                    // place a "-" before the operationAnswerString
+                    operationAnswerString = "-" + operationAnswerString;
+                }
+                // if both values are either both negative or both positive, no "-" is necessary
+                else if ((firstNumNegative == true && secondNumNegative == true) || (firstNumNegative == false && secondNumNegative == false))
+                {
+                    // call the binaryAddition method & store the answer
+                    operationAnswerString = methods.base2Multiplication(firstInt, secondInt).ToString();
+                    // check the ouput string length
+                    operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
+                }
                 //update the error bool value
                 error = false;
             }
-            else if (operationComboBox.Text == "Division")
-            {
-                // call the binaryAddition method & store the answer
-                operationAnswerInt = methods.base2Division(firstInt, secondInt);
-                //update the error bool value
-                error = false;
-            }
-
             // ensure there was no error, else alert the user
             if (error == false)
             {
                 // convert final answer from int to string & dispaly to the user in the answer text box
-                binaryArithm_AnswerTextBox.Text = operationAnswerInt.ToString();
+                binaryArithm_AnswerTextBox.Text = operationAnswerString;
             }
             else
             {
@@ -139,7 +266,7 @@ namespace IT_Calculator
                 {
                     // call binary to doted octet
                     // there is currently no method for this
-                    textBox2.Text = "Unable to complete this method.";
+                    textBox2.Text = methods.base2ToDotOct(baseToConvert);
                 }
                 else if (comboBox1.Text == "Mac Address")
                 {
