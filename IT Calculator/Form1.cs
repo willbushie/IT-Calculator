@@ -515,7 +515,32 @@ namespace IT_Calculator
 
         private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Types of Conversions allowed:" + "\n" + "Base(2, 10, or 16) to Base(2, 10, or 16)" + "\n" + "Decimal IP Address to Binary IP Address" + "\n" + "Hexadecimal Mac Address to Binary & Decimal Mac Address" + "\n" + "\n" + "Common Errors:" + "\n" + "Unable to go from a normal base # to a dotted octet." + "\n" + "Can't go from Dotted Octet to a normal base number.", "Help");
+            
+        }
+
+        // On-Click for the Possible Conversions in the Help Menu
+        private void possibleConversionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Types of Conversions allowed: " + "\n" + "Base(2, 10, or 16) to Base(2, 10, or 16)" + "\n" + "Decimal IP Address to Binary IP Address" + "\n" + "Hexadecimal Mac Address to Binary & Decimal Mac Address", "Possible Conversions");
+        }
+
+        // On-Click for the Common Errors in the Help Menu
+        private void commonErrorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Common Errors:" + "\n" + "Unable to go from a normal base # to a dotted octet." + "\n" + "Can't go from Dotted Octet to a normal base number.", "Common Errors");
+        }
+
+        // On-Click for the About IT-Calculator in the Help Menu
+        private void aboutITCalculatorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("IT-Calculator Application" + "\n" + "Version: Sprint 3" + "\n" + "Team: Team 2", "About IT-Calculator");
+        }
+
+        // On-Click for the User Guide in the Help Menu
+        private void userGuideToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Correct Format to Input Numbers:" + "\nblahblahblah" + "\n\nFormat For Output:" + "\nBlahBlahBlah", "User Guide");
+            // Filled in text for the formatting just providing functionality for now. Will update with proper information later.
         }
     }
 }
