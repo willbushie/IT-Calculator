@@ -381,89 +381,53 @@ namespace IT_Calculator
             // check the input lenght 
             if (numToConvert.Length == 32)
             {
-                // convert numToConvert to a char array for easier interaction 
-                char[] tempCharArray = numToConvert.ToCharArray();
-                
-                // string array to hold the 4 sections of binary
-                String[] binarySectionsArray = new String[4];
-
-                // int variable to keep track of current location within the tempCharArray
-                int charArrayLocation = 0;
-
-                // loop to walk through the tempCharArray to build the 4 string sections for binarySectionsArray
-                for (int sections = 0; sections < 4; sections ++)
-                {
-                    // temp section string holder that will be used to store a single section of 8 
-                    String tempStringHolder = "";
-
-                    // loop to build a single section of 8 characters
-                    for (int single = 0; single < 8; single++)
-                    {
-                        // start at charArrayLocation & add to the tempStringHolder
-                        tempStringHolder += tempCharArray[charArrayLocation].ToString();
-                        // update charArrayLocation value
-                        charArrayLocation++;
-                    }
-                    // add the tempStringHolder value to the current location in the binarySectionsArray
-                    binarySectionsArray[sections] = tempStringHolder;
-                }
-
-                // return string creation
-                String returnString = "";
-
-                // loop to convert each section into the correct octal value
+                // take split the input string into sections of 4 (8 bits each)
+                // create char array to hold the input string for better interaction
+                char[] inputCharArray = numToConvert.ToCharArray();
+                // string array to hold the binary sections of 8
+                String[] binarySections = new string[4];
+                // int value to keep track of the current location inside of inputCharArray
+                int currLocation = 0;
+                // loop to create each binarySection and place it into the array
                 for (int section = 0; section < 4; section++)
                 {
-                    // take the current section and conver into decimal
-                    int decimalSection = int.Parse(base2ToBase10(binarySectionsArray[section]));
-                    // linked list to hold the remainders from the operations
-                    LinkedList remainders = new LinkedList();
-                    // bool to stay in the while loop
-                    bool continueWhile = true;
-                    // convert the decimal number into octal
-                    while (continueWhile == true)
-                    {                        
-                        // divide the decimal number by 8 and keep the remainder
-                        int remainder = decimalSection % 8;
-                        // add the remainder as a node to the linked list
-                        Node nodeToAdd = new Node(remainder);
-                        // add that node to the linked list remainders
-                        remainders.addNode(nodeToAdd);
-                        // update decimalSection value
-                        decimalSection /= 2;
-                        // check if decimalSection is 0
-                        if (decimalSection == 0)
-                        {
-                            // update while loop
-                            continueWhile = false;
-                        }
+                    // temp string value to hold the binary section
+                    String binaryString = "";
+                    // loop to create the 8 bit sequence
+                    for (int count = 0; count < 8; count++)
+                    {
+                        // obtain the value at currLocation & place onto binaryString
+                        binaryString += inputCharArray[currLocation].ToString();
+                        // advance currLocation
+                        currLocation++;
                     }
-                    // obtain the octal values by reversing the linked list of remainders
-                    String octalValue = remainders.contentsToInt(true).ToString();
-                    // check where in the return string we are (to add a period or not)
+                    // place binaryString into binarySections array
+                    binarySections[section] = binaryString;
+                }
+
+                // string value to build the final return string
+                String decimalReturnValue = "";
+                // loop to convert each binarySection into decimal and place it into decimalSections
+                for (int section = 0; section < 4; section++)
+                {
+                    // call base2ToBase10 and place into the current section of decimalSections
+                    decimalReturnValue += base2ToBase10(binarySections[section]);
+                    // check if a separator is necessary
                     if (section != 3)
                     {
-                        // update returnString with the octalValue and a decimal point
-                        returnString += octalValue + ".";
-                    }
-                    else
-                    {
-                        // update returnString with the octalValue
-                        returnString += octalValue;
+                        // place a separator on
+                        decimalReturnValue += ".";
                     }
                 }
 
-                // return the final completed string
-                return returnString;
-
+                // return the final decimal string
+                return decimalReturnValue;
             }
-            else if (numToConvert.Length < 32 || numToConvert.Length > 32)
+            else 
             {
                 // return an error to the user
-                return "error";
+                return "input error, incorrect length";
             }
-            // return the final string
-            return "final string return";
         }
 
         // This method takes in an IP address and converts it to a hexadecimal value
