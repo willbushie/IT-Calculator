@@ -545,6 +545,76 @@ namespace IT_Calculator
             return returnDecimalValue;
         }
 
+        // This method converts a hexadecimal number (correct format) to an IP Address
+        // input: (correct length) hexadecimal (string) | ouput: ip address (string)
+        // THIS METHOD DOES NOT CURRENLTY CHECK FOR INPUT LENGTH
+        public static String hexToDotOctet(string numToConvert)
+        {
+            // char array to split the input string for easier interaction
+            char[] inputCharArray = numToConvert.ToCharArray();
+            // string array to hold the hex sections
+            String[] hexStringArray = new String[4];
+            // int value to keep track of which location is currently being evaluated
+            int currLocation = 0;
+            // loop to build the hexStringArray sections correclty
+            for (int section = 0; section < 4; section++)
+            {
+                // temp string value to hold the current hex section
+                String tempHexHolder = "";
+                // get two values and place into the correct string section
+                for (int value = 1; value < 3; value++)
+                {
+                    // get the value and place it into tempHexHolder
+                    tempHexHolder += inputCharArray[currLocation];
+                    // advance currLocation
+                    currLocation++;
+                }
+                // input tempHexHolder into hexStringArray
+                hexStringArray[section] = tempHexHolder;
+            }
+
+            // binary string array to hold the converted strings (hex to binary)
+            String[] binaryStringArray = new String[4];
+            // loop to convert the hex sections into binary and store into binaryStringArray
+            for (int section = 0; section < 4; section++)
+            {
+                // call hexToBase2 method & store into a temp string value
+                String binaryString = hexToBase2(hexStringArray[section], false);
+                // place binaryString into the binary array 
+                binaryStringArray[section] = binaryString;
+            }
+
+            // decimal string array to hold the converted strings (binary to decimal)
+            String[] decimalStringArray = new string[4]; 
+            // loop to convert the binary sections into decimal and store into decimalStringArray
+            for (int section = 0; section < 4; section++)
+            {
+                // call base2ToBase10 method & store into temp string value
+                String decimalString = base2ToBase10(binaryStringArray[section]);
+                // place decimalString into the decimal array
+                decimalStringArray[section] = decimalString;
+            }
+
+            // string value to hold the final product
+            String ipReturnValue = "";
+            // loop to build the final return string
+            for (int count = 0; count < 4; count++)
+            {
+                // place the current section of decimalStringArray onto ipReturnValue
+                ipReturnValue += decimalStringArray[count];
+                // check if a separator is needed
+                if (count != 3)
+                {
+                    // place a separator onto the string
+                    ipReturnValue += ".";
+                }
+            }
+
+            // return the properly formatted and built string
+            return ipReturnValue;
+        }
+
+
         // This method converts a dotted octet number into a base 10 number.
         // input: dotted octet number (IP Address) | returns: base 2 number
         public static String dotOctetToBase2(string numToConvert)

@@ -439,18 +439,18 @@ namespace IT_Calculator
                 else if (comboBox1.Text == "Decimal")
                 {
                     // call hex to decimal
-                    textBox2.Text = (methods.hexToBase10(baseToConvert)).ToString();
+                    textBox2.Text = methods.hexToBase10(baseToConvert);
                 }
                 else if (comboBox1.Text == "IP Address")
                 {
                     // call hex to doted octet
                     // there is currently no method for this
-                    textBox2.Text = "Unable to complete this method.";
+                    textBox2.Text = methods.hexToDotOctet(baseToConvert);
                 }
                 else if (comboBox1.Text == "Mac Address")
                 {
                     // call hex to hex (modified)
-                    textBox2.Text = methods.hexToHexMod(baseToConvert).ToString();
+                    textBox2.Text = methods.hexToHexMod(baseToConvert);
                 }
             }
             // input ip checks
