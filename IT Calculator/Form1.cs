@@ -464,8 +464,7 @@ namespace IT_Calculator
                 else if (comboBox1.Text == "Decimal")
                 {
                     // call IP Address to decimal
-                    // there is currently no method for this
-                    textBox2.Text = "Unable to complete this method.";
+                    textBox2.Text = methods.dotOctetToBase10(baseToConvert);
                 }
                 else if (comboBox1.Text == "Hexadecimal")
                 {

@@ -511,6 +511,39 @@ namespace IT_Calculator
             return hexReturnValue;
         }
 
+        // This method converts an IP address into decimal number
+        // input: correclty formatted IP address (string) | output: decimal number (string)
+        public static String dotOctetToBase10(string numToConvert)
+        {
+            // seperator value to be used to split the string
+            char[] seperators = { '.' };
+            // separate the input IP address into four section on the "."
+            String[] sections = numToConvert.Split(seperators);
+
+            // conver sections into a single binary
+            // string value to hold the entire binary string
+            String binaryString = "";
+            // loop to convert all decimal sections into a single binary string
+            for (int count = 0; count < 4; count++)
+            {                
+                // convert current decimal section to binary
+                String binarySection = base10ToBase2(int.Parse(sections[count]));
+                // check length of binarySection to ensure it is an 8 bit sequence
+                if (binarySection.Length != 8)
+                {
+                    // place "0000" before the binarySection
+                    binaryString += "0000";
+                }
+                // add the binarySection to the binaryString
+                binaryString += binarySection;
+            }
+
+            // return string - call base2ToBase10 and store into return value
+            String returnDecimalValue = base2ToBase10(binaryString);
+
+            // return the decimal value
+            return returnDecimalValue;
+        }
 
         // This method converts a dotted octet number into a base 10 number.
         // input: dotted octet number (IP Address) | returns: base 2 number
