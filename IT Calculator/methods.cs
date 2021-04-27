@@ -466,6 +466,50 @@ namespace IT_Calculator
             return "final string return";
         }
 
+        // This method takes in an IP address and converts it to a hexadecimal value
+        // input: correclty formatted IP address (string) | output: formatted hex value (string)
+        public static String dotOctetToHex(String numToConvert)
+        {
+            // seperator value to be used to split the string
+            char[] seperators = { '.' };
+            // separate the input IP address into four section on the "."
+            String[] sections = numToConvert.Split(seperators);
+
+            // string array to hold the binary sections
+            String[] binarySections = new string[4];
+            // loop to convert each section into a binary string
+            for (int count = 0; count < 4; count++)
+            {
+                // call base10ToBase2 method and store into binarySections
+                binarySections[count] = base10ToBase2(int.Parse(sections[count]));
+            }
+
+            // string array to hold the returned hex values (done for helping with proper format later)
+            String[] hexSections = new String[4];
+            // loop to obtain the hex sections
+            for (int count = 0; count < 4; count++)
+            {
+                // call base2ToHex method and build onto hexReturnValue
+                hexSections[count] = base2ToHex(binarySections[count], false);
+            }
+
+            // string value to build the hex values onto and to return
+            String hexReturnValue = "";
+            // loop to check the final formatting and build hexReturnString
+            for (int count = 0; count < 4; count++)
+            {
+                // check the section for length 2, if not place a 0 before placing on hexReturnString
+                if (hexSections[count].Length != 2)
+                {
+                    // place a 0 before placement of current section
+                    hexReturnValue += "0";
+                }
+                hexReturnValue += hexSections[count];
+            }
+
+            // return the final built string
+            return hexReturnValue;
+        }
 
 
         // This method converts a dotted octet number into a base 10 number.
@@ -696,7 +740,7 @@ namespace IT_Calculator
             // string array to hold the 4 digit binary sections
             String[] binarySectionStrings = new string[sections];
 
-            // convert the inputstring to a char array for easier interaction in the conversion loops
+            // convert the input string to a char array for easier interaction in the conversion loops
             char[] tempCharArray = inputString.ToCharArray();
 
             // variable to keep track of the location in the starting location of the inner loop
@@ -726,7 +770,7 @@ namespace IT_Calculator
             for (int count = 0; count < binarySectionStrings.Length; count++)
             {
                 // loop to find the corresponing hex value based on the current binary section
-                for (int innerCount = 0; innerCount < 15; innerCount++)
+                for (int innerCount = 0; innerCount < 16; innerCount++)
                 {
                     // check the current binary section against the binaryValues array
                     if (binarySectionStrings[count] == binaryValues[innerCount])

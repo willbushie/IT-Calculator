@@ -470,8 +470,7 @@ namespace IT_Calculator
                 else if (comboBox1.Text == "Hexadecimal")
                 {
                     // call IP Address to doted octet
-                    // there is currently no method for this
-                    textBox2.Text = "Unable to complete this method.";
+                    textBox2.Text = methods.dotOctetToHex(baseToConvert);
                 }
                 else if (comboBox1.Text == "Mac Address")
                 {
