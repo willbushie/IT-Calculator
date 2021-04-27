@@ -40,8 +40,8 @@ namespace IT_Calculator
         public static String base2Addition(int num1, int num2)
         {
             // convert both numbers in to decimal
-            int num1Base10 = base2ToBase10(num1);
-            int num2Base10 = base2ToBase10(num2);
+            int num1Base10 = int.Parse(base2ToBase10(num1.ToString()));
+            int num2Base10 = int.Parse(base2ToBase10(num2.ToString()));
 
             // complete the operation (addition)
             int operationAnswer = num1Base10 + num2Base10;
@@ -58,8 +58,8 @@ namespace IT_Calculator
         public static String base2Subtraction(int num1, int num2)
         {
             // convert both numbers in to decimal
-            int num1Base10 = base2ToBase10(num1);
-            int num2Base10 = base2ToBase10(num2);
+            int num1Base10 = int.Parse(base2ToBase10(num1.ToString()));
+            int num2Base10 = int.Parse(base2ToBase10(num2.ToString()));
 
             // complete the operation (subtraction)
             int operationAnswer = num1Base10 - num2Base10;
@@ -76,8 +76,8 @@ namespace IT_Calculator
         public static String base2Multiplication(int num1, int num2)
         {
             // convert both numbers in to decimal
-            int num1Base10 = base2ToBase10(num1);
-            int num2Base10 = base2ToBase10(num2);
+            int num1Base10 = int.Parse(base2ToBase10(num1.ToString()));
+            int num2Base10 = int.Parse(base2ToBase10(num2.ToString()));
 
             // complete the operation (multiplication)
             int operationAnswer = num1Base10 * num2Base10;
@@ -91,46 +91,29 @@ namespace IT_Calculator
 
         // This method converts a base 2 number into a base 10 number.
         // input: base 2 number | returns base 10 number
-        public static int base2ToBase10(int numToConvert)
+        public static String base2ToBase10(String numToConvert)
         {
-            // store the input as a string
-            String numToConvertString = numToConvert.ToString();
-            // numToConvertString to char[] for easier access in the conversion loop
-            char[] base2CharArray = numToConvertString.ToCharArray();
-
-            // int value to be returned after the conversion
-            int returnInt = 0;
-            // int value to display which place (base2) we are at in the loop
-            int placeLocation = 1;
-            // reverse loop to create the base 10 number
-            for (int count = base2CharArray.Length-1; count >= 0; count--)
+            // get the length of binary input string & store into int powerValue
+            Double powerValue = numToConvert.Length - 1;
+            // char array to allow easier interaction with the input string
+            char[] binaryCharArray = numToConvert.ToCharArray();
+            // int variable to hold the decimalValue
+            Double decimalReturnValue = 0;
+            // loop to convert the string input (inputCharArray) to decimal
+            for (int location = 0; location < numToConvert.Length; location++)
             {
-                String currentString = base2CharArray[count].ToString();
-                // check which place in the binary string we are at
-                // check if at the ones place
-                if (placeLocation == 1)
+                // check value at location for a "1" or "0"
+                if (binaryCharArray[location].ToString() == "1")
                 {
-                    // check if there is a number to add
-                    if (currentString == "1")
-                    {
-                        // add the number to the returnInt (in this case, we are in the ones place, so add a 1)
-                        returnInt = returnInt + 1;
-                    }
+                    // add the correct value to the decimal return
+                    decimalReturnValue += Math.Pow(2, powerValue);
                 }
-                else
-                {
-                    // check if there is a number to add
-                    if (currentString == "1")
-                    {
-                        // add the number to the returnInt (add the curent placement value)
-                        returnInt = returnInt + placeLocation;
-                    }
-                }
-                // update placeLocation value (multiply by 2 to get the correct base 2 placement)
-                placeLocation = placeLocation * 2;
+                // lower power value
+                powerValue -= 1;
             }
-            // return the base2 result
-            return returnInt;
+
+            // return int value as a string
+            return decimalReturnValue.ToString();
         }
 
         // This method converts a base 10 number into a base 2 number.
@@ -432,7 +415,7 @@ namespace IT_Calculator
                 for (int section = 0; section < 4; section++)
                 {
                     // take the current section and conver into decimal
-                    int decimalSection = base2ToBase10(int.Parse(binarySectionsArray[section]));
+                    int decimalSection = int.Parse(base2ToBase10(binarySectionsArray[section]));
                     // linked list to hold the remainders from the operations
                     LinkedList remainders = new LinkedList();
                     // bool to stay in the while loop

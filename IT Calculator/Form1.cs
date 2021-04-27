@@ -383,7 +383,7 @@ namespace IT_Calculator
                 {
                     //MessageBox.Show("here");
                     // call binary to decimal
-                    textBox2.Text = (methods.base2ToBase10(int.Parse(baseToConvert))).ToString();
+                    textBox2.Text = methods.base2ToBase10(baseToConvert);
                 }
                 else if (comboBox1.Text == "Hexadecimal")
                 {
