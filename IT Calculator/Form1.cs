@@ -491,7 +491,7 @@ namespace IT_Calculator
                 else if (comboBox1.Text == "Decimal")
                 {
                     // call Mac Address (modified hex) to decimal
-                    //textBox2.Text = methods.
+                    textBox2.Text = methods.hexModToBase10(baseToConvert);
                 }
                 else if (comboBox1.Text == "Hexadecimal")
                 {

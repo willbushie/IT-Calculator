@@ -242,6 +242,38 @@ namespace IT_Calculator
             return returnString;
         }
 
+        // This method converts a mac address into a base 10 number
+        // input: correclty formatted mac address (string) | output: base 10 number (string)
+        public static String hexModToBase10(string numToConvert)
+        {
+            // seperator value to be used to split the string
+            char[] seperators = { ':' };
+            // separate the input IP address into four section on the "."
+            String[] hexSections = numToConvert.Split(seperators);
+
+            // string string build the binary string that will be used to convert to decimal
+            String binaryString = "";
+            // convert each hex section to an 8 bit section of binary
+            for (int section = 0; section < 6; section++)
+            {
+                // convert current section from hex to binary
+                String binaryHoldString = hexToBase2(hexSections[section], false);
+                // ensure binaryString is 8 bits long
+                if (binaryHoldString.Length != 8)
+                {
+                    // add a sequence of 0's to the front of the string
+                    binaryHoldString = "0000" + binaryHoldString;
+                }
+                // add the new section to the binarySections array
+                binaryString += binaryHoldString;
+            }
+
+            // convert the binary string to decimal (call base2ToBase10 method) and return
+            String decimalReturnString = base2ToBase10(binaryString);
+            return decimalReturnString; 
+        }
+
+
         // This method converts a hexadecimal number into a base 10 number.
         // input: hexadecimal number (string) | returns: base 10 number
         public static String hexToBase10(string numToConvert)
