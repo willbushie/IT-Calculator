@@ -278,33 +278,12 @@ namespace IT_Calculator
         // input: hexadecimal number (string) | returns: base 10 number
         public static String hexToBase10(string numToConvert)
         {
-            // String array for the hex values
-            String[] hexValues = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f" };
-            // string array for the binary values 
-            String[] decimalvalues = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" };
-
-            // convert numToConvert into a char array for easier interaciton in the conversion loops
-            char[] hexCharArray = numToConvert.ToCharArray();
-
-            // int build return of decimal values
-            int returnInt = 0;
-            
-            // loop through the numToConvertString
-            for (int count = 0; count < numToConvert.Length; count++)
-            {
-                // find the corresponding decimal value and build returnString
-                for (int innerCount = 0; innerCount < 16; innerCount++)
-                {
-                    // check the current value being evaluated against the hex values array
-                    if (hexCharArray[count].ToString() == hexValues[innerCount])
-                    {
-                        // update the returnString with the corresponding value from decimal values array
-                        returnInt += int.Parse(decimalvalues[innerCount]);
-                    }
-                }
-            }
-            // return the final decimal string
-            return returnInt.ToString();
+            // convert hex input to binary string (call hexToBase2)
+            String binaryString = hexToBase2(numToConvert, false);
+            // convert binary string to decimal string (call base2ToBase10)
+            String decimalReturnString = base2ToBase10(binaryString);
+            // return decimal string
+            return decimalReturnString;
         }
 
         // This method converts a decimal number (base10) to a hexadecimal number OR a formatted mac address
