@@ -425,7 +425,9 @@ namespace IT_Calculator
                 else if (comboBox1.Text == "Mac Address")
                 {
                     // call decimal to hex (modified)
-                    textBox2.Text = methods.base10ToHex(baseToConvert, true);
+                    // this method causes issues regarding the input - usually never correct
+                    //textBox2.Text = methods.base10ToHex(baseToConvert, true);
+                    textBox2.Text = "Operation Not Supported";
                 }
             }
             // input hex checks
@@ -475,7 +477,7 @@ namespace IT_Calculator
                 {
                     // call IP Address to hex (modified)
                     // there is currently no method for this
-                    textBox2.Text = "Unable to complete this method.";
+                    textBox2.Text = "Operation Not Supported";
                 }
             }
             // input mac address checks
@@ -489,20 +491,18 @@ namespace IT_Calculator
                 else if (comboBox1.Text == "Decimal")
                 {
                     // call Mac Address (modified hex) to decimal
-                    // there is currently no method for this
-                    textBox2.Text = "Unable to complete this method.";
+                    //textBox2.Text = methods.
                 }
                 else if (comboBox1.Text == "Hexadecimal")
                 {
                     // call Mac Address (modified hex) to doted octet
-                    // there is currently no method for this
-                    textBox2.Text = "Unable to complete this method.";
+                    //textBox2.Text = methods.
                 }
                 else if (comboBox1.Text == "IP Address")
                 {
                     // call Mac Address (modified hex) to hex (modified)
                     // there is currently no method for this
-                    textBox2.Text = "Unable to complete this method.";
+                    textBox2.Text = "Operation Not Supported";
                 }
             }
             else
