@@ -376,33 +376,36 @@ namespace IT_Calculator
         }
 
         // this method convers a base 10 number into a correclty formatted ip address
-        // this methods DOES NOT check for correct input length
-        // this method more or less converts a decimal number to an octal number
         // input: base10 number (string) | output: ip address (string)
         public static String base10ToDotOct(String numToConvert)
         {
-            // creation of the linked list that will be used to store the remainders of the conversion operations
-            LinkedList remainders = new LinkedList();
-
-            // int variable to keep track of the conversion operations being completed
-            int numToOperate = int.Parse(numToConvert);
-
-            // conversion loop of the original string
-            while (numToOperate > 0)
+            // string value to hold the binary string
+            String binaryString = base10ToBase2(int.Parse(numToConvert));
+            // check that the binaryString has the correct length
+            if (binaryString.Length < 32)
             {
-                // divide by 8, store the remainder into the linked list
-                Node remainder = new Node(numToOperate % 8);
-                // update the numToOperate
-                numToOperate /= 8;
+                // find how many zeros are needed to put onto the front of the binaryString
+                int zeros = binaryString.Length;
+                // the zero string that will hold the zeros to be placed on the front of binaryString
+                String zeroString = "";
+                // loop to create a string of zeros
+                for (int zeroCount = zeros; zeroCount < 32; zeroCount++)
+                {
+                    // add a zero to the zeroString
+                    zeroString += "0";
+                }
+                // place the zeros on the front of the binaryString
+                binaryString = zeroString + binaryString;
             }
-            // MAY NEED TO UPDATE THIS OPERATION 
+            else if (binaryString.Length > 32)
+            {
+                // return an error
+                return "Input Error";
+            }
 
-            // reverse the remainders linked list
-            String octalNum = remainders.contentsToInt(true);
-
-            // NEEDS TO BE FORMATTED FOR AN IP ADDRESS OUPUT
-            // return the IP address
-            return octalNum;
+            // conver binary string to ip address & return
+            String ipAddressString = base2ToDotOct(binaryString);
+            return ipAddressString;
         }
 
         // This method converts a binary number to a dottet octet (IP Address)
