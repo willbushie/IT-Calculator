@@ -36,12 +36,67 @@ using System;
 
 namespace IT_Calculator
 {
-    internal class errors
+    internal class error
     {
-        // this is an example method format
-        public static void example()
-        {
 
+        // internal error class variables to allow returning of multiple values
+        public String errorString;
+        public bool error;
+
+
+        // instance method for error class
+        public error(String errorString, bool error)
+        {
+            this.errorString = errorString;
+            this.error = error;
+        }
+
+        /* 
+         * This method checks if the passed input string is of correct length
+         * Inputs:
+         *  String "stringToCheck" - the passed string to check the length
+         *  int "correctLength" - the length being checked for
+         *  bool "lengthEqual" - if the length has to be that exact number
+         *  bool "lengthLessEqual" - if the length has to be that exact number or less
+         * lengthEqual & lengthLessEqual cannot both be true or both be false. They need to be the inverse of eachother
+         */
+        public static error checkLengthString(String stringToCheck, int correctLength, bool lengthEqual, bool lengthLessEqual)
+        {
+            // check the parameter boolean values
+            if (lengthEqual == true)
+            {
+                // check that the length is the exact length, else return an error
+                if (stringToCheck.Length == correctLength)
+                {
+                    // create an error and return 
+                    error errorToReturn = new error("", false);
+                    return errorToReturn;
+                }
+                else
+                {
+                    // create an error and return 
+                    String errorString = "Input is incorrect length. Needs to be exactly %s. Input was of length %s."(correctLength, stringToCheck.Length);
+                    error errorToReturn = new error(, true);
+                    return errorToReturn;
+                }
+            }
+            else if (lengthLessEqual == true)
+            {
+                // check that the length is the exact length or less, else return an error
+                if (stringToCheck.Length <= correctLength)
+                {
+                    // create an error and return 
+                    error errorToReturn = new error("", false);
+                    return errorToReturn;
+                }
+                else
+                {
+                    // create an error and return 
+                    String errorString = "Input is incorrect length. Needs to be %s or less. Input was of length %s."(correctLength, stringToCheck.Length);
+                    error errorToReturn = new error(, true);
+                    return errorToReturn;
+                }
+            }
         }
         
     }
