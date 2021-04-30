@@ -61,6 +61,7 @@ namespace IT_Calculator
             this.aboutITCalculatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logArithmeticOperationsCheckBox = new System.Windows.Forms.CheckBox();
             this.logConversionOperationsCheckBox = new System.Windows.Forms.CheckBox();
+            this.fileWriteTestButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -178,7 +179,7 @@ namespace IT_Calculator
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.pictureBox1.Location = new System.Drawing.Point(-4, 224);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(808, 3);
             this.pictureBox1.TabIndex = 12;
@@ -280,7 +281,7 @@ namespace IT_Calculator
             "IP Address",
             "Mac Address"});
             this.comboBox2.Location = new System.Drawing.Point(125, 293);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(159, 24);
             this.comboBox2.TabIndex = 21;
@@ -372,11 +373,22 @@ namespace IT_Calculator
             this.logConversionOperationsCheckBox.Text = "Store Conversion Operations";
             this.logConversionOperationsCheckBox.UseVisualStyleBackColor = true;
             // 
+            // fileWriteTestButton
+            // 
+            this.fileWriteTestButton.Location = new System.Drawing.Point(21, 104);
+            this.fileWriteTestButton.Name = "fileWriteTestButton";
+            this.fileWriteTestButton.Size = new System.Drawing.Size(113, 23);
+            this.fileWriteTestButton.TabIndex = 26;
+            this.fileWriteTestButton.Text = "file write test button";
+            this.fileWriteTestButton.UseVisualStyleBackColor = true;
+            this.fileWriteTestButton.Click += new System.EventHandler(this.fileWriteTestButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(773, 562);
+            this.Controls.Add(this.fileWriteTestButton);
             this.Controls.Add(this.logConversionOperationsCheckBox);
             this.Controls.Add(this.logArithmeticOperationsCheckBox);
             this.Controls.Add(this.menuStrip1);
@@ -446,6 +458,7 @@ namespace IT_Calculator
         private System.Windows.Forms.ToolStripMenuItem userGuideToolStripMenuItem;
         private System.Windows.Forms.CheckBox logArithmeticOperationsCheckBox;
         private System.Windows.Forms.CheckBox logConversionOperationsCheckBox;
+        private System.Windows.Forms.Button fileWriteTestButton;
     }
 }
 

@@ -41,14 +41,14 @@ namespace IT_Calculator
 
         // internal error class variables to allow returning of multiple values
         public String errorString;
-        public bool error;
+        public bool isError;
 
 
         // instance method for error class
         public error(String errorString, bool error)
         {
             this.errorString = errorString;
-            this.error = error;
+            this.isError = error;
         }
 
         /* 
@@ -75,12 +75,12 @@ namespace IT_Calculator
                 else
                 {
                     // create an error and return 
-                    String errorString = "Input is incorrect length. Needs to be exactly %s. Input was of length %s."(correctLength, stringToCheck.Length);
-                    error errorToReturn = new error(, true);
+                    String errorString = ($"Input is incorrect length. Needs to be exactly {correctLength}. Input was of length {stringToCheck.Length}.");
+                    error errorToReturn = new error(errorString, true);
                     return errorToReturn;
                 }
             }
-            else if (lengthLessEqual == true)
+            else
             {
                 // check that the length is the exact length or less, else return an error
                 if (stringToCheck.Length <= correctLength)
@@ -92,12 +92,54 @@ namespace IT_Calculator
                 else
                 {
                     // create an error and return 
-                    String errorString = "Input is incorrect length. Needs to be %s or less. Input was of length %s."(correctLength, stringToCheck.Length);
-                    error errorToReturn = new error(, true);
+                    String errorString = ($"Input is incorrect length. Needs to be exactly {correctLength}. Input was of length {stringToCheck.Length}.");
+                    error errorToReturn = new error(errorString, true);
                     return errorToReturn;
                 }
             }
         }
-        
+
+
+        /*
+         * This method is used to check if an input only consists of 1's or 0's (or a "-" on the front).
+         * This method is used in the binary arithmetic portion of the applicataion. This is done
+         * to ensure that the input only includes binary numbers, no other outside numbers.
+         * If there is an input error, there will be a message box displayed. 
+         */
+        public static bool checkBinaryInput(string input)
+        {
+            // char[] to hold the input string for easier interaciton 
+            char[] inputCheck = input.ToCharArray();
+
+            // loop to check each char of the input string
+            for (int location = 0; location < inputCheck.Length-1; location++)
+            {
+                // special conditionals if at the first location
+                if (location == 0)
+                {
+                    // check if the current item is allowed
+                    if (inputCheck[location].ToString() != "1" || inputCheck[location].ToString() != "0" || inputCheck[location].ToString() != "-")
+                    {
+                        // message box showing the entire input that was incorrect, and the character found
+                        System.Windows.Forms.MessageBox.Show($"The input \"{input}\" is incorrect." + "\n" + $"The character \"{inputCheck[location]}\" was found.", "Error");
+                        // return true to cancel the operation
+                        return true;
+                    }
+                }
+                else
+                {
+                    // check if the current item is allowed
+                    if (inputCheck[location].ToString() != "1" || inputCheck[location].ToString() != "0")
+                    {
+                        // message box showing the entire input that was incorrect, and the character found
+                        System.Windows.Forms.MessageBox.Show($"The input \"{input}\" is incorrect." + "\n" + $"The character \"{inputCheck[location]}\" was found.", "Error");
+                        // return true to cancel the operation
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
     }
 }
