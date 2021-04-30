@@ -59,8 +59,6 @@ namespace IT_Calculator
             this.possibleConversionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.commonErrorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutITCalculatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.logArithmeticOperationsCheckBox = new System.Windows.Forms.CheckBox();
-            this.logConversionOperationsCheckBox = new System.Windows.Forms.CheckBox();
             this.fileWriteTestButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -309,7 +307,7 @@ namespace IT_Calculator
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStrip1.Size = new System.Drawing.Size(773, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(768, 24);
             this.menuStrip1.TabIndex = 23;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -353,26 +351,6 @@ namespace IT_Calculator
             this.aboutITCalculatorToolStripMenuItem.Text = "About IT-Calculator";
             this.aboutITCalculatorToolStripMenuItem.Click += new System.EventHandler(this.aboutITCalculatorToolStripMenuItem_Click);
             // 
-            // logArithmeticOperationsCheckBox
-            // 
-            this.logArithmeticOperationsCheckBox.AutoSize = true;
-            this.logArithmeticOperationsCheckBox.Location = new System.Drawing.Point(307, 183);
-            this.logArithmeticOperationsCheckBox.Name = "logArithmeticOperationsCheckBox";
-            this.logArithmeticOperationsCheckBox.Size = new System.Drawing.Size(154, 17);
-            this.logArithmeticOperationsCheckBox.TabIndex = 24;
-            this.logArithmeticOperationsCheckBox.Text = "Store Arithmetic Operations";
-            this.logArithmeticOperationsCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // logConversionOperationsCheckBox
-            // 
-            this.logConversionOperationsCheckBox.AutoSize = true;
-            this.logConversionOperationsCheckBox.Location = new System.Drawing.Point(307, 508);
-            this.logConversionOperationsCheckBox.Name = "logConversionOperationsCheckBox";
-            this.logConversionOperationsCheckBox.Size = new System.Drawing.Size(161, 17);
-            this.logConversionOperationsCheckBox.TabIndex = 25;
-            this.logConversionOperationsCheckBox.Text = "Store Conversion Operations";
-            this.logConversionOperationsCheckBox.UseVisualStyleBackColor = true;
-            // 
             // fileWriteTestButton
             // 
             this.fileWriteTestButton.Location = new System.Drawing.Point(21, 104);
@@ -387,10 +365,8 @@ namespace IT_Calculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(773, 562);
+            this.ClientSize = new System.Drawing.Size(768, 537);
             this.Controls.Add(this.fileWriteTestButton);
-            this.Controls.Add(this.logConversionOperationsCheckBox);
-            this.Controls.Add(this.logArithmeticOperationsCheckBox);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.label4);
@@ -456,8 +432,6 @@ namespace IT_Calculator
         private System.Windows.Forms.ToolStripMenuItem commonErrorsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutITCalculatorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem userGuideToolStripMenuItem;
-        private System.Windows.Forms.CheckBox logArithmeticOperationsCheckBox;
-        private System.Windows.Forms.CheckBox logConversionOperationsCheckBox;
         private System.Windows.Forms.Button fileWriteTestButton;
     }
 }
