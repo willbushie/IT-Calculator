@@ -47,7 +47,6 @@ namespace IT_Calculator
          * This section of code contains all of the button events & logic.
          * 
          */
-        errors.check
         // button press event to operate on the binary given in binaryArith_LeftTextBox & binaryArith_RightTextBox
         // and output an answer to binaryArithm_AnswerTextBox
         // also takes into account the opeartion through operationComboBox
@@ -543,7 +542,8 @@ namespace IT_Calculator
         // testing button operation for file testing and things (temporary)
         private void fileWriteTestButton_Click(object sender, EventArgs e)
         {
-            file.writeToLogFile();
+            file.writeToLogFileArithmetic();
+            // file.writeToLogFileConversion();
         }
     }
 }
