@@ -231,7 +231,7 @@ namespace IT_Calculator
             using (System.IO.StreamReader stream = System.IO.File.OpenText(fileLocation))
             {
                 // temp string value to hold the line contents
-                string line = "";
+                string line;
                 while ((line = stream.ReadLine()) != null)
                 {
                     // char[] to allow for easier interaction on the line input
@@ -259,6 +259,8 @@ namespace IT_Calculator
                         {
                             // add to num1
                             num1 += lineChars[currLocation].ToString();
+                            // advance currLocation
+                            currLocation++;
                         }
                         // advance currLocation
                         currLocation++;
@@ -268,6 +270,8 @@ namespace IT_Calculator
                         {
                             // add to binOperation
                             binOperation += lineChars[currLocation].ToString();
+                            // advance currLocation
+                            currLocation++;
                         }
                         // advance currLocation
                         currLocation++;
@@ -277,6 +281,8 @@ namespace IT_Calculator
                         {
                             // add to num2
                             num2 += lineChars[currLocation].ToString();
+                            // advance currLocation
+                            currLocation++;
                         }
 
                         // create binaryOperation object to operate on and recieve an output
@@ -303,43 +309,63 @@ namespace IT_Calculator
                         // int value to keep track of where in the char array currently are
                         int currLocation = 5;
 
-                        // build num1
+                        // build inputBase
                         while (lineChars[currLocation].ToString() != " ")
                         {
-                            // add to num1
+                            // add to inputBase
                             inputBase += lineChars[currLocation].ToString();
+                            // advance currLocation
+                            currLocation++;
+                        }
+                        // advance currLocation
+                        currLocation += 4;
+
+                        // build outputBase
+                        while (lineChars[currLocation].ToString() != " ")
+                        {
+                            // add to outputBase
+                            outputBase += lineChars[currLocation].ToString();
+                            // advance currLocation
+                            currLocation++;
                         }
                         // advance currLocation
                         currLocation++;
 
-                        // build binOperation
-                        while (lineChars[currLocation].ToString() != " ")
-                        {
-                            // add to binOperation
-                            outputBase += lineChars[currLocation].ToString();
-                        }
-                        // advance currLocation
-                        currLocation += 2;
-
-                        // build num2
+                        // build numToConvert
                         while (currLocation < lineChars.Length)
                         {
-                            // add to num2
+                            // add to numToConvert
                             numtoConvert += lineChars[currLocation].ToString();
+                            // advance currLocation
+                            currLocation++;
                         }
 
+                        // create conversionOperation instance
+                        conversionOperation convertOperation = new conversionOperation(inputBase, outputBase, numtoConvert);
 
-
+                        // opreate on that instance
+                        string answer = convertOperation.operate();
 
                         // build the string to store inside of the linked list
-                        //string stringToStore = $"{operation} {inputBase} to {outputBase} {numtoConvert} = {answer}";
+                        string stringToStore = $"{operation} {inputBase} to {outputBase} {numtoConvert} = {answer}";
                         // create node to store
-                        //NodeString nodeToAdd = new NodeString(stringToStore);
+                        NodeString nodeToAdd = new NodeString(stringToStore);
                         // add the node to the list
-                        //lineOutputs.addNode(nodeToAdd);
-
+                        lineOutputs.addNode(nodeToAdd);
                     }
                 }
+                // close stream once loop is completed
+                stream.Close();
+            }
+
+            // overwrite the file with the new information
+            using (System.IO.StreamWriter stream = new System.IO.StreamWriter(fileLocation))
+            {
+                for (int location = 0; location < lineOutputs.length; location++)
+                {
+                    stream.WriteLine(lineOutputs.contentsAtIndex(location));
+                }
+                stream.Close();
             }
         }
     }
