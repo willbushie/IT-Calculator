@@ -36,7 +36,7 @@ namespace IT_Calculator
     internal class methods
     {
         // This method adds two base 2 numbers together and returns the answer in base 2.
-        // this is the format of the inputs: (num1 + num2)
+        // This is the format of the inputs: (num1 + num2)
         public static String base2Addition(int num1, int num2)
         {
             // convert both numbers in to decimal
@@ -49,12 +49,11 @@ namespace IT_Calculator
             // convert the answer back to binary, store into a returnable binary ouput
             String base2ToReturn = base10ToBase2(operationAnswer);
 
-            // return the answer (in binary)
             return base2ToReturn;
         }
 
         // This method subtracts two base 2 numbers and returns the answer in base 2.
-        // this is the format of the inputs: (num1 - num2)
+        // This is the format of the inputs: (num1 - num2)
         public static String base2Subtraction(int num1, int num2)
         {
             // convert both numbers in to decimal
@@ -67,12 +66,11 @@ namespace IT_Calculator
             // convert the answer back to binary, store into a returnable binary ouput
             String base2ToReturn = base10ToBase2(operationAnswer);
 
-            // return the answer (in binary)
             return base2ToReturn;
         }
 
         // This method multiplies two base 2 numbers together and returns the answer in base 2.
-        // this is the format of the inputs: (num1 * num2)
+        // This is the format of the inputs: (num1 * num2)
         public static String base2Multiplication(int num1, int num2)
         {
             // convert both numbers in to decimal
@@ -85,7 +83,6 @@ namespace IT_Calculator
             // convert the answer back to binary, store into a returnable binary ouput
             String base2ToReturn = base10ToBase2(operationAnswer);
 
-            // return the answer (in binary)
             return base2ToReturn;
         }
 
@@ -111,8 +108,6 @@ namespace IT_Calculator
                 // lower power value
                 powerValue -= 1;
             }
-
-            // return int value as a string
             return decimalReturnValue.ToString();
         }
 
@@ -389,7 +384,7 @@ namespace IT_Calculator
 
         // This method converts a binary number to a dottet octet (IP Address)
         // input: base2 (String) | returns: dottect octet number (String)
-        // this method DOES check for correct input length
+        // This method DOES check for correct input length
         public static String base2ToDotOct(String numToConvert)
         {
             // check the input lenght 

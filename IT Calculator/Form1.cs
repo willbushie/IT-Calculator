@@ -47,6 +47,8 @@ namespace IT_Calculator
          * This section of code contains all of the button events & logic.
          * 
          */
+
+
         // button press event to operate on the binary given in binaryArith_LeftTextBox & binaryArith_RightTextBox
         // and output an answer to binaryArithm_AnswerTextBox
         // also takes into account the opeartion through operationComboBox
@@ -55,9 +57,6 @@ namespace IT_Calculator
             // creation of binaryOpeartion object
             binaryOperation operation = new binaryOperation(binaryArith_LeftTextBox.Text, binaryArith_RightTextBox.Text);
             
-            // error checking boolean value
-            //bool error = true;
-
             // execute the operation
             binaryArithm_AnswerTextBox.Text = operation.operate(operationComboBox.Text);
         }
@@ -66,11 +65,9 @@ namespace IT_Calculator
         // this method uses over 20 if statements, will look at streamlining this code in the future
         private void button1_Click(object sender, EventArgs e)
         {
-            // store the input given from the user from textBox1
-            String baseToConvert = textBox1.Text;
-
             // create instance of converionOperation
             conversionOperation operation = new conversionOperation(comboBox2.Text, comboBox1.Text, textBox1.Text);
+            
             // execute the operation
             textBox2.Text = operation.operate();
         }
@@ -105,7 +102,8 @@ namespace IT_Calculator
             // Filled in text for the formatting just providing functionality for now. Will update with proper information later.
         }
 
-        // testing button operation for file testing and things (temporary)
+        // Testing button for the read/write functionality of the application
+        // this will be removed in the future
         private void fileWriteTestButton_Click(object sender, EventArgs e)
         {
             /*/ store test information in conversion and arithmetic operations

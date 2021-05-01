@@ -36,7 +36,7 @@ namespace IT_Calculator
 {
     public class LinkedList
     {
-        // declaration of LinkedList attributes
+        // LinkedList attributes
         public Node head;
         public Node tail;
         public int length;
@@ -118,11 +118,11 @@ namespace IT_Calculator
                 }
             }
 
-            // convert and return the final value   // THIS IS WHERE THE FORMAT ERROR IS 
+            // convert and return the final value 
             return intToReturnString;
         }
 
-        // this method empties a linked list - after it is done being used
+        // This method empties a linked list - after it is done being used
         public void clearLinkedList(LinkedList list)
         {
             // loop through the linked list and remove all nodes starting at tail
@@ -330,15 +330,19 @@ namespace IT_Calculator
 
 
     /*
-     * testing method to eleviate duplicate code from form1.cs and allow this operation to occur in other places
+     * This class is used for binary operations (specifically the arithmetic operations
+     * of the application). This allows less duplicate code and easy access in other
+     * areas of the application. 
      */
     public class binaryOperation
     {
+        // class attributes
         public string firstString, secondString;
         public int firstInt, secondInt;
         public bool firstLarger, firstNumNegative, secondNumNegative;
         public char[] firstNumCharArray, secondNumCharArray;
 
+        // instance method
         public binaryOperation(string firstString, string secondString)
         {
             // creation of the string values
@@ -403,7 +407,7 @@ namespace IT_Calculator
             }
         }
 
-        // operate method
+        // opreate method - this is where the binary arithmetic operations are executed
         public string operate(string operation)
         {
             // return string
@@ -581,7 +585,7 @@ namespace IT_Calculator
             return operationAnswerString;
         }
 
-        // add a negative to the front of a string
+        // add a negative to the front of a string (prevents duplicate code)
         public static string placeNegativeOnFront(string operateString)
         {
             if (operateString != "0000")
@@ -593,6 +597,7 @@ namespace IT_Calculator
 
         // This method takes in a string of binary values, and outputs a string of the correct lenght
         // check the length of the output string and update it accordingly if needed (from "00" to "0000")
+        // prevents duplicate code
         public static String format(String originalString)
         {
             // check the length of the return int to ensure it is a correct length
@@ -614,11 +619,16 @@ namespace IT_Calculator
         }
     }
 
-    // class for converison methods - to reduce the amount of duplicate code
+    /*
+     * This class is used for all conversionOperations. This prevents duplicate
+     * code and allows easier access for other areas of the application. 
+     */
     public class conversionOperation
     {
+        // class attributes
         public string inputBase, outputBase, numToConvert;
 
+        // instance method
         public conversionOperation(string inputBase, string outputBase, string numToConvert)
         {
             this.inputBase = inputBase;
@@ -626,7 +636,7 @@ namespace IT_Calculator
             this.numToConvert = numToConvert;
         }
 
-        // operation method
+        // operation method - the conversions occur
         public string operate()
         {
             // return string
