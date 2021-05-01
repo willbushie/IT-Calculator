@@ -214,4 +214,93 @@ namespace IT_Calculator
             return payloadToReturn;
         }
     }
+
+
+    /*
+     * This class is a type of linked list that holds NodeStrings.
+     * This class is used to build the strings that will be written to the log files
+     * once the operations are concluded.
+     */
+    public class LinkedListStrings
+    {
+        // public LinkedListStrings attributes
+        public NodeString head, tail;
+        public int length;
+
+        // instance method for a LinkedListStrings object - starts out empty
+        public LinkedListStrings()
+        {
+            this.head = null;
+            this.tail = null;
+            this.length = 0;
+        }
+
+        // method to add a node to the LinkedListStrings 
+        public void addNode(NodeString newNode)
+        {
+            // put the newNode at the front if the linked list is empty
+            if (this.length == 0)
+            {
+                // set the head & tail to newNode
+                this.head = newNode;
+                this.tail = newNode;
+
+                // update the list's length
+                this.length++;
+            }
+            else if (this.length > 0)
+            {
+                // link the current tail to newNode - call setNodeAfter()
+                this.tail.setNodeAfter(newNode);
+
+                // link the newNode to current tail - call setNodeBefore()
+                newNode.setNodeBefore(this.tail);
+
+                // set the tail to newNode
+                this.tail = newNode;
+
+                // update the list's length
+                this.length++;
+            }
+        }
+    }
+
+
+    /*
+     * This class is a type of node used spcifically to hold string variables. 
+     * This class is used to build the string that will be printed to the log files
+     * once the operations are concluded. 
+     */
+    public class NodeString
+    {
+        // public NodeString attributes
+        public NodeString nodeBefore, nodeAfter;
+        public string contents;
+
+        // instance method for NodeString class
+        public NodeString(string contents)
+        {
+            this.nodeBefore = null;
+            this.nodeAfter = null;
+            this.contents = contents;
+        }
+
+        // method to set the nodeAfter
+        public void setNodeAfter(NodeString nodeAfter)
+        {
+            this.nodeAfter = nodeAfter;
+        }
+
+        // method to set the nodeAfter
+        public void setNodeBefore(NodeString nodeBefore)
+        {
+            this.nodeBefore = nodeBefore;
+        }
+
+        // method to obtain the string contents of a NodeString
+        public string getContents()
+        {
+            return this.contents;
+        }
+    }
 }

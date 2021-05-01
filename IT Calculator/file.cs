@@ -68,7 +68,6 @@ namespace IT_Calculator
         /*
          * The method will allow the user to select a file of their chosing
          * and have it be stored as the active file in the application.
-         * Inputs: 
          */
         public static void chooseFile()
         {
