@@ -80,26 +80,30 @@ namespace IT_Calculator
         // On-Click for the Possible Conversions in the Help Menu
         private void possibleConversionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Types of Conversions allowed: " + "\n" + "Base(2, 10, or 16) to Base(2, 10, or 16)" + "\n" + "Decimal IP Address to Binary IP Address" + "\n" + "Hexadecimal Mac Address to Binary & Decimal Mac Address", "Possible Conversions");
+            MessageBox.Show("'Input Base --> Supported Output Bases'\nBinary --> Decimal, Hexadecimal, IPv4 Address*, Mac Address*\nDecimal --> Binary, Hexadecimal, IPv4 Address*\nHexadecimal --> Binary, Decimal, IPv4 Address*, Mac Address*\nIPv4 Address --> Binary, decimal, Hexadecimal\nMac Address --> Binary, Decimal, Hexadecimal\n\n'*' These outputs require specific input formats for the conversion operations to be completed. Please see 'Correct Input Formats' tab in the help menu for more information.", "Possible Conversions");
         }
 
         // On-Click for the Common Errors in the Help Menu
         private void commonErrorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Common Errors:" + "\n" + "Unable to go from a normal base # to a dotted octet." + "\n" + "Can't go from Dotted Octet to a normal base number.", "Common Errors");
+            MessageBox.Show("'Input Error' --> These errors refer to an incorrect input format for the conversion operation. This could mean a few things, the input was the incorrect length, the input does not have a required character(s) that interferes with the operation.\n\n'Operation Not Supported' --> If this error occurs, it simply means that the operation requested is not supported by the application.", "Common Errors");
         }
 
         // On-Click for the About IT-Calculator in the Help Menu
         private void aboutITCalculatorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("IT-Calculator Application" + "\n" + "Version: Sprint 3" + "\n" + "Team: Team 2", "About IT-Calculator");
+            MessageBox.Show("This application was created during CSC 370 - Software Engineering for Professor Locklair of the CS department. Development began on 3/24/2021 and the application was completed for 5/1/2021. It was a collaborative team project. The team members and their roles are:\nHannah Neymeyer - Team Lead\nCaden Flowers - Front End Developer\nNicholas Johnson - Architect/Designer\nWilliam Bushie - Programmer\n\nIF changes are to be made to the source code of the application, the GitHub respository is at this link: \nhttps://github.com/willbushie/IT-Calculator\n\n(c) 2021", "About IT-Calculator");
         }
 
         // On-Click for the User Guide in the Help Menu
         private void userGuideToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Correct Format to Input Numbers:" + "\nblahblahblah" + "\n\nFormat For Output:" + "\nBlahBlahBlah", "User Guide");
-            // Filled in text for the formatting just providing functionality for now. Will update with proper information later.
+            MessageBox.Show("This is a basic overview of the operations of the application. \n\nThe top portion of the application is meant to be used an arithmetic calculator for binary numbers. It supports the operations addition, subtraction, and multiplication. Division is not supported because those operations can result in decimal numbers. The calculator can handle negative numbers, in all operations, and input numbers with a length of 12 or less. The answer will be output with correct formatting (meaning the lngth of the output is evenly divisble by 4).\n\nThe lower portion of the application is used for number conversions. Please see 'Possible Conversions' tab in the help menu to see what conversions are supported.\n\nThe help menu is where the user can go for a quick explanation on the basic functionality of the application, any errors the user may receive, and creation information on the application.", "User Guide");
+        }
+
+        private void correctInputFormatsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This help tab shows the correct input formats for conversion operations.\n'Base to Base, Explanation. (Accepted Example Input)'\n\nBinary --> IPv4 Address, length of input NEEDS to be 32. (10000001000000010000000100000001)\nBinary --> Mac Address, length of input NEEDS to be 48. (001100000110010111101100011011111100010001011000)\nHexadecimal --> IPv4 Address, length of input NEEDS to be 8(ff181584)", "Correct Input Formats");
         }
 
         // Testing button for the read/write functionality of the application
