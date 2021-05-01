@@ -613,4 +613,8 @@ namespace IT_Calculator
             return originalString;
         }
     }
+
+    // class for converison methods - to reduce the amount of duplicate code
+
+
 }

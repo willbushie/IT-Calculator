@@ -221,6 +221,9 @@ namespace IT_Calculator
          */
         public static void operateOnFile(string fileLocation)
         {
+            // creation of LinkedListString object to keep track of line outputs (both arth and conv)
+            LinkedListStrings lineOutputs = new LinkedListStrings();
+            
             // reassign fileLocation for testing puproses
             string logFiles = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "IT-Calculator Logs");
             fileLocation = System.IO.Path.Combine(logFiles, "testReadFile.txt");
@@ -275,16 +278,69 @@ namespace IT_Calculator
                             // add to num2
                             num2 += lineChars[currLocation].ToString();
                         }
-                        
+
+                        // create binaryOperation object to operate on and recieve an output
+                        binaryOperation arithmeticOperation = new binaryOperation(num1, num2);
+                        // store the output in a temp string value
+                        string answer = arithmeticOperation.operate(binOperation);
+
+                        // build the string to store inside of the linked list
+                        string stringToStore = $"{operation} {num1} {binOperation} {num2} = {answer}";
+
+                        // create node to store
+                        NodeString nodeToAdd = new NodeString(stringToStore);
+                        // add the node to the list
+                        lineOutputs.addNode(nodeToAdd);
                     }
                     // conditionals for conv
                     else if (operation == "conv")
                     {
-                        // go to location 5 to begin sorting correclty
+                        // go to location 5 to begin sorting correctly
+                        string base1 = "";
+                        string base2 = "";
+                        string num = "";
+
+                        // int value to keep track of where in the char array currently are
+                        int currLocation = 5;
+
+                        // build num1
+                        while (lineChars[currLocation].ToString() != " ")
+                        {
+                            // add to num1
+                            base1 += lineChars[currLocation].ToString();
+                        }
+                        // advance currLocation
+                        currLocation++;
+
+                        // build binOperation
+                        while (lineChars[currLocation].ToString() != " ")
+                        {
+                            // add to binOperation
+                            base2 += lineChars[currLocation].ToString();
+                        }
+                        // advance currLocation
+                        currLocation += 2;
+
+                        // build num2
+                        while (currLocation < lineChars.Length)
+                        {
+                            // add to num2
+                            num += lineChars[currLocation].ToString();
+                        }
+
+
+
+
+                        // build the string to store inside of the linked list
+                        string stringToStore = $"{operation} {base1} to {base2} {num} = {answer}";
+                        // create node to store
+                        NodeString nodeToAdd = new NodeString(stringToStore);
+                        // add the node to the list
+                        lineOutputs.addNode(nodeToAdd);
+
                     }
                 }
             }
-
         }
     }
 }
