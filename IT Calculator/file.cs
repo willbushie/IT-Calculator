@@ -107,7 +107,7 @@ namespace IT_Calculator
          * 
          * This method is specifically for binary arithmetic operations.
          */
-        public static void storeForLogFileArithmetic(LinkedListStrings LL, int num1, string num2, string operation, string answer) 
+        public static void storeForLogFileArithmetic(LinkedListStrings LL, string num1, string num2, string operation, string answer) 
         {
             // build the string from the inputs
             string writeString = $"arth {num1} {num2} {operation} = {answer}";
@@ -148,24 +148,69 @@ namespace IT_Calculator
                     // write binary arithmetic on the first line
                     prevSession.WriteLine("Bianry Arithmetic Operations");
 
-                    // loop to write each item in arithmeticLL
-                    for (int location = 0; location < arithmeticLL.length-1; location++)
+                    // loop to write each item of arithmeticLL
+                    for (int location = 0; location < arithmeticLL.length; location++)
                     {
                         prevSession.WriteLine(arithmeticLL.contentsAtIndex(location));
                     }
                 }
 
+                // conversion operations
+                if (conversionLL.length != 0)
+                {
+                    // write conversions on the first line
+                    prevSession.WriteLine("Conversion Operations");
 
+                    // loop to write each item of conversionLL
+                    for (int location = 0; location < conversionLL.length; location++)
+                    {
+                        prevSession.WriteLine(conversionLL.contentsAtIndex(location));
+                    }
+                }
+                prevSession.Close();
             }
 
-            // writing of any conversion operations
-            if (conversionLL.length != 0)
+            // create new file 
+            string fileName = "session_" + DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + ".txt";
+            string currSessionsFilePath = System.IO.Path.Combine(sessionsFilePath, fileName);
+            var createdFile = System.IO.File.Create(currSessionsFilePath);
+            // close the new file in order to write to it
+            createdFile.Close();
+
+            // open stream writer to write to new session file (in sessions subfolder)
+            using (System.IO.StreamWriter thisSessionFile = new System.IO.StreamWriter(currSessionsFilePath))
             {
-                // lable first line with conversion
+                // write the date & time on the first line of the text file
+                thisSessionFile.WriteLine(DateTime.Now.ToString("MM/dd/yyyy | HH:mm:ss"));
 
+                // arithmetic operations
+                if (arithmeticLL.length != 0)
+                {
+                    // write binary arithmetic on the first line
+                    thisSessionFile.WriteLine("Bianry Arithmetic Operations");
+
+                    // loop to write each item of arithmeticLL
+                    for (int location = 0; location < arithmeticLL.length; location++)
+                    {
+                        thisSessionFile.WriteLine(arithmeticLL.contentsAtIndex(location));
+                    }
+                }
+
+                // conversion operations
+                if (conversionLL.length != 0)
+                {
+                    // write conversions on the first line
+                    thisSessionFile.WriteLine("Conversion Operations");
+
+                    // loop to write each item of conversionLL
+                    for (int location = 0; location < conversionLL.length; location++)
+                    {
+                        thisSessionFile.WriteLine(conversionLL.contentsAtIndex(location));
+                    }
+                }
+                thisSessionFile.Close();
             }
-            
-            
+
             /*/ write the necessary information to the previous session log file
             using (System.IO.StreamWriter stream = new System.IO.StreamWriter(prevSessionLog))
             {

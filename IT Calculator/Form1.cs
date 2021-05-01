@@ -542,8 +542,23 @@ namespace IT_Calculator
         // testing button operation for file testing and things (temporary)
         private void fileWriteTestButton_Click(object sender, EventArgs e)
         {
-            file.writeToLogFileArithmetic();
-            // file.writeToLogFileConversion();
+            // store test information in conversion and arithmetic operations
+            // creation of linked lists
+            LinkedListStrings arithmeticLL = new LinkedListStrings();
+            LinkedListStrings conversionLL = new LinkedListStrings();
+
+            // add arithmetic operations
+            file.storeForLogFileArithmetic(arithmeticLL, "0001", "0001", "Addition", "0010");
+            file.storeForLogFileArithmetic(arithmeticLL, "0101", "0001", "Addition", "0110");
+            file.storeForLogFileArithmetic(arithmeticLL, "1111", "0000", "Addition", "1111");
+
+            // add conversion operations
+            file.storeForLogFileConversion(conversionLL, "0001", "Binary", "Decimal", "1");
+            file.storeForLogFileConversion(conversionLL, "0010", "Binary", "Decimal", "2");
+            file.storeForLogFileConversion(conversionLL, "1111", "Binary", "Hexadecimal", "f");
+
+            // write to the files
+            file.writeLogFilesToStorage(arithmeticLL, conversionLL);
         }
     }
 }

@@ -263,14 +263,32 @@ namespace IT_Calculator
                 this.length++;
             }
         }
+
+        // this method returns the string contents of a node given an index
+        public String contentsAtIndex(int index)
+        {
+            // int value to keep track of the current location
+            int currLocation = 0;
+            // node value to denote the current node being checked
+            NodeString currNode = this.head;
+            // loop through the linked list until the proper location is found
+            while (currLocation < index)
+            {
+                // advance the node until location is found
+                currNode = currNode.getNodeAfter();
+                // advance currentLocation
+                currLocation++;
+            }
+            // return the value at that location as an int
+            return currNode.getContents();
+        }
     }
 
-
-    /*
-     * This class is a type of node used spcifically to hold string variables. 
-     * This class is used to build the string that will be printed to the log files
-     * once the operations are concluded. 
-     */
+   /*
+    * This class is a type of node used spcifically to hold string variables. 
+    * This class is used to build the string that will be printed to the log files
+    * once the operations are concluded. 
+    */
     public class NodeString
     {
         // public NodeString attributes
@@ -295,6 +313,12 @@ namespace IT_Calculator
         public void setNodeBefore(NodeString nodeBefore)
         {
             this.nodeBefore = nodeBefore;
+        }
+
+        // method to get the nodeAfter of a NodeString
+        public NodeString getNodeAfter()
+        {
+            return this.nodeAfter;
         }
 
         // method to obtain the string contents of a NodeString
