@@ -874,6 +874,26 @@ namespace IT_Calculator
         }
 
 
+        // this method convets a mac address into hex (removes ":" from the input)
+        public static string hexModToHex(string inputString)
+        {
+            // conver input to char array
+            char[] inputCharArray = inputString.ToCharArray();
+
+            // return string
+            string returnString = "";
+
+            // loop to build the return string
+            for (int count = 0; count < inputCharArray.Length; count++)
+            {
+                if (inputCharArray[count].ToString() != ":")
+                {
+                    returnString += inputCharArray[count].ToString();
+                }
+            }
+            return returnString;
+        }
+
         // this method converts a hex input string into a formatted mac address
         public static String hexToHexMod(String inputString)
         {

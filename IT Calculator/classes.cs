@@ -576,7 +576,7 @@ namespace IT_Calculator
             }
             else
             {
-                return "wrong operation";
+                return "there was a problem";
             }
             return operationAnswerString;
         }
@@ -615,6 +615,119 @@ namespace IT_Calculator
     }
 
     // class for converison methods - to reduce the amount of duplicate code
+    public class conversionOperation
+    {
+        public string inputBase, outputBase, numToConvert;
 
+        public conversionOperation(string inputBase, string outputBase, string numToConvert)
+        {
+            this.inputBase = inputBase;
+            this.outputBase = outputBase;
+            this.numToConvert = numToConvert;
+        }
 
+        // operation method
+        public string operate()
+        {
+            // return string
+            string operationAnswerString = "";
+
+            if (this.inputBase == "Binary")
+            {
+                if (this.outputBase == "Decimal")
+                {
+                    operationAnswerString = methods.base2ToBase10(this.numToConvert);
+                }
+                else if (this.outputBase == "Hexadecimal")
+                {
+                    operationAnswerString = methods.base2ToHex(this.numToConvert, false);
+                }
+                else if (this.outputBase == "Mac Address")
+                {
+                    operationAnswerString = methods.base2ToHex(this.numToConvert, true);
+                }
+                else if (this.outputBase == "IP Address")
+                {
+                    operationAnswerString = methods.base2ToDotOct(this.numToConvert);
+                }
+            }
+            else if (this.inputBase == "Decimal")
+            {
+                if (this.outputBase == "Binary")
+                {
+                    operationAnswerString = methods.base10ToBase2(int.Parse(this.numToConvert)).ToString();
+                }
+                else if (this.outputBase == "Hexadecimal")
+                {
+                    operationAnswerString = methods.base10ToHex(this.numToConvert, false);
+                }
+                else if (this.outputBase == "Mac Address")
+                {
+                    operationAnswerString = "This operation is not supported.";
+                }
+                else if (this.outputBase == "IP Address")
+                {
+                    operationAnswerString = methods.base10ToDotOct(this.numToConvert);
+                }
+            }
+            else if (this.inputBase == "Hexadecimal")
+            {
+                if (this.outputBase == "Binary")
+                {
+                    operationAnswerString = methods.hexToBase2(this.numToConvert, false);
+                }
+                else if (this.outputBase == "Decimal")
+                {
+                    operationAnswerString = methods.hexToBase10(this.numToConvert);
+                }
+                else if (this.outputBase == "Mac Address")
+                {
+                    operationAnswerString = methods.hexToHexMod(this.numToConvert);
+                }
+                else if (this.outputBase == "IP Address")
+                {
+                    operationAnswerString = methods.hexToDotOctet(this.numToConvert);
+                }
+            }
+            else if (this.inputBase == "Mac Address")
+            {
+                if (this.outputBase == "Binary")
+                {
+                    operationAnswerString = methods.hexToBase2(this.numToConvert, true);
+                }
+                else if (this.outputBase == "Decimal")
+                {
+                    operationAnswerString = methods.hexModToBase10(this.numToConvert);
+                }
+                else if (this.outputBase == "Mac Address")
+                {
+                    operationAnswerString = methods.hexModToHex(this.numToConvert);
+                }
+                else if (this.outputBase == "IP Address")
+                {
+                    operationAnswerString = "This operation is not supported.";
+                }
+            }
+            else if (this.inputBase == "IP Address")
+            {
+                if (this.outputBase == "Binary")
+                {
+                    operationAnswerString = methods.dotOctetToBase2(this.numToConvert);
+                }
+                else if (this.outputBase == "Decimal")
+                {
+                    operationAnswerString = methods.dotOctetToBase10(this.numToConvert);
+                }
+                else if (this.outputBase == "Hexadecimal")
+                {
+                    operationAnswerString = methods.dotOctetToHex(this.numToConvert);
+                }
+                else if (this.outputBase == "Mac Address")
+                {
+                    operationAnswerString = "This operation is not supported.";
+                }
+            }
+            return operationAnswerString;
+        }
+    }
 }

@@ -296,9 +296,9 @@ namespace IT_Calculator
                     else if (operation == "conv")
                     {
                         // go to location 5 to begin sorting correctly
-                        string base1 = "";
-                        string base2 = "";
-                        string num = "";
+                        string inputBase = "";
+                        string outputBase = "";
+                        string numtoConvert = "";
 
                         // int value to keep track of where in the char array currently are
                         int currLocation = 5;
@@ -307,7 +307,7 @@ namespace IT_Calculator
                         while (lineChars[currLocation].ToString() != " ")
                         {
                             // add to num1
-                            base1 += lineChars[currLocation].ToString();
+                            inputBase += lineChars[currLocation].ToString();
                         }
                         // advance currLocation
                         currLocation++;
@@ -316,7 +316,7 @@ namespace IT_Calculator
                         while (lineChars[currLocation].ToString() != " ")
                         {
                             // add to binOperation
-                            base2 += lineChars[currLocation].ToString();
+                            outputBase += lineChars[currLocation].ToString();
                         }
                         // advance currLocation
                         currLocation += 2;
@@ -325,18 +325,18 @@ namespace IT_Calculator
                         while (currLocation < lineChars.Length)
                         {
                             // add to num2
-                            num += lineChars[currLocation].ToString();
+                            numtoConvert += lineChars[currLocation].ToString();
                         }
 
 
 
 
                         // build the string to store inside of the linked list
-                        string stringToStore = $"{operation} {base1} to {base2} {num} = {answer}";
+                        //string stringToStore = $"{operation} {inputBase} to {outputBase} {numtoConvert} = {answer}";
                         // create node to store
-                        NodeString nodeToAdd = new NodeString(stringToStore);
+                        //NodeString nodeToAdd = new NodeString(stringToStore);
                         // add the node to the list
-                        lineOutputs.addNode(nodeToAdd);
+                        //lineOutputs.addNode(nodeToAdd);
 
                     }
                 }
