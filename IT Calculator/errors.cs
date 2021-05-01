@@ -112,7 +112,7 @@ namespace IT_Calculator
             char[] inputCheck = input.ToCharArray();
 
             // loop to check each char of the input string
-            for (int location = 0; location < inputCheck.Length-1; location++)
+            for (int location = 0; location < inputCheck.Length - 1; location++)
             {
                 // special conditionals if at the first location
                 if (location == 0)
@@ -140,6 +140,5 @@ namespace IT_Calculator
             }
             return false;
         }
-
     }
 }

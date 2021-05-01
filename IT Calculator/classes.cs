@@ -327,4 +327,290 @@ namespace IT_Calculator
             return this.contents;
         }
     }
+
+
+    /*
+     * testing method to eleviate duplicate code from form1.cs and allow this operation to occur in other places
+     */
+    public class binaryOperation
+    {
+        public string firstString, secondString;
+        public int firstInt, secondInt;
+        public bool firstLarger, firstNumNegative, secondNumNegative;
+        public char[] firstNumCharArray, secondNumCharArray;
+
+        public binaryOperation(string firstString, string secondString)
+        {
+            // creation of the string values
+            this.firstString = firstString;
+            this.secondString = secondString;
+            
+            // creation of the char arrays
+            this.firstNumCharArray = firstString.ToCharArray();
+            this.secondNumCharArray = secondString.ToCharArray();
+
+            int firstIntStartingLocation = 0;
+            int secondIntStartingLocation = 0;
+
+            // check if either nums are negative
+            if (firstNumCharArray[0].ToString() == "-")
+            {
+                // assign firstNumNegative
+                this.firstNumNegative = true;
+                // update firstIntStartingLocation
+                firstIntStartingLocation++;
+            }
+            if (secondNumCharArray[0].ToString() == "-")
+            {
+                // assign secondNumNegative
+                this.secondNumNegative = true;
+                // update secondIntStartingLocation
+                secondIntStartingLocation++;
+            }
+
+            // build firstInt from firstNumCharArray
+            // temp string to build the int from
+            string tempString = "";
+            // loop to build the tempString
+            for (int count = firstIntStartingLocation; count < firstNumCharArray.Length; count++)
+            {
+                // add to tempString
+                tempString += firstNumCharArray[count].ToString();
+            }
+            // assign firstInt
+            this.firstInt = int.Parse(tempString);
+
+            // build secondInt from secondIntCharArray
+            // temp string to build the int from
+            tempString = "";
+            // loop to build the tempString
+            for (int count = secondIntStartingLocation; count < secondNumCharArray.Length; count++)
+            {
+                // add to tempString
+                tempString += secondNumCharArray[count].ToString();
+            }
+            // assign secondInt
+            this.secondInt = int.Parse(tempString);
+            
+            // check if which value is larger
+            if (firstInt > secondInt)
+            {
+                this.firstLarger = true;
+            }
+            else
+            {
+                this.firstLarger = false;
+            }
+        }
+
+        // operate method
+        public string operate(string operation)
+        {
+            // return string
+            string operationAnswerString = "";
+
+            if (operation == "Addition")
+            {
+                if (this.firstLarger == true)
+                {
+                    if (this.firstNumNegative == true && this.secondNumNegative == false)
+                    {
+                        // call subtract firstInt from secondInt
+                        operationAnswerString = methods.base2Subtraction(this.firstInt, this.secondInt);
+                        // check the ouput string length
+                        operationAnswerString = format(operationAnswerString);
+                        // check if operationAnswerString is "0000"
+                        operationAnswerString = placeNegativeOnFront(operationAnswerString);
+                    }
+                    else if (this.firstNumNegative == false && this.secondNumNegative == true)
+                    {
+                        // call subtraction firstInt from secondInt
+                        operationAnswerString = methods.base2Subtraction(this.firstInt, this.secondInt);
+                        // check the ouput string length
+                        operationAnswerString = format(operationAnswerString);
+                    }
+                    else if (this.firstNumNegative == true && this.secondNumNegative == true)
+                    {
+                        // call addition firstInt and secondInt
+                        operationAnswerString = methods.base2Addition(this.firstInt, this.secondInt);
+                        // check the ouput string length
+                        operationAnswerString = format(operationAnswerString);
+                        // check if operationAnswerString is "0000"
+                        operationAnswerString = placeNegativeOnFront(operationAnswerString);
+                    }
+                    else if (this.firstNumNegative == false && this.secondNumNegative == false)
+                    {
+                        // call addition firstInt and secondInt
+                        operationAnswerString = methods.base2Addition(this.firstInt, this.secondInt);
+                        // check the ouput string length
+                        operationAnswerString = format(operationAnswerString);
+                    }
+                }
+                else if (this.firstLarger == false)
+                {
+                    if (this.firstNumNegative == true && this.secondNumNegative == false)
+                    {
+                        // call subtract secondInt from firstInt
+                        operationAnswerString = methods.base2Subtraction(this.secondInt, this.firstInt);
+                        // check the ouput string length
+                        operationAnswerString = format(operationAnswerString);
+                    }
+                    else if (this.firstNumNegative == false && this.secondNumNegative == true)
+                    {
+                        // call subtraction firstInt from secondInt
+                        operationAnswerString = methods.base2Subtraction(this.secondInt, this.firstInt);
+                        // check the ouput string length
+                        operationAnswerString = format(operationAnswerString);
+                        // check if operationAnswerString is "0000"
+                        operationAnswerString = placeNegativeOnFront(operationAnswerString);
+                    }
+                    else if (this.firstNumNegative == true && this.secondNumNegative == true)
+                    {
+                        // call addition firstInt and secondInt
+                        operationAnswerString = methods.base2Addition(this.firstInt, this.secondInt);
+                        // check the ouput string length
+                        operationAnswerString = format(operationAnswerString);
+                        // check if operationAnswerString is "0000"
+                        operationAnswerString = placeNegativeOnFront(operationAnswerString);
+                    }
+                    else if (this.firstNumNegative == false && this.secondNumNegative == false)
+                    {
+                        // call addition firstInt and secondInt
+                        operationAnswerString = methods.base2Addition(this.firstInt, this.secondInt);
+                        // check the ouput string length
+                        operationAnswerString = format(operationAnswerString);
+                    }
+                }
+            }
+            else if (operation == "Subtraction")
+            {
+                if (this.firstLarger == true)
+                {
+                    if (this.firstNumNegative == true && this.secondNumNegative == false)
+                    {
+                        // call binary adition
+                        operationAnswerString = methods.base2Addition(this.firstInt, this.secondInt);
+                        // check the length of the string
+                        operationAnswerString = format(operationAnswerString);
+                        // check if operationAnswerString is "0000"
+                        operationAnswerString = placeNegativeOnFront(operationAnswerString);
+                    }
+                    else if (this.firstNumNegative == false && this.secondNumNegative == true)
+                    {
+                        // call binary addition
+                        operationAnswerString = methods.base2Addition(this.firstInt, this.secondInt);
+                        // check the length of the string
+                        operationAnswerString = format(operationAnswerString);
+                    }
+                    else if (this.firstNumNegative == true && this.secondNumNegative == true)
+                    {
+                        // call subtraction firstInt from secondInt
+                        operationAnswerString = methods.base2Subtraction(this.firstInt, this.secondInt);
+                        // check the length of the string
+                        operationAnswerString = format(operationAnswerString);
+                        // check if operationAnswerString is "0000"
+                        operationAnswerString = placeNegativeOnFront(operationAnswerString);
+                    }
+                    else if (this.firstNumNegative == false && this.secondNumNegative == false)
+                    {
+                        // call subtraction firstInt from secondInt
+                        operationAnswerString = methods.base2Subtraction(this.firstInt, this.secondInt);
+                        // check the length of the string
+                        operationAnswerString = format(operationAnswerString);
+                    }
+                }
+                else if (this.firstLarger == false)
+                {
+                    if (this.firstNumNegative == true && this.secondNumNegative == false)
+                    {
+                        // call addition
+                        operationAnswerString = methods.base2Addition(this.firstInt, this.secondInt);
+                        // check the length of the string
+                        operationAnswerString = format(operationAnswerString);
+                        // check if operationAnswerString is "0000"
+                        operationAnswerString = placeNegativeOnFront(operationAnswerString);
+                    }
+                    else if (this.firstNumNegative == false && this.secondNumNegative == true)
+                    {
+                        // call addition firstInt and secondInt
+                        operationAnswerString = methods.base2Addition(this.firstInt, this.secondInt);
+                        // check the length of the string
+                        operationAnswerString = format(operationAnswerString);
+                    }
+                    else if (this.firstNumNegative == true && this.secondNumNegative == true)
+                    {
+                        // call subtraction secondInt from firstInt
+                        operationAnswerString = methods.base2Subtraction(this.secondInt, this.firstInt);
+                        // check the length of the string
+                        operationAnswerString = format(operationAnswerString);
+                    }
+                    else if (this.firstNumNegative == false && this.secondNumNegative == false)
+                    {
+                        // call subtraction secondInt from firstInt
+                        operationAnswerString = methods.base2Subtraction(this.secondInt, this.firstInt);
+                        // check the length of the string
+                        operationAnswerString = format(operationAnswerString);
+                        // check if operationAnswerString is "0000"
+                        operationAnswerString = placeNegativeOnFront(operationAnswerString);
+                    }
+                }
+            }
+            else if (operation == "Multiplication")
+            {
+                if ((this.firstNumNegative == true && this.secondNumNegative == false) || (this.firstNumNegative == false && this.secondNumNegative == true))
+                {
+                    // call the binaryAddition method & store the answer
+                    operationAnswerString = methods.base2Multiplication(this.firstInt, this.secondInt);
+                    // check the ouput string length
+                    operationAnswerString = format(operationAnswerString);
+                    // check if operationAnswerString is "0000"
+                    operationAnswerString = placeNegativeOnFront(operationAnswerString);
+                }
+                else if ((this.firstNumNegative == true && this.secondNumNegative == true) || (this.firstNumNegative == false && this.secondNumNegative == false))
+                {
+                    // call the binaryAddition method & store the answer
+                    operationAnswerString = methods.base2Multiplication(this.firstInt, this.secondInt);
+                    // check the ouput string length
+                    operationAnswerString = format(operationAnswerString);
+                }
+            }
+            else
+            {
+                return "wrong operation";
+            }
+            return operationAnswerString;
+        }
+
+        // add a negative to the front of a string
+        public static string placeNegativeOnFront(string operateString)
+        {
+            if (operateString != "0000")
+            {
+                return operateString = "-" + operateString;
+            }
+            return operateString;
+        }
+
+        // This method takes in a string of binary values, and outputs a string of the correct lenght
+        // check the length of the output string and update it accordingly if needed (from "00" to "0000")
+        public static String format(String originalString)
+        {
+            // check the length of the return int to ensure it is a correct length
+            if ((originalString.Length % 4) != 0)
+            {
+                // find the amount of zeros to format correclty
+                int zeros = originalString.Length % 4;
+                // create a string with the correct num of zeros
+                String zeroString = "";
+                for (int count = zeros; count < 4; count++)
+                {
+                    zeroString += "0";
+                }
+                // append the zeros to the front of the string
+                originalString = zeroString + originalString;
+            }
+            // return the corrected string
+            return originalString;
+        }
+    }
 }

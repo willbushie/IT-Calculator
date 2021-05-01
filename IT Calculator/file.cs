@@ -275,24 +275,7 @@ namespace IT_Calculator
                             // add to num2
                             num2 += lineChars[currLocation].ToString();
                         }
-
-                        // find the correct operation
-                        if (binOperation == "Addition")
-                        {
-                            // call binary addition
-                            methods.base2Addition(num1, num2);
-                        }
-                        else if (binOperation == "Subtraction")
-                        {
-                            // call binary subtraction
-                            methods.base2Subtraction(num1, num2);
-                        }
-                        else if (binOperation == "Multiplication")
-                        {
-                            // call binary multiplication
-                            methods.base2Multiplication(num1, num2);
-                        }
-
+                        
                     }
                     // conditionals for conv
                     else if (operation == "conv")
