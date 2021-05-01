@@ -542,7 +542,7 @@ namespace IT_Calculator
         // testing button operation for file testing and things (temporary)
         private void fileWriteTestButton_Click(object sender, EventArgs e)
         {
-            // store test information in conversion and arithmetic operations
+            /*/ store test information in conversion and arithmetic operations
             // creation of linked lists
             LinkedListStrings arithmeticLL = new LinkedListStrings();
             LinkedListStrings conversionLL = new LinkedListStrings();
@@ -559,6 +559,19 @@ namespace IT_Calculator
 
             // write to the files
             file.writeLogFilesToStorage(arithmeticLL, conversionLL);
+            */
+            file.operateOnFile("test");
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Exit or no?",
+                               "My First Application",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Information) == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

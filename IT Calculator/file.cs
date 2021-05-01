@@ -70,10 +70,11 @@ namespace IT_Calculator
          * The method will allow the user to select a file of their chosing to be read in and be
          * operated on. 
          * This method is only used for the "read" abilities of the application. 
+         * This method returns a string of the path chosen by the user for which file they want to read in. 
          */
-        public static void chooseFile()
+        public static string chooseFile()
         {
-
+            return "";
         }
 
         /*
@@ -210,29 +211,96 @@ namespace IT_Calculator
                 }
                 thisSessionFile.Close();
             }
+        }
 
-            /*/ write the necessary information to the previous session log file
-            using (System.IO.StreamWriter stream = new System.IO.StreamWriter(prevSessionLog))
+        /*
+         * This method reads in a file from the user and completes the operations requested.
+         * This method reads the file in question, and rewrites the file based on the operations.
+         * Each operation is completed and then stored into a linked list object. This is done to 
+         * allow easier rewrite of the file when all operations are complete.
+         */
+        public static void operateOnFile(string fileLocation)
+        {
+            // reassign fileLocation for testing puproses
+            string logFiles = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "IT-Calculator Logs");
+            fileLocation = System.IO.Path.Combine(logFiles, "testReadFile.txt");
+            // read in the file
+            using (System.IO.StreamReader stream = System.IO.File.OpenText(fileLocation))
             {
-                stream.Write("test");
+                // temp string value to hold the line contents
+                string line = "";
+                while ((line = stream.ReadLine()) != null)
+                {
+                    // char[] to allow for easier interaction on the line input
+                    char[] lineChars = line.ToCharArray();
+
+                    // determine if arth or conv (build the first chars into a string)
+                    string operation = "";
+                    for (int location = 0; location < 4; location++)
+                    {
+                        operation += lineChars[location];
+                    }
+                    // conditionals for arth
+                    if (operation == "arth")
+                    {
+                        // go to location 5 to begin sorting correctly
+                        string num1 = "";
+                        string binOperation = "";
+                        string num2 = "";
+
+                        // int value to keep track of where in the char array currently are
+                        int currLocation = 5;
+                        
+                        // build num1
+                        while (lineChars[currLocation].ToString() != " ")
+                        {
+                            // add to num1
+                            num1 += lineChars[currLocation].ToString();
+                        }
+                        // advance currLocation
+                        currLocation++;
+
+                        // build binOperation
+                        while (lineChars[currLocation].ToString() != " ")
+                        {
+                            // add to binOperation
+                            binOperation += lineChars[currLocation].ToString();
+                        }
+                        // advance currLocation
+                        currLocation++;
+
+                        // build num2
+                        while (currLocation < lineChars.Length)
+                        {
+                            // add to num2
+                            num2 += lineChars[currLocation].ToString();
+                        }
+
+                        // find the correct operation
+                        if (binOperation == "Addition")
+                        {
+                            // call binary addition
+                            methods.base2Addition(num1, num2);
+                        }
+                        else if (binOperation == "Subtraction")
+                        {
+                            // call binary subtraction
+                            methods.base2Subtraction(num1, num2);
+                        }
+                        else if (binOperation == "Multiplication")
+                        {
+                            // call binary multiplication
+                            methods.base2Multiplication(num1, num2);
+                        }
+
+                    }
+                    // conditionals for conv
+                    else if (operation == "conv")
+                    {
+                        // go to location 5 to begin sorting correclty
+                    }
+                }
             }
-
-            // create a new file and write the same information to this sessions file
-            */
-
-
-            /*
-            // check if the IT-Calculator log folder exists in documents
-            if (!System.IO.File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)))
-
-            string fileName = "testfile.txt"; //DateTime.Now.ToString("MMddyyyy_HHmmss") + "_ShimTotals.txt";
-            string documentPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-            using (StreamWriter outputFile = new StreamWriter(Path.Combine(documentPath, fileName)))
-            {
-                // write the header for the file
-                outputFile.WriteLine(DateTime.Now.ToString("MM/dd/yyyy | HH:mm:ss"), "test");
-            }*/
 
         }
     }
