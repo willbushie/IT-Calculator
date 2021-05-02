@@ -13,7 +13,7 @@
  *      William Bushie - Programmer
  * 
  * Start of Development:            3/24/2021
- * Completetion of Development:     NOT YET COMPLETED
+ * Completetion of Development:     5/1/2021
  * 
  */
 
@@ -38,6 +38,11 @@ namespace IT_Calculator
             InitializeComponent();
         }
 
+        // creation of linked lists used to store the operations made by the user
+        public static LinkedListStrings APParithmeticLL = new LinkedListStrings();
+        public static LinkedListStrings APPconversionLL = new LinkedListStrings();
+
+
 
         /*
          * ======================================
@@ -54,463 +59,22 @@ namespace IT_Calculator
         // also takes into account the opeartion through operationComboBox
         private void binaryArithm_ProcessOperationButton_Click(object sender, EventArgs e)
         {
-            // check input values for an "-" before either of them
-            // store both inputs as char[] and evaluate the first location
-            char[] firstNumCharArray = binaryArith_LeftTextBox.Text.ToCharArray();
-            char[] secondNumCharArray = binaryArith_RightTextBox.Text.ToCharArray();
-            // bool values to evaluate if there is or is not a "-" before either value
-            bool firstNumNegative = false;
-            bool secondNumNegative = false;
-            // creation of the int variables
-            int firstInt, secondInt;
+            // creation of binaryOpeartion object
+            binaryOperation operation = new binaryOperation(binaryArith_LeftTextBox.Text, binaryArith_RightTextBox.Text);
             
-            // evaluate both values
-            if (firstNumCharArray[0].ToString() == "-")
-            {
-                firstNumNegative = true;
-                // temp string value
-                String tempString = "";
-                // build the a string value and convert to an int to operate on
-                for (int count = 1; count < firstNumCharArray.Length; count++)
-                {
-                    tempString += firstNumCharArray[count];
-                }
-                firstInt = int.Parse(tempString);
-            }
-            else
-            {
-                // store the input value from the first text box
-                firstInt = int.Parse(binaryArith_LeftTextBox.Text);
-            }
-            if (secondNumCharArray[0].ToString() == "-")
-            {
-                secondNumNegative = true;
-                // build the a string value and convert to an int to operate on
-                // temp string value
-                String tempString = "";
-                // build the a string value and convert to an int to operate on
-                for (int count = 1; count < secondNumCharArray.Length; count++)
-                {
-                    tempString += secondNumCharArray[count];
-                }
-                secondInt = int.Parse(tempString);
-            }
-            else
-            {
-                // store the input value from the second text box
-                secondInt = int.Parse(binaryArith_RightTextBox.Text);
-
-            }
-
-            // bool value to keep account for the firstInt being larger than then secondInt (used in the subtraction process)
-            bool firstLarger = false;
-            // check if the firstInt is larger than secondInt & update firstLarger bool
-            if (firstInt > secondInt)
-            {
-                firstLarger = true;
-            }
-            else
-            {
-                firstLarger = false;
-            }
-
-            // operation String value to later be evaluated
-            String operationAnswerString = "";
-
-            // error checking boolean value
-            bool error = true;
-
-            // check which operation is to requested & perform it
-            if (operationComboBox.Text == "Addition")
-            {
-                // operations if firstInt is larger than secondInt
-                if (firstLarger == true)
-                {
-                    // if only the first int is negative
-                    if (firstNumNegative == true && secondNumNegative == false)
-                    {
-                        // call subtract firstInt from secondInt
-                        operationAnswerString = methods.base2Subtraction(firstInt, secondInt);
-                        // check the ouput string length
-                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                        // check if operationAnswerString is "0000"
-                        if (operationAnswerString != "0000")
-                        {
-                            // place a "-" before the operationAnswerString
-                            operationAnswerString = "-" + operationAnswerString;
-                        }
-                    }
-                    // if only the second int is negative
-                    else if (firstNumNegative == false && secondNumNegative == true)
-                    {
-                        // call subtraction firstInt from secondInt
-                        operationAnswerString = methods.base2Subtraction(firstInt, secondInt);
-                        // check the ouput string length
-                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                    }
-                    // if both values are negative
-                    else if (firstNumNegative == true && secondNumNegative == true)
-                    {
-                        // call addition firstInt and secondInt
-                        operationAnswerString = methods.base2Addition(firstInt, secondInt);
-                        // check the ouput string length
-                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                        // check if operationAnswerString is "0000"
-                        if (operationAnswerString != "0000")
-                        {
-                            // place a "-" before the operationAnswerString
-                            operationAnswerString = "-" + operationAnswerString;
-                        }
-                    }
-                    // if both values are positive
-                    else if (firstNumNegative == false && secondNumNegative == false)
-                    {
-                        // call addition firstInt and secondInt
-                        operationAnswerString = methods.base2Addition(firstInt, secondInt);
-                        // check the ouput string length
-                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                    }
-                }
-                // operations if firstInt is NOT larger than secondInt
-                else if (firstLarger == false)
-                {
-                    // if only the first int is negative
-                    if (firstNumNegative == true && secondNumNegative == false)
-                    {
-                        // call subtract secondInt from firstInt
-                        operationAnswerString = methods.base2Subtraction(secondInt, firstInt);
-                        // check the ouput string length
-                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                    }
-                    // if only the second int is negative
-                    else if (firstNumNegative == false && secondNumNegative == true)
-                    {
-                        // call subtraction firstInt from secondInt
-                        operationAnswerString = methods.base2Subtraction(secondInt, firstInt);
-                        // check the ouput string length
-                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                        // check if operationAnswerString is "0000"
-                        if (operationAnswerString != "0000")
-                        {
-                            // place a "-" before the operationAnswerString
-                            operationAnswerString = "-" + operationAnswerString;
-                        }
-                    }
-                    // if both values are negative
-                    else if (firstNumNegative == true && secondNumNegative == true)
-                    {
-                        // call addition firstInt and secondInt
-                        operationAnswerString = methods.base2Addition(firstInt, secondInt);
-                        // check the ouput string length
-                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                        // check if operationAnswerString is "0000"
-                        if (operationAnswerString != "0000")
-                        {
-                            // place a "-" before the operationAnswerString
-                            operationAnswerString = "-" + operationAnswerString;
-                        }
-                    }
-                    // if both values are positive
-                    else if (firstNumNegative == false && secondNumNegative == false)
-                    {
-                        // call addition firstInt and secondInt
-                        operationAnswerString = methods.base2Addition(firstInt, secondInt);
-                        // check the ouput string length
-                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                    }
-                }
-                //update the error bool value
-                error = false;
-            }
-            else if (operationComboBox.Text == "Subtraction")
-            {
-                // check if first value is larger than second 
-                if (firstLarger == true)
-                {
-                    // check if only firstInt is negative 
-                    if (firstNumNegative == true && secondNumNegative == false)
-                    {
-                        // call binary adition
-                        operationAnswerString = methods.base2Addition(firstInt, secondInt);
-                        // check the length of the string
-                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                        // check if operationAnswerString is "0000"
-                        if (operationAnswerString != "0000")
-                        {
-                            // place a "-" before the operationAnswerString
-                            operationAnswerString = "-" + operationAnswerString;
-                        }
-                    }
-                    // check if only secondInt is negative
-                    else if (firstNumNegative == false && secondNumNegative == true)
-                    {
-                        // call binary addition
-                        operationAnswerString = methods.base2Addition(firstInt, secondInt);
-                        // check the length of the string
-                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                    }
-                    // check if both are negative
-                    else if (firstNumNegative == true && secondNumNegative == true)
-                    {
-                        // call subtraction firstInt from secondInt
-                        operationAnswerString = methods.base2Subtraction(firstInt, secondInt);
-                        // check the length of the string
-                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                        // check if operationAnswerString is "0000"
-                        if (operationAnswerString != "0000")
-                        {
-                            // place a "-" before the operationAnswerString
-                            operationAnswerString = "-" + operationAnswerString;
-                        }
-                    }
-                    // check if both are positive
-                    else if (firstNumNegative == false && secondNumNegative == false)
-                    {
-                        // call subtraction firstInt from secondInt
-                        operationAnswerString = methods.base2Subtraction(firstInt, secondInt);
-                        // check the length of the string
-                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                    }
-                }
-                // operations to follow if first is not larger than second
-                else if (firstLarger == false)
-                {
-                    // check if only firsInt is negative 
-                    if (firstNumNegative == true && secondNumNegative == false)
-                    {
-                        // call addition
-                        operationAnswerString = methods.base2Addition(firstInt, secondInt);
-                        // check the length of the string
-                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                        // check if operationAnswerString is "0000"
-                        if (operationAnswerString != "0000")
-                        {
-                            // place a "-" before the operationAnswerString
-                            operationAnswerString = "-" + operationAnswerString;
-                        }
-                    }
-                    // check if only secondInt is negative
-                    else if (firstNumNegative == false && secondNumNegative == true)
-                    {
-                        // call addition firstInt and secondInt
-                        operationAnswerString = methods.base2Addition(firstInt, secondInt);
-                        // check the length of the string
-                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                    }
-                    // check if both are negative
-                    else if (firstNumNegative == true && secondNumNegative == true)
-                    {
-                        // call subtraction secondInt from firstInt
-                        operationAnswerString = methods.base2Subtraction(secondInt, firstInt);
-                        // check the length of the string
-                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                    }
-                    // check if both are positive 
-                    else if (firstNumNegative == false && secondNumNegative == false)
-                    {
-                        // call subtraction secondInt from firstInt
-                        operationAnswerString = methods.base2Subtraction(secondInt, firstInt);
-                        // check the length of the string
-                        operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                        // check if operationAnswerString is "0000"
-                        if (operationAnswerString != "0000")
-                        {
-                            // place a "-" before the operationAnswerString
-                            operationAnswerString = "-" + operationAnswerString;
-                        }
-                    }
-                }
-                //update the error bool value
-                error = false;
-            }
-            else if (operationComboBox.Text == "Multiplication")
-            {
-                // check if either value is negative, place a "-" if so
-                if ((firstNumNegative == true && secondNumNegative == false) || (firstNumNegative == false && secondNumNegative == true))
-                {
-                    // call the binaryAddition method & store the answer
-                    operationAnswerString = methods.base2Multiplication(firstInt, secondInt);
-                    // check the ouput string length
-                    operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                    // check if operationAnswerString is "0000"
-                    if (operationAnswerString != "0000")
-                    {
-                        // place a "-" before the operationAnswerString
-                        operationAnswerString = "-" + operationAnswerString;
-                    }
-                }
-                // if both values are either both negative or both positive, no "-" is necessary
-                else if ((firstNumNegative == true && secondNumNegative == true) || (firstNumNegative == false && secondNumNegative == false))
-                {
-                    // call the binaryAddition method & store the answer
-                    operationAnswerString = methods.base2Multiplication(firstInt, secondInt);
-                    // check the ouput string length
-                    operationAnswerString = methods.binaryStringFormatting(operationAnswerString);
-                }
-                //update the error bool value
-                error = false;
-            }
-            // ensure there was no error, else alert the user
-            if (error == false)
-            {
-                // convert final answer from int to string & dispaly to the user in the answer text box
-                binaryArithm_AnswerTextBox.Text = operationAnswerString;
-            }
-            else
-            {
-                // error has occured, alert the user
-            }
+            // execute the operation
+            binaryArithm_AnswerTextBox.Text = operation.operate(operationComboBox.Text);
         }
 
         // button press event to convert the input base from textBox1 to the desired output base into textBox2
         // this method uses over 20 if statements, will look at streamlining this code in the future
         private void button1_Click(object sender, EventArgs e)
         {
-            // store the input given from the user from textBox1
-            String baseToConvert = textBox1.Text;
-
-            // check if the user has the same base for each comboBox (input base & output base)
-            if (comboBox1.Text == comboBox2.Text)
-            {
-                // alert the user the bases are the same
-            }
-
-            // find the original base given by the user from comboBox2
-            // input binary checks
-            if (comboBox2.Text == "Binary")
-            {
-                if (comboBox1.Text == "Decimal")
-                {
-                    //MessageBox.Show("here");
-                    // call binary to decimal
-                    textBox2.Text = (methods.base2ToBase10(int.Parse(baseToConvert))).ToString();
-                }
-                else if (comboBox1.Text == "Hexadecimal")
-                {
-                    // call binary to hex
-                    textBox2.Text = methods.base2ToHex(baseToConvert, false);
-                }
-                else if (comboBox1.Text == "IP Address")
-                {
-                    // call binary to doted octet
-                    // there is currently no method for this
-                    textBox2.Text = methods.base2ToDotOct(baseToConvert);
-                }
-                else if (comboBox1.Text == "Mac Address")
-                {
-                    // call binary to hex and call for macAddress functionality
-                    textBox2.Text = methods.base2ToHex(baseToConvert, true);
-                }
-            }
-            // input decimal checks
-            else if (comboBox2.Text == "Decimal")
-            {
-                if (comboBox1.Text == "Binary")
-                {
-                    // call decimal to binary
-                    // thie method needs more work
-                    textBox2.Text = methods.base10ToBase2(int.Parse(baseToConvert)).ToString();
-                }
-                else if (comboBox1.Text == "Hexadecimal")
-                {
-                    // call decimal to hex
-                    textBox2.Text = methods.base10ToHex(baseToConvert, false);
-                }
-                else if (comboBox1.Text == "IP Address")
-                {
-                    // call decimal to doted octet
-                    // there is currently no method for this
-                    textBox2.Text = methods.base10ToDotOct(baseToConvert);
-                }
-                else if (comboBox1.Text == "Mac Address")
-                {
-                    // call decimal to hex (modified)
-                    textBox2.Text = methods.base10ToHex(baseToConvert, true);
-                }
-            }
-            // input hex checks
-            else if (comboBox2.Text == "Hexadecimal")
-            {
-                if (comboBox1.Text == "Binary")
-                {
-                    // call hex to binary
-                    textBox2.Text = methods.hexToBase2(baseToConvert, false);
-                }
-                else if (comboBox1.Text == "Decimal")
-                {
-                    // call hex to decimal
-                    textBox2.Text = (methods.hexToBase10(baseToConvert)).ToString();
-                }
-                else if (comboBox1.Text == "IP Address")
-                {
-                    // call hex to doted octet
-                    // there is currently no method for this
-                    textBox2.Text = "Unable to complete this method.";
-                }
-                else if (comboBox1.Text == "Mac Address")
-                {
-                    // call hex to hex (modified)
-                    textBox2.Text = methods.hexToHexMod(baseToConvert).ToString();
-                }
-            }
-            // input ip checks
-            else if (comboBox2.Text == "IP Address")
-            {
-                if (comboBox1.Text == "Binary")
-                {
-                    // call IP Address to binary
-                    textBox2.Text = methods.dotOctetToBase2(baseToConvert);
-                }
-                else if (comboBox1.Text == "Decimal")
-                {
-                    // call IP Address to decimal
-                    // there is currently no method for this
-                    textBox2.Text = "Unable to complete this method.";
-                }
-                else if (comboBox1.Text == "Hexadecimal")
-                {
-                    // call IP Address to doted octet
-                    // there is currently no method for this
-                    textBox2.Text = "Unable to complete this method.";
-                }
-                else if (comboBox1.Text == "Mac Address")
-                {
-                    // call IP Address to hex (modified)
-                    // there is currently no method for this
-                    textBox2.Text = "Unable to complete this method.";
-                }
-            }
-            // input mac address checks
-            else if (comboBox2.Text == "Mac Address")
-            {
-                if (comboBox1.Text == "Binary")
-                {
-                    // call Mac Address (modified hex) to binary
-                    textBox2.Text = methods.hexToBase2(baseToConvert, true);
-                }
-                else if (comboBox1.Text == "Decimal")
-                {
-                    // call Mac Address (modified hex) to decimal
-                    // there is currently no method for this
-                    textBox2.Text = "Unable to complete this method.";
-                }
-                else if (comboBox1.Text == "Hexadecimal")
-                {
-                    // call Mac Address (modified hex) to doted octet
-                    // there is currently no method for this
-                    textBox2.Text = "Unable to complete this method.";
-                }
-                else if (comboBox1.Text == "IP Address")
-                {
-                    // call Mac Address (modified hex) to hex (modified)
-                    // there is currently no method for this
-                    textBox2.Text = "Unable to complete this method.";
-                }
-            }
-            else
-            {
-                // alert the user of an error
-            }
+            // create instance of converionOperation
+            conversionOperation operation = new conversionOperation(comboBox2.Text, comboBox1.Text, textBox1.Text);
+            
+            // execute the operation
+            textBox2.Text = operation.operate();
         }
 
         private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -521,26 +85,63 @@ namespace IT_Calculator
         // On-Click for the Possible Conversions in the Help Menu
         private void possibleConversionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Types of Conversions allowed: " + "\n" + "Base(2, 10, or 16) to Base(2, 10, or 16)" + "\n" + "Decimal IP Address to Binary IP Address" + "\n" + "Hexadecimal Mac Address to Binary & Decimal Mac Address", "Possible Conversions");
+            MessageBox.Show("'Input Base --> Supported Output Bases'\nBinary --> Decimal, Hexadecimal, IPv4 Address*, Mac Address*\nDecimal --> Binary, Hexadecimal, IPv4 Address*\nHexadecimal --> Binary, Decimal, IPv4 Address*, Mac Address*\nIPv4 Address --> Binary, decimal, Hexadecimal\nMac Address --> Binary, Decimal, Hexadecimal\n\n'*' These outputs require specific input formats for the conversion operations to be completed. Please see 'Correct Input Formats' tab in the help menu for more information.", "Possible Conversions");
         }
 
         // On-Click for the Common Errors in the Help Menu
         private void commonErrorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Common Errors:" + "\n" + "Unable to go from a normal base # to a dotted octet." + "\n" + "Can't go from Dotted Octet to a normal base number.", "Common Errors");
+            MessageBox.Show("'Input Error' --> These errors refer to an incorrect input format for the conversion operation. This could mean a few things, the input was the incorrect length, the input does not have a required character(s) that interferes with the operation.\n\n'Operation Not Supported' --> If this error occurs, it simply means that the operation requested is not supported by the application.", "Common Errors");
         }
 
         // On-Click for the About IT-Calculator in the Help Menu
         private void aboutITCalculatorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("IT-Calculator Application" + "\n" + "Version: Sprint 3" + "\n" + "Team: Team 2", "About IT-Calculator");
+            MessageBox.Show("This application was created during CSC 370 - Software Engineering for Professor Locklair of the CS department. Development began on 3/24/2021 and the application was completed for 5/1/2021. It was a collaborative team project. The team members and their roles are:\nHannah Neymeyer - Team Lead\nCaden Flowers - Front End Developer\nNicholas Johnson - Architect/Designer\nWilliam Bushie - Programmer\n\nIF changes are to be made to the source code of the application, the GitHub respository is at this link: \nhttps://github.com/willbushie/IT-Calculator\n\n(c) 2021", "About IT-Calculator");
         }
 
         // On-Click for the User Guide in the Help Menu
         private void userGuideToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Correct Format to Input Numbers:" + "\nblahblahblah" + "\n\nFormat For Output:" + "\nBlahBlahBlah", "User Guide");
-            // Filled in text for the formatting just providing functionality for now. Will update with proper information later.
+            MessageBox.Show("This is a basic overview of the operations of the application. \n\nThe top portion of the application is meant to be used an arithmetic calculator for binary numbers. It supports the operations addition, subtraction, and multiplication. Division is not supported because those operations can result in decimal numbers. The calculator can handle negative numbers, in all operations, and input numbers with a length of 12 or less. The answer will be output with correct formatting (meaning the lngth of the output is evenly divisble by 4).\n\nThe lower portion of the application is used for number conversions. Please see 'Possible Conversions' tab in the help menu to see what conversions are supported.\n\nThe help menu is where the user can go for a quick explanation on the basic functionality of the application, any errors the user may receive, and creation information on the application.", "User Guide");
+        }
+
+        // this on click will provide information on the read and write abilities of the application.
+        private void readWriteMenuItem1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This application has the ability to read and write to files.\nThis is a simple explination of how it works.\n\nWriting to Files:\nThe applicaiton creates a sub director \"IT-Calculator Logs\" inside of the Documents folder. There is a sub folder \"Sessions\" that stores each and every sessions saved by the user. There is a file in the main directory \"Previous Sessions Log.txt\" This file is used to store the last saved session. This file is over written each time a session is saved.\n\nThe \"Save Session\" button on the applicaiton will save all of the previous operations to the \"Previous Sessions Log.txt\" as well as create a new file, for that specific session that is time stamped in the name. \n\nReading from Files:\nThe application is also able to read from any text file chosen by the user. This is done through the \"Choose File\" button in the application. The application will overwrite the information in this file, so if the previous information is necessary, please make a copy.\n\nWhen a file is choosen, the application will operate on the information inside of the file. Unless there are any errors in any of the lines (one operation per line), the application will copy the operation line and place the answer at the end.\n\nInputs & Ouputs (Examples):\nInput Format (Binary Arithmetic): \"arth 0001 Addition 0001\"\nInput Format (Conversions): \"conv Binary to Decimal 0001\"\nInput: \"arth -00111 Multiplication 00100111\"\nOutput: \"arth -00111 Multiplication 00100111 = -000100010001\"\nInput: \"conv Hexadecimal to Decimal f\"\nOutput: \"conv Hexadecimal to Binary f = 1111\"", "Read / Write Information");
+        }
+
+        private void correctInputFormatsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This help tab shows the correct input formats for conversion operations.\n'Base to Base, Explanation. (Accepted Example Input)'\n\nBinary --> IPv4 Address, length of input NEEDS to be 32. (10000001000000010000000100000001)\nBinary --> Mac Address, length of input NEEDS to be 48. (001100000110010111101100011011111100010001011000)\nHexadecimal --> IPv4 Address, length of input NEEDS to be 8(ff181584)", "Correct Input Formats");
+        }
+
+        // this button event opens the file explorer for the user to chose a file to operate on
+        private void operateOnChosenFile_Click(object sender, EventArgs e)
+        {
+            file.operateOnFile();
+        }
+
+        // this button event saves the session and its calculations in the prev sessions file
+        // and the individual sessions file
+        private void saveSessionFile_Click(object sender, EventArgs e)
+        {
+            file.writeLogFilesToStorage(APParithmeticLL, APPconversionLL);
+        }
+
+        // this button event simply clears all text boxes to being empty
+        // just a simple easy thing for the user's benefit
+        private void clearAllTextBoxes_Click(object sender, EventArgs e)
+        {
+            binaryArith_LeftTextBox.Text = "";
+            operationComboBox.Text = "";
+            binaryArith_RightTextBox.Text = "";
+            binaryArithm_AnswerTextBox.Text = "";
+            comboBox2.Text = "";
+            textBox1.Text = "";
+            comboBox1.Text = "";
+            textBox2.Text = "";
         }
     }
 }

@@ -36,12 +36,12 @@ namespace IT_Calculator
     internal class methods
     {
         // This method adds two base 2 numbers together and returns the answer in base 2.
-        // this is the format of the inputs: (num1 + num2)
+        // This is the format of the inputs: (num1 + num2)
         public static String base2Addition(int num1, int num2)
         {
             // convert both numbers in to decimal
-            int num1Base10 = base2ToBase10(num1);
-            int num2Base10 = base2ToBase10(num2);
+            int num1Base10 = int.Parse(base2ToBase10(num1.ToString()));
+            int num2Base10 = int.Parse(base2ToBase10(num2.ToString()));
 
             // complete the operation (addition)
             int operationAnswer = num1Base10 + num2Base10;
@@ -49,17 +49,16 @@ namespace IT_Calculator
             // convert the answer back to binary, store into a returnable binary ouput
             String base2ToReturn = base10ToBase2(operationAnswer);
 
-            // return the answer (in binary)
             return base2ToReturn;
         }
 
         // This method subtracts two base 2 numbers and returns the answer in base 2.
-        // this is the format of the inputs: (num1 - num2)
+        // This is the format of the inputs: (num1 - num2)
         public static String base2Subtraction(int num1, int num2)
         {
             // convert both numbers in to decimal
-            int num1Base10 = base2ToBase10(num1);
-            int num2Base10 = base2ToBase10(num2);
+            int num1Base10 = int.Parse(base2ToBase10(num1.ToString()));
+            int num2Base10 = int.Parse(base2ToBase10(num2.ToString()));
 
             // complete the operation (subtraction)
             int operationAnswer = num1Base10 - num2Base10;
@@ -67,17 +66,16 @@ namespace IT_Calculator
             // convert the answer back to binary, store into a returnable binary ouput
             String base2ToReturn = base10ToBase2(operationAnswer);
 
-            // return the answer (in binary)
             return base2ToReturn;
         }
 
         // This method multiplies two base 2 numbers together and returns the answer in base 2.
-        // this is the format of the inputs: (num1 * num2)
+        // This is the format of the inputs: (num1 * num2)
         public static String base2Multiplication(int num1, int num2)
         {
             // convert both numbers in to decimal
-            int num1Base10 = base2ToBase10(num1);
-            int num2Base10 = base2ToBase10(num2);
+            int num1Base10 = int.Parse(base2ToBase10(num1.ToString()));
+            int num2Base10 = int.Parse(base2ToBase10(num2.ToString()));
 
             // complete the operation (multiplication)
             int operationAnswer = num1Base10 * num2Base10;
@@ -85,52 +83,32 @@ namespace IT_Calculator
             // convert the answer back to binary, store into a returnable binary ouput
             String base2ToReturn = base10ToBase2(operationAnswer);
 
-            // return the answer (in binary)
             return base2ToReturn;
         }
 
         // This method converts a base 2 number into a base 10 number.
         // input: base 2 number | returns base 10 number
-        public static int base2ToBase10(int numToConvert)
+        public static String base2ToBase10(String numToConvert)
         {
-            // store the input as a string
-            String numToConvertString = numToConvert.ToString();
-            // numToConvertString to char[] for easier access in the conversion loop
-            char[] base2CharArray = numToConvertString.ToCharArray();
-
-            // int value to be returned after the conversion
-            int returnInt = 0;
-            // int value to display which place (base2) we are at in the loop
-            int placeLocation = 1;
-            // reverse loop to create the base 10 number
-            for (int count = base2CharArray.Length-1; count >= 0; count--)
+            // get the length of binary input string & store into int powerValue
+            Double powerValue = numToConvert.Length - 1;
+            // char array to allow easier interaction with the input string
+            char[] binaryCharArray = numToConvert.ToCharArray();
+            // int variable to hold the decimalValue
+            Double decimalReturnValue = 0;
+            // loop to convert the string input (inputCharArray) to decimal
+            for (int location = 0; location < numToConvert.Length; location++)
             {
-                String currentString = base2CharArray[count].ToString();
-                // check which place in the binary string we are at
-                // check if at the ones place
-                if (placeLocation == 1)
+                // check value at location for a "1" or "0"
+                if (binaryCharArray[location].ToString() == "1")
                 {
-                    // check if there is a number to add
-                    if (currentString == "1")
-                    {
-                        // add the number to the returnInt (in this case, we are in the ones place, so add a 1)
-                        returnInt = returnInt + 1;
-                    }
+                    // add the correct value to the decimal return
+                    decimalReturnValue += Math.Pow(2, powerValue);
                 }
-                else
-                {
-                    // check if there is a number to add
-                    if (currentString == "1")
-                    {
-                        // add the number to the returnInt (add the curent placement value)
-                        returnInt = returnInt + placeLocation;
-                    }
-                }
-                // update placeLocation value (multiply by 2 to get the correct base 2 placement)
-                placeLocation = placeLocation * 2;
+                // lower power value
+                powerValue -= 1;
             }
-            // return the base2 result
-            return returnInt;
+            return decimalReturnValue.ToString();
         }
 
         // This method converts a base 10 number into a base 2 number.
@@ -221,7 +199,7 @@ namespace IT_Calculator
             String[] binaryValues = {"0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001", "1010", "1011", "1100", "1101", "1110", "1111"};
 
             // convert to char array
-            char[] tempCharArray = numToConvert.ToCharArray();
+            char[] tempCharArray = conversionString.ToCharArray();
             // convert to string array
             String[] stringArray = new string[tempCharArray.Length];
             // loop to make everything lowercase
@@ -259,37 +237,48 @@ namespace IT_Calculator
             return returnString;
         }
 
+        // This method converts a mac address into a base 10 number
+        // input: correclty formatted mac address (string) | output: base 10 number (string)
+        public static String hexModToBase10(string numToConvert)
+        {
+            // seperator value to be used to split the string
+            char[] seperators = { ':' };
+            // separate the input IP address into four section on the "."
+            String[] hexSections = numToConvert.Split(seperators);
+
+            // string string build the binary string that will be used to convert to decimal
+            String binaryString = "";
+            // convert each hex section to an 8 bit section of binary
+            for (int section = 0; section < 6; section++)
+            {
+                // convert current section from hex to binary
+                String binaryHoldString = hexToBase2(hexSections[section], false);
+                // ensure binaryString is 8 bits long
+                if (binaryHoldString.Length != 8)
+                {
+                    // add a sequence of 0's to the front of the string
+                    binaryHoldString = "0000" + binaryHoldString;
+                }
+                // add the new section to the binarySections array
+                binaryString += binaryHoldString;
+            }
+
+            // convert the binary string to decimal (call base2ToBase10 method) and return
+            String decimalReturnString = base2ToBase10(binaryString);
+            return decimalReturnString; 
+        }
+
+
         // This method converts a hexadecimal number into a base 10 number.
         // input: hexadecimal number (string) | returns: base 10 number
         public static String hexToBase10(string numToConvert)
         {
-            // String array for the hex values
-            String[] hexValues = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f" };
-            // string array for the binary values 
-            String[] decimalvalues = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" };
-
-            // convert numToConvert into a char array for easier interaciton in the conversion loops
-            char[] hexCharArray = numToConvert.ToCharArray();
-
-            // int build return of decimal values
-            int returnInt = 0;
-            
-            // loop through the numToConvertString
-            for (int count = 0; count < numToConvert.Length; count++)
-            {
-                // find the corresponding decimal value and build returnString
-                for (int innerCount = 0; innerCount < 16; innerCount++)
-                {
-                    // check the current value being evaluated against the hex values array
-                    if (hexCharArray[count].ToString() == hexValues[innerCount])
-                    {
-                        // update the returnString with the corresponding value from decimal values array
-                        returnInt += int.Parse(decimalvalues[innerCount]);
-                    }
-                }
-            }
-            // return the final decimal string
-            return returnInt.ToString();
+            // convert hex input to binary string (call hexToBase2)
+            String binaryString = hexToBase2(numToConvert, false);
+            // convert binary string to decimal string (call base2ToBase10)
+            String decimalReturnString = base2ToBase10(binaryString);
+            // return decimal string
+            return decimalReturnString;
         }
 
         // This method converts a decimal number (base10) to a hexadecimal number OR a formatted mac address
@@ -361,128 +350,233 @@ namespace IT_Calculator
         }
 
         // this method convers a base 10 number into a correclty formatted ip address
-        // this methods DOES NOT check for correct input length
-        // this method more or less converts a decimal number to an octal number
         // input: base10 number (string) | output: ip address (string)
         public static String base10ToDotOct(String numToConvert)
         {
-            // creation of the linked list that will be used to store the remainders of the conversion operations
-            LinkedList remainders = new LinkedList();
-
-            // int variable to keep track of the conversion operations being completed
-            int numToOperate = int.Parse(numToConvert);
-
-            // conversion loop of the original string
-            while (numToOperate > 0)
+            // string value to hold the binary string
+            String binaryString = base10ToBase2(int.Parse(numToConvert));
+            // check that the binaryString has the correct length
+            if (binaryString.Length < 32)
             {
-                // divide by 8, store the remainder into the linked list
-                Node remainder = new Node(numToOperate % 8);
-                // update the numToOperate
-                numToOperate /= 8;
+                // find how many zeros are needed to put onto the front of the binaryString
+                int zeros = binaryString.Length;
+                // the zero string that will hold the zeros to be placed on the front of binaryString
+                String zeroString = "";
+                // loop to create a string of zeros
+                for (int zeroCount = zeros; zeroCount < 32; zeroCount++)
+                {
+                    // add a zero to the zeroString
+                    zeroString += "0";
+                }
+                // place the zeros on the front of the binaryString
+                binaryString = zeroString + binaryString;
             }
-            // MAY NEED TO UPDATE THIS OPERATION 
+            else if (binaryString.Length > 32)
+            {
+                // return an error
+                return "Input Error";
+            }
 
-            // reverse the remainders linked list
-            String octalNum = remainders.contentsToInt(true);
-
-            // NEEDS TO BE FORMATTED FOR AN IP ADDRESS OUPUT
-            // return the IP address
-            return octalNum;
+            // conver binary string to ip address & return
+            String ipAddressString = base2ToDotOct(binaryString);
+            return ipAddressString;
         }
 
         // This method converts a binary number to a dottet octet (IP Address)
         // input: base2 (String) | returns: dottect octet number (String)
-        // this method DOES check for correct input length
+        // This method DOES check for correct input length
         public static String base2ToDotOct(String numToConvert)
         {
-            // check the input lenght 
-            if (numToConvert.Length == 32)
+            // take split the input string into sections of 4 (8 bits each)
+            // create char array to hold the input string for better interaction
+            char[] inputCharArray = numToConvert.ToCharArray();
+            // string array to hold the binary sections of 8
+            String[] binarySections = new string[4];
+            // int value to keep track of the current location inside of inputCharArray
+            int currLocation = 0;
+            // loop to create each binarySection and place it into the array
+            for (int section = 0; section < 4; section++)
             {
-                // convert numToConvert to a char array for easier interaction 
-                char[] tempCharArray = numToConvert.ToCharArray();
-                
-                // string array to hold the 4 sections of binary
-                String[] binarySectionsArray = new String[4];
-
-                // int variable to keep track of current location within the tempCharArray
-                int charArrayLocation = 0;
-
-                // loop to walk through the tempCharArray to build the 4 string sections for binarySectionsArray
-                for (int sections = 0; sections < 4; sections ++)
+                // temp string value to hold the binary section
+                String binaryString = "";
+                // loop to create the 8 bit sequence
+                for (int count = 0; count < 8; count++)
                 {
-                    // temp section string holder that will be used to store a single section of 8 
-                    String tempStringHolder = "";
-
-                    // loop to build a single section of 8 characters
-                    for (int single = 0; single < 8; single++)
-                    {
-                        // start at charArrayLocation & add to the tempStringHolder
-                        tempStringHolder += tempCharArray[charArrayLocation].ToString();
-                        // update charArrayLocation value
-                        charArrayLocation++;
-                    }
-                    // add the tempStringHolder value to the current location in the binarySectionsArray
-                    binarySectionsArray[sections] = tempStringHolder;
+                    // obtain the value at currLocation & place onto binaryString
+                    binaryString += inputCharArray[currLocation].ToString();
+                    // advance currLocation
+                    currLocation++;
                 }
-
-                // return string creation
-                String returnString = "";
-
-                // loop to convert each section into the correct octal value
-                for (int section = 0; section < 4; section++)
-                {
-                    // take the current section and conver into decimal
-                    int decimalSection = base2ToBase10(int.Parse(binarySectionsArray[section]));
-                    // linked list to hold the remainders from the operations
-                    LinkedList remainders = new LinkedList();
-                    // bool to stay in the while loop
-                    bool continueWhile = true;
-                    // convert the decimal number into octal
-                    while (continueWhile == true)
-                    {                        
-                        // divide the decimal number by 8 and keep the remainder
-                        int remainder = decimalSection % 8;
-                        // add the remainder as a node to the linked list
-                        Node nodeToAdd = new Node(remainder);
-                        // add that node to the linked list remainders
-                        remainders.addNode(nodeToAdd);
-                        // update decimalSection value
-                        decimalSection /= 2;
-                        // check if decimalSection is 0
-                        if (decimalSection == 0)
-                        {
-                            // update while loop
-                            continueWhile = false;
-                        }
-                    }
-                    // obtain the octal values by reversing the linked list of remainders
-                    String octalValue = remainders.contentsToInt(true).ToString();
-                    // check where in the return string we are (to add a period or not)
-                    if (section != 3)
-                    {
-                        // update returnString with the octalValue and a decimal point
-                        returnString += octalValue + ".";
-                    }
-                    else
-                    {
-                        // update returnString with the octalValue
-                        returnString += octalValue;
-                    }
-                }
-
-                // return the final completed string
-                return returnString;
-
+                // place binaryString into binarySections array
+                binarySections[section] = binaryString;
             }
-            else if (numToConvert.Length < 32 || numToConvert.Length > 32)
+
+            // string value to build the final return string
+            String decimalReturnValue = "";
+            // loop to convert each binarySection into decimal and place it into decimalSections
+            for (int section = 0; section < 4; section++)
             {
-                // return an error to the user
-                return "error";
+                // call base2ToBase10 and place into the current section of decimalSections
+                decimalReturnValue += base2ToBase10(binarySections[section]);
+                // check if a separator is necessary
+                if (section != 3)
+                {
+                    // place a separator on
+                    decimalReturnValue += ".";
+                }
             }
-            // return the final string
-            return "final string return";
+
+            // return the final decimal string
+            return decimalReturnValue;
         }
 
+        // This method takes in an IP address and converts it to a hexadecimal value
+        // input: correclty formatted IP address (string) | output: formatted hex value (string)
+        public static String dotOctetToHex(String numToConvert)
+        {
+            // seperator value to be used to split the string
+            char[] seperators = { '.' };
+            // separate the input IP address into four section on the "."
+            String[] sections = numToConvert.Split(seperators);
+
+            // string array to hold the binary sections
+            String[] binarySections = new string[4];
+            // loop to convert each section into a binary string
+            for (int count = 0; count < 4; count++)
+            {
+                // call base10ToBase2 method and store into binarySections
+                binarySections[count] = base10ToBase2(int.Parse(sections[count]));
+            }
+
+            // string array to hold the returned hex values (done for helping with proper format later)
+            String[] hexSections = new String[4];
+            // loop to obtain the hex sections
+            for (int count = 0; count < 4; count++)
+            {
+                // call base2ToHex method and build onto hexReturnValue
+                hexSections[count] = base2ToHex(binarySections[count], false);
+            }
+
+            // string value to build the hex values onto and to return
+            String hexReturnValue = "";
+            // loop to check the final formatting and build hexReturnString
+            for (int count = 0; count < 4; count++)
+            {
+                // check the section for length 2, if not place a 0 before placing on hexReturnString
+                if (hexSections[count].Length != 2)
+                {
+                    // place a 0 before placement of current section
+                    hexReturnValue += "0";
+                }
+                hexReturnValue += hexSections[count];
+            }
+
+            // return the final built string
+            return hexReturnValue;
+        }
+
+        // This method converts an IP address into decimal number
+        // input: correclty formatted IP address (string) | output: decimal number (string)
+        public static String dotOctetToBase10(string numToConvert)
+        {
+            // seperator value to be used to split the string
+            char[] seperators = { '.' };
+            // separate the input IP address into four section on the "."
+            String[] sections = numToConvert.Split(seperators);
+
+            // conver sections into a single binary
+            // string value to hold the entire binary string
+            String binaryString = "";
+            // loop to convert all decimal sections into a single binary string
+            for (int count = 0; count < 4; count++)
+            {                
+                // convert current decimal section to binary
+                String binarySection = base10ToBase2(int.Parse(sections[count]));
+                // check length of binarySection to ensure it is an 8 bit sequence
+                if (binarySection.Length != 8)
+                {
+                    // place "0000" before the binarySection
+                    binaryString += "0000";
+                }
+                // add the binarySection to the binaryString
+                binaryString += binarySection;
+            }
+
+            // return string - call base2ToBase10 and store into return value
+            String returnDecimalValue = base2ToBase10(binaryString);
+
+            // return the decimal value
+            return returnDecimalValue;
+        }
+
+        // This method converts a hexadecimal number (correct format) to an IP Address
+        // input: (correct length) hexadecimal (string) | ouput: ip address (string)
+        // THIS METHOD DOES NOT CURRENLTY CHECK FOR INPUT LENGTH
+        public static String hexToDotOctet(string numToConvert)
+        {
+            // char array to split the input string for easier interaction
+            char[] inputCharArray = numToConvert.ToCharArray();
+            // string array to hold the hex sections
+            String[] hexStringArray = new String[4];
+            // int value to keep track of which location is currently being evaluated
+            int currLocation = 0;
+            // loop to build the hexStringArray sections correclty
+            for (int section = 0; section < 4; section++)
+            {
+                // temp string value to hold the current hex section
+                String tempHexHolder = "";
+                // get two values and place into the correct string section
+                for (int value = 1; value < 3; value++)
+                {
+                    // get the value and place it into tempHexHolder
+                    tempHexHolder += inputCharArray[currLocation];
+                    // advance currLocation
+                    currLocation++;
+                }
+                // input tempHexHolder into hexStringArray
+                hexStringArray[section] = tempHexHolder;
+            }
+
+            // binary string array to hold the converted strings (hex to binary)
+            String[] binaryStringArray = new String[4];
+            // loop to convert the hex sections into binary and store into binaryStringArray
+            for (int section = 0; section < 4; section++)
+            {
+                // call hexToBase2 method & store into a temp string value
+                String binaryString = hexToBase2(hexStringArray[section], false);
+                // place binaryString into the binary array 
+                binaryStringArray[section] = binaryString;
+            }
+
+            // decimal string array to hold the converted strings (binary to decimal)
+            String[] decimalStringArray = new string[4]; 
+            // loop to convert the binary sections into decimal and store into decimalStringArray
+            for (int section = 0; section < 4; section++)
+            {
+                // call base2ToBase10 method & store into temp string value
+                String decimalString = base2ToBase10(binaryStringArray[section]);
+                // place decimalString into the decimal array
+                decimalStringArray[section] = decimalString;
+            }
+
+            // string value to hold the final product
+            String ipReturnValue = "";
+            // loop to build the final return string
+            for (int count = 0; count < 4; count++)
+            {
+                // place the current section of decimalStringArray onto ipReturnValue
+                ipReturnValue += decimalStringArray[count];
+                // check if a separator is needed
+                if (count != 3)
+                {
+                    // place a separator onto the string
+                    ipReturnValue += ".";
+                }
+            }
+
+            // return the properly formatted and built string
+            return ipReturnValue;
+        }
 
 
         // This method converts a dotted octet number into a base 10 number.
@@ -713,7 +807,7 @@ namespace IT_Calculator
             // string array to hold the 4 digit binary sections
             String[] binarySectionStrings = new string[sections];
 
-            // convert the inputstring to a char array for easier interaction in the conversion loops
+            // convert the input string to a char array for easier interaction in the conversion loops
             char[] tempCharArray = inputString.ToCharArray();
 
             // variable to keep track of the location in the starting location of the inner loop
@@ -743,7 +837,7 @@ namespace IT_Calculator
             for (int count = 0; count < binarySectionStrings.Length; count++)
             {
                 // loop to find the corresponing hex value based on the current binary section
-                for (int innerCount = 0; innerCount < 15; innerCount++)
+                for (int innerCount = 0; innerCount < 16; innerCount++)
                 {
                     // check the current binary section against the binaryValues array
                     if (binarySectionStrings[count] == binaryValues[innerCount])
@@ -765,6 +859,26 @@ namespace IT_Calculator
             return hexReturnString;
         }
 
+
+        // this method convets a mac address into hex (removes ":" from the input)
+        public static string hexModToHex(string inputString)
+        {
+            // conver input to char array
+            char[] inputCharArray = inputString.ToCharArray();
+
+            // return string
+            string returnString = "";
+
+            // loop to build the return string
+            for (int count = 0; count < inputCharArray.Length; count++)
+            {
+                if (inputCharArray[count].ToString() != ":")
+                {
+                    returnString += inputCharArray[count].ToString();
+                }
+            }
+            return returnString;
+        }
 
         // this method converts a hex input string into a formatted mac address
         public static String hexToHexMod(String inputString)
@@ -797,28 +911,6 @@ namespace IT_Calculator
                 }
             }
             return returnString;
-        }
-
-        // This method takes in a string of binary values, and outputs a string of the correct lenght
-        // check the length of the output string and update it accordingly if needed (from "00" to "0000")
-        public static String binaryStringFormatting(String originalString)
-        {
-            // check the length of the return int to ensure it is a correct length
-            if ((originalString.Length % 4) != 0)
-            {
-                // find the amount of zeros to format correclty
-                int zeros = originalString.Length % 4;
-                // create a string with the correct num of zeros
-                String zeroString = "";
-                for (int count = zeros; count < 4; count++)
-                {
-                    zeroString += "0";
-                }
-                // append the zeros to the front of the string
-                originalString = zeroString + originalString;
-            }
-            // return the corrected string
-            return originalString;
         }
     }
 }
