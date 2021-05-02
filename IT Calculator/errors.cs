@@ -45,10 +45,10 @@ namespace IT_Calculator
 
 
         // instance method for error class
-        public error(String errorString, bool error)
+        public error()
         {
-            this.errorString = errorString;
-            this.isError = error;
+            this.errorString = "";
+            this.isError = false;
         }
 
         /* 
@@ -60,7 +60,7 @@ namespace IT_Calculator
          *  bool "lengthLessEqual" - if the length has to be that exact number or less
          * lengthEqual & lengthLessEqual cannot both be true or both be false. They need to be the inverse of eachother
          */
-        public static error checkLengthString(String stringToCheck, int correctLength, bool lengthEqual, bool lengthLessEqual)
+        public static error checkInputLength(String stringToCheck, int correctLength, bool lengthEqual, bool lengthLessEqual)
         {
             // check the parameter boolean values
             if (lengthEqual == true)
@@ -69,14 +69,15 @@ namespace IT_Calculator
                 if (stringToCheck.Length == correctLength)
                 {
                     // create an error and return 
-                    error errorToReturn = new error("", false);
+                    error errorToReturn = new error();
                     return errorToReturn;
                 }
                 else
                 {
                     // create an error and return 
-                    String errorString = ($"Input is incorrect length. Needs to be exactly {correctLength}. Input was of length {stringToCheck.Length}.");
-                    error errorToReturn = new error(errorString, true);
+                    error errorToReturn = new error();
+                    errorToReturn.errorString = ($"Input is incorrect length. Needs to be exactly {correctLength}. Input was of length {stringToCheck.Length}.");
+                    errorToReturn.isError = true;
                     return errorToReturn;
                 }
             }
@@ -86,17 +87,120 @@ namespace IT_Calculator
                 if (stringToCheck.Length <= correctLength)
                 {
                     // create an error and return 
-                    error errorToReturn = new error("", false);
+                    error errorToReturn = new error();
                     return errorToReturn;
                 }
                 else
                 {
                     // create an error and return 
-                    String errorString = ($"Input is incorrect length. Needs to be exactly {correctLength}. Input was of length {stringToCheck.Length}.");
-                    error errorToReturn = new error(errorString, true);
+                    error errorToReturn = new error();
+                    errorToReturn.errorString = ($"Input is incorrect length. Needs to be exactly {correctLength}. Input was of length {stringToCheck.Length}.");
+                    errorToReturn.isError = true;
                     return errorToReturn;
                 }
             }
+        }
+
+
+        /*
+         * This method displays a message box alerting the user that the operation request is not supported. 
+         */
+        public static void operationNotSupportedMessage()
+        {
+            System.Windows.Forms.MessageBox.Show("This operation is not supported by the application.\n" + "Please try a different operation.", "Operation Not Supported");
+        }
+
+
+        /*
+         * This method checks the input for spelling mistakes.
+         * This method deals only with binary arithmetic operations.
+         */
+        public static error checkArithmeticReadIn(string operation)
+        {
+            // error to return
+            error errorToReturn = new error();
+
+            // string array to hold the corresponding values
+            string[] operationArray = { "Addition", "Subtraction", "Multiplication" };
+
+            // bool value to keep track if there is an issue
+            bool operationCorrect = false;
+
+            // loop to check the passed operation string
+            for (int count = 0; count < 3; count++)
+            {
+                if (operationArray[count] == operation)
+                {
+                    operationCorrect = true;
+                }
+            }
+
+            // check if there was an issue
+            if (operationCorrect == false)
+            {
+                errorToReturn.errorString = $"Typo in {operation}. Operation was not completed.";
+                errorToReturn.isError = true;
+            }
+
+            return errorToReturn;
+        }
+
+
+        /*
+         * This method checks the inputs for spelling mistakes. 
+         * This is mostly used in the operating on a read in file.
+         * This method deals only with conversion operations - there is a separate method for 
+         * arithmetic operations input checking.
+         */
+        public static error checkConversionReadIn(string firstBase, string secondBase)
+        {
+            // error to return 
+            error errorToReturn = new error();
+
+            // string arrays that hold the corresponding values
+            string[] firstBaseArray = { "Binary", "Decimal", "Hexadecimal", "Mac Address", "IP Address" };
+            string[] secondBaseArray = { "Binary", "Decimal", "Hexadecimal", "Mac Address", "IP Address" };
+
+            // bools to keep track which base is incorrect 
+            bool firstCorrect = false;
+            bool secondCorrect = false;
+
+            // loop to check firstBase
+            for (int count = 0; count < 5; count++)
+            {
+                if (firstBaseArray[count] == firstBase)
+                {
+                    firstCorrect = true;
+                }
+            }
+
+            // loop to check secondBase
+            for (int count = 0; count < 5; count++)
+            {
+                if (secondBaseArray[count] == secondBase)
+                {
+                    secondCorrect = true;
+                }
+            }
+
+            // conditionals to return the correct ouput
+            if (firstCorrect == false && secondCorrect == false)
+            {
+                errorToReturn.errorString = $"Typos in both {firstBase} and {secondBase}. Operation not completed.";
+                errorToReturn.isError = true;
+            }
+            else if (firstCorrect == true && secondCorrect == false)
+            {
+                errorToReturn.errorString = $"Typo in {secondBase}. Operation not completed.";
+                errorToReturn.isError = true;
+            }
+            else if (firstCorrect == false && secondCorrect == true)
+            {
+                errorToReturn.errorString = $"Typo in {firstBase}. Operation not completed.";
+                errorToReturn.isError = true;
+            }
+
+            return errorToReturn;
         }
 
 

@@ -413,6 +413,15 @@ namespace IT_Calculator
             // return string
             string operationAnswerString = "";
 
+            // check the operation for typos
+            if (error.checkArithmeticReadIn(operation).isError == true)
+            {
+                operationAnswerString = error.checkArithmeticReadIn(operation).errorString;
+                file.storeForLogFileArithmetic(Form1.APParithmeticLL, this.firstString, this.secondString, operation, operationAnswerString);
+                return operationAnswerString;
+            }
+
+
             if (operation == "Addition")
             {
                 if (this.firstLarger == true)
@@ -578,10 +587,6 @@ namespace IT_Calculator
                     operationAnswerString = format(operationAnswerString);
                 }
             }
-            else
-            {
-                return "there was a problem";
-            }
             // store the file into the linked list to later be written
             file.storeForLogFileArithmetic(Form1.APParithmeticLL, this.firstString, this.secondString, operation, operationAnswerString);
             // return the operation anwer string
@@ -645,6 +650,14 @@ namespace IT_Calculator
             // return string
             string operationAnswerString = "";
 
+            // check the inputs for typos 
+            if (error.checkConversionReadIn(this.inputBase, this.outputBase).isError == true)
+            {
+                operationAnswerString = error.checkConversionReadIn(this.inputBase, this.outputBase).errorString;
+                file.storeForLogFileConversion(Form1.APPconversionLL, this.numToConvert, this.inputBase, this.outputBase, operationAnswerString);
+                return operationAnswerString;
+            }
+
             if (this.inputBase == "Binary")
             {
                 if (this.outputBase == "Decimal")
@@ -661,7 +674,12 @@ namespace IT_Calculator
                 }
                 else if (this.outputBase == "IP Address")
                 {
-                    operationAnswerString = methods.base2ToDotOct(this.numToConvert);
+                    // check input length (max of 32 digits)
+                    error lengthError = error.checkInputLength(this.numToConvert, 32, false, true);
+                    if (lengthError.isError != true)
+                    {
+                        operationAnswerString = methods.base2ToDotOct(this.numToConvert);
+                    }
                 }
             }
             else if (this.inputBase == "Decimal")
@@ -676,11 +694,16 @@ namespace IT_Calculator
                 }
                 else if (this.outputBase == "Mac Address")
                 {
-                    operationAnswerString = "This operation is not supported.";
+                    error.operationNotSupportedMessage();
                 }
                 else if (this.outputBase == "IP Address")
                 {
-                    operationAnswerString = methods.base10ToDotOct(this.numToConvert);
+                    // check input length (max of 9 digits)
+                    error lengthError = error.checkInputLength(this.numToConvert, 9, false, true);
+                    if (lengthError.isError != true)
+                    {
+                        operationAnswerString = methods.base10ToDotOct(this.numToConvert);
+                    }
                 }
             }
             else if (this.inputBase == "Hexadecimal")
@@ -699,6 +722,7 @@ namespace IT_Calculator
                 }
                 else if (this.outputBase == "IP Address")
                 {
+
                     operationAnswerString = methods.hexToDotOctet(this.numToConvert);
                 }
             }
@@ -718,7 +742,7 @@ namespace IT_Calculator
                 }
                 else if (this.outputBase == "IP Address")
                 {
-                    operationAnswerString = "This operation is not supported.";
+                    error.operationNotSupportedMessage();
                 }
             }
             else if (this.inputBase == "IP Address")
@@ -737,7 +761,7 @@ namespace IT_Calculator
                 }
                 else if (this.outputBase == "Mac Address")
                 {
-                    operationAnswerString = "This operation is not supported.";
+                    error.operationNotSupportedMessage();
                 }
             }
             // store the information into the application linked list

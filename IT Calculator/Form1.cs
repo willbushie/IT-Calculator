@@ -106,6 +106,12 @@ namespace IT_Calculator
             MessageBox.Show("This is a basic overview of the operations of the application. \n\nThe top portion of the application is meant to be used an arithmetic calculator for binary numbers. It supports the operations addition, subtraction, and multiplication. Division is not supported because those operations can result in decimal numbers. The calculator can handle negative numbers, in all operations, and input numbers with a length of 12 or less. The answer will be output with correct formatting (meaning the lngth of the output is evenly divisble by 4).\n\nThe lower portion of the application is used for number conversions. Please see 'Possible Conversions' tab in the help menu to see what conversions are supported.\n\nThe help menu is where the user can go for a quick explanation on the basic functionality of the application, any errors the user may receive, and creation information on the application.", "User Guide");
         }
 
+        // this on click will provide information on the read and write abilities of the application.
+        private void readWriteMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void correctInputFormatsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("This help tab shows the correct input formats for conversion operations.\n'Base to Base, Explanation. (Accepted Example Input)'\n\nBinary --> IPv4 Address, length of input NEEDS to be 32. (10000001000000010000000100000001)\nBinary --> Mac Address, length of input NEEDS to be 48. (001100000110010111101100011011111100010001011000)\nHexadecimal --> IPv4 Address, length of input NEEDS to be 8(ff181584)", "Correct Input Formats");

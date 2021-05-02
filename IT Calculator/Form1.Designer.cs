@@ -63,6 +63,7 @@ namespace IT_Calculator
             this.saveSessionFile = new System.Windows.Forms.Button();
             this.operateOnChosenFile = new System.Windows.Forms.Button();
             this.clearAllTextBoxes = new System.Windows.Forms.Button();
+            this.readWriteMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -320,6 +321,7 @@ namespace IT_Calculator
             this.userGuideToolStripMenuItem,
             this.correctInputFormatsToolStripMenuItem,
             this.possibleConversionsToolStripMenuItem,
+            this.readWriteMenuItem1,
             this.commonErrorsToolStripMenuItem,
             this.aboutITCalculatorToolStripMenuItem});
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
@@ -330,35 +332,35 @@ namespace IT_Calculator
             // userGuideToolStripMenuItem
             // 
             this.userGuideToolStripMenuItem.Name = "userGuideToolStripMenuItem";
-            this.userGuideToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.userGuideToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.userGuideToolStripMenuItem.Text = "User Guide";
             this.userGuideToolStripMenuItem.Click += new System.EventHandler(this.userGuideToolStripMenuItem_Click);
             // 
             // correctInputFormatsToolStripMenuItem
             // 
             this.correctInputFormatsToolStripMenuItem.Name = "correctInputFormatsToolStripMenuItem";
-            this.correctInputFormatsToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.correctInputFormatsToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.correctInputFormatsToolStripMenuItem.Text = "Correct Input Formats";
             this.correctInputFormatsToolStripMenuItem.Click += new System.EventHandler(this.correctInputFormatsToolStripMenuItem_Click);
             // 
             // possibleConversionsToolStripMenuItem
             // 
             this.possibleConversionsToolStripMenuItem.Name = "possibleConversionsToolStripMenuItem";
-            this.possibleConversionsToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.possibleConversionsToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.possibleConversionsToolStripMenuItem.Text = "Possible Conversions";
             this.possibleConversionsToolStripMenuItem.Click += new System.EventHandler(this.possibleConversionsToolStripMenuItem_Click);
             // 
             // commonErrorsToolStripMenuItem
             // 
             this.commonErrorsToolStripMenuItem.Name = "commonErrorsToolStripMenuItem";
-            this.commonErrorsToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.commonErrorsToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.commonErrorsToolStripMenuItem.Text = "Common Errors";
             this.commonErrorsToolStripMenuItem.Click += new System.EventHandler(this.commonErrorsToolStripMenuItem_Click);
             // 
             // aboutITCalculatorToolStripMenuItem
             // 
             this.aboutITCalculatorToolStripMenuItem.Name = "aboutITCalculatorToolStripMenuItem";
-            this.aboutITCalculatorToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.aboutITCalculatorToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.aboutITCalculatorToolStripMenuItem.Text = "About IT-Calculator";
             this.aboutITCalculatorToolStripMenuItem.Click += new System.EventHandler(this.aboutITCalculatorToolStripMenuItem_Click);
             // 
@@ -391,6 +393,13 @@ namespace IT_Calculator
             this.clearAllTextBoxes.Text = "Clear Text Boxes";
             this.clearAllTextBoxes.UseVisualStyleBackColor = true;
             this.clearAllTextBoxes.Click += new System.EventHandler(this.clearAllTextBoxes_Click);
+            // 
+            // readWriteMenuItem1
+            // 
+            this.readWriteMenuItem1.Name = "readWriteMenuItem1";
+            this.readWriteMenuItem1.Size = new System.Drawing.Size(199, 22);
+            this.readWriteMenuItem1.Text = "Read / Write Interaction";
+            this.readWriteMenuItem1.Click += new System.EventHandler(this.readWriteMenuItem1_Click);
             // 
             // Form1
             // 
@@ -469,6 +478,7 @@ namespace IT_Calculator
         private System.Windows.Forms.Button saveSessionFile;
         private System.Windows.Forms.Button operateOnChosenFile;
         private System.Windows.Forms.Button clearAllTextBoxes;
+        private System.Windows.Forms.ToolStripMenuItem readWriteMenuItem1;
     }
 }
 

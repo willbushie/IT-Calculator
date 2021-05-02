@@ -121,7 +121,7 @@ namespace IT_Calculator
         public static void storeForLogFileArithmetic(LinkedListStrings LL, string num1, string num2, string operation, string answer) 
         {
             // build the string from the inputs
-            string writeString = $"arth {num1} {num2} {operation} = {answer}";
+            string writeString = $"arth {num1} {operation} {num2} = {answer}";
 
             // create a new nodeToAdd 
             NodeString nodeToAdd = new NodeString(writeString);
@@ -292,10 +292,17 @@ namespace IT_Calculator
                         // build num2
                         while (currLocation < lineChars.Length)
                         {
-                            // add to num2
-                            num2 += lineChars[currLocation].ToString();
-                            // advance currLocation
-                            currLocation++;
+                            if (lineChars[currLocation].ToString() != " ")
+                            {
+                                // add to num2
+                                num2 += lineChars[currLocation].ToString();
+                                // advance currLocation
+                                currLocation++;
+                            }
+                            else
+                            {
+                                currLocation = lineChars.Length;
+                            }
                         }
 
                         // create binaryOperation object to operate on and recieve an output
@@ -347,10 +354,17 @@ namespace IT_Calculator
                         // build numToConvert
                         while (currLocation < lineChars.Length)
                         {
-                            // add to numToConvert
-                            numtoConvert += lineChars[currLocation].ToString();
-                            // advance currLocation
-                            currLocation++;
+                            if (lineChars[currLocation].ToString() != " ")
+                            {
+                                // add to numToConvert
+                                numtoConvert += lineChars[currLocation].ToString();
+                                // advance currLocation
+                                currLocation++;
+                            }
+                            else
+                            {
+                                currLocation = lineChars.Length;
+                            }
                         }
 
                         // create conversionOperation instance
@@ -363,6 +377,13 @@ namespace IT_Calculator
                         string stringToStore = $"{operation} {inputBase} to {outputBase} {numtoConvert} = {answer}";
                         // create node to store
                         NodeString nodeToAdd = new NodeString(stringToStore);
+                        // add the node to the list
+                        lineOutputs.addNode(nodeToAdd);
+                    }
+                    else
+                    {
+                        string errorString = $"{line} = Label was incorrect on the line. Operation not complete.";
+                        NodeString nodeToAdd = new NodeString(errorString);
                         // add the node to the list
                         lineOutputs.addNode(nodeToAdd);
                     }
