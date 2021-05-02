@@ -128,7 +128,7 @@ namespace IT_Calculator
             // write to the files
             file.writeLogFilesToStorage(arithmeticLL, conversionLL);
             */
-            file.operateOnFile("test");
+            file.operateOnFile();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

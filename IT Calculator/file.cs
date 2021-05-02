@@ -74,7 +74,17 @@ namespace IT_Calculator
          */
         public static string chooseFile()
         {
-            return "";
+            string fileLocation = "";
+            
+            System.Windows.Forms.OpenFileDialog openDialog = new System.Windows.Forms.OpenFileDialog();
+            openDialog.Title = "Select A File";
+            openDialog.Filter = "Text Files (*.txt)|*.txt" + "|" +
+                                "All Files (*.*)|*.*";
+            if (openDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                fileLocation = openDialog.FileName;
+            }
+            return fileLocation;
         }
 
         /*
@@ -219,14 +229,17 @@ namespace IT_Calculator
          * Each operation is completed and then stored into a linked list object. This is done to 
          * allow easier rewrite of the file when all operations are complete.
          */
-        public static void operateOnFile(string fileLocation)
+        public static void operateOnFile()
         {
+            // call to choose the user file to operate on
+            string fileLocation = chooseFile();
+            
             // creation of LinkedListString object to keep track of line outputs (both arth and conv)
             LinkedListStrings lineOutputs = new LinkedListStrings();
             
             // reassign fileLocation for testing puproses
-            string logFiles = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "IT-Calculator Logs");
-            fileLocation = System.IO.Path.Combine(logFiles, "testReadFile.txt");
+            //string logFiles = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "IT-Calculator Logs");
+            //string fileLocation = System.IO.Path.Combine(logFiles, "testReadFile.txt");
             // read in the file
             using (System.IO.StreamReader stream = System.IO.File.OpenText(fileLocation))
             {
