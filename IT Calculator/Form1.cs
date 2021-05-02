@@ -38,6 +38,11 @@ namespace IT_Calculator
             InitializeComponent();
         }
 
+        // creation of linked lists used to store the operations made by the user
+        public static LinkedListStrings APParithmeticLL = new LinkedListStrings();
+        public static LinkedListStrings APPconversionLL = new LinkedListStrings();
+
+
 
         /*
          * ======================================
@@ -106,40 +111,31 @@ namespace IT_Calculator
             MessageBox.Show("This help tab shows the correct input formats for conversion operations.\n'Base to Base, Explanation. (Accepted Example Input)'\n\nBinary --> IPv4 Address, length of input NEEDS to be 32. (10000001000000010000000100000001)\nBinary --> Mac Address, length of input NEEDS to be 48. (001100000110010111101100011011111100010001011000)\nHexadecimal --> IPv4 Address, length of input NEEDS to be 8(ff181584)", "Correct Input Formats");
         }
 
-        // Testing button for the read/write functionality of the application
-        // this will be removed in the future
-        private void fileWriteTestButton_Click(object sender, EventArgs e)
+        // this button event opens the file explorer for the user to chose a file to operate on
+        private void operateOnChosenFile_Click(object sender, EventArgs e)
         {
-            /*/ store test information in conversion and arithmetic operations
-            // creation of linked lists
-            LinkedListStrings arithmeticLL = new LinkedListStrings();
-            LinkedListStrings conversionLL = new LinkedListStrings();
-
-            // add arithmetic operations
-            file.storeForLogFileArithmetic(arithmeticLL, "0001", "0001", "Addition", "0010");
-            file.storeForLogFileArithmetic(arithmeticLL, "0101", "0001", "Addition", "0110");
-            file.storeForLogFileArithmetic(arithmeticLL, "1111", "0000", "Addition", "1111");
-
-            // add conversion operations
-            file.storeForLogFileConversion(conversionLL, "0001", "Binary", "Decimal", "1");
-            file.storeForLogFileConversion(conversionLL, "0010", "Binary", "Decimal", "2");
-            file.storeForLogFileConversion(conversionLL, "1111", "Binary", "Hexadecimal", "f");
-
-            // write to the files
-            file.writeLogFilesToStorage(arithmeticLL, conversionLL);
-            */
             file.operateOnFile();
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        // this button event saves the session and its calculations in the prev sessions file
+        // and the individual sessions file
+        private void saveSessionFile_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Exit or no?",
-                               "My First Application",
-                                MessageBoxButtons.YesNo,
-                                MessageBoxIcon.Information) == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
+            file.writeLogFilesToStorage(APParithmeticLL, APPconversionLL);
+        }
+
+        // this button event simply clears all text boxes to being empty
+        // just a simple easy thing for the user's benefit
+        private void clearAllTextBoxes_Click(object sender, EventArgs e)
+        {
+            binaryArith_LeftTextBox.Text = "";
+            operationComboBox.Text = "";
+            binaryArith_RightTextBox.Text = "";
+            binaryArithm_AnswerTextBox.Text = "";
+            comboBox2.Text = "";
+            textBox1.Text = "";
+            comboBox1.Text = "";
+            textBox2.Text = "";
         }
     }
 }

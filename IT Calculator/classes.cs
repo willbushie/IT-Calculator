@@ -582,6 +582,9 @@ namespace IT_Calculator
             {
                 return "there was a problem";
             }
+            // store the file into the linked list to later be written
+            file.storeForLogFileArithmetic(Form1.APParithmeticLL, this.firstString, this.secondString, operation, operationAnswerString);
+            // return the operation anwer string
             return operationAnswerString;
         }
 
@@ -737,6 +740,9 @@ namespace IT_Calculator
                     operationAnswerString = "This operation is not supported.";
                 }
             }
+            // store the information into the application linked list
+            file.storeForLogFileConversion(Form1.APPconversionLL, this.numToConvert, this.inputBase, this.outputBase, operationAnswerString);
+            // return the operation's answer
             return operationAnswerString;
         }
     }
