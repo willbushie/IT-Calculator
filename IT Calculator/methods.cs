@@ -387,56 +387,47 @@ namespace IT_Calculator
         // This method DOES check for correct input length
         public static String base2ToDotOct(String numToConvert)
         {
-            // check the input lenght 
-            if (numToConvert.Length == 32)
+            // take split the input string into sections of 4 (8 bits each)
+            // create char array to hold the input string for better interaction
+            char[] inputCharArray = numToConvert.ToCharArray();
+            // string array to hold the binary sections of 8
+            String[] binarySections = new string[4];
+            // int value to keep track of the current location inside of inputCharArray
+            int currLocation = 0;
+            // loop to create each binarySection and place it into the array
+            for (int section = 0; section < 4; section++)
             {
-                // take split the input string into sections of 4 (8 bits each)
-                // create char array to hold the input string for better interaction
-                char[] inputCharArray = numToConvert.ToCharArray();
-                // string array to hold the binary sections of 8
-                String[] binarySections = new string[4];
-                // int value to keep track of the current location inside of inputCharArray
-                int currLocation = 0;
-                // loop to create each binarySection and place it into the array
-                for (int section = 0; section < 4; section++)
+                // temp string value to hold the binary section
+                String binaryString = "";
+                // loop to create the 8 bit sequence
+                for (int count = 0; count < 8; count++)
                 {
-                    // temp string value to hold the binary section
-                    String binaryString = "";
-                    // loop to create the 8 bit sequence
-                    for (int count = 0; count < 8; count++)
-                    {
-                        // obtain the value at currLocation & place onto binaryString
-                        binaryString += inputCharArray[currLocation].ToString();
-                        // advance currLocation
-                        currLocation++;
-                    }
-                    // place binaryString into binarySections array
-                    binarySections[section] = binaryString;
+                    // obtain the value at currLocation & place onto binaryString
+                    binaryString += inputCharArray[currLocation].ToString();
+                    // advance currLocation
+                    currLocation++;
                 }
-
-                // string value to build the final return string
-                String decimalReturnValue = "";
-                // loop to convert each binarySection into decimal and place it into decimalSections
-                for (int section = 0; section < 4; section++)
-                {
-                    // call base2ToBase10 and place into the current section of decimalSections
-                    decimalReturnValue += base2ToBase10(binarySections[section]);
-                    // check if a separator is necessary
-                    if (section != 3)
-                    {
-                        // place a separator on
-                        decimalReturnValue += ".";
-                    }
-                }
-
-                // return the final decimal string
-                return decimalReturnValue;
+                // place binaryString into binarySections array
+                binarySections[section] = binaryString;
             }
-            else 
+
+            // string value to build the final return string
+            String decimalReturnValue = "";
+            // loop to convert each binarySection into decimal and place it into decimalSections
+            for (int section = 0; section < 4; section++)
             {
-                // return an error to the user
-                return "input error, incorrect length";
+                // call base2ToBase10 and place into the current section of decimalSections
+                decimalReturnValue += base2ToBase10(binarySections[section]);
+                // check if a separator is necessary
+                if (section != 3)
+                {
+                    // place a separator on
+                    decimalReturnValue += ".";
+                }
             }
+
+            // return the final decimal string
+            return decimalReturnValue;
         }
 
         // This method takes in an IP address and converts it to a hexadecimal value

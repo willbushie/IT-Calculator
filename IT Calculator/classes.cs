@@ -675,10 +675,14 @@ namespace IT_Calculator
                 else if (this.outputBase == "IP Address")
                 {
                     // check input length (max of 32 digits)
-                    error lengthError = error.checkInputLength(this.numToConvert, 32, false, true);
+                    error lengthError = error.checkInputLength(this.numToConvert, 32, true, false);
                     if (lengthError.isError != true)
                     {
                         operationAnswerString = methods.base2ToDotOct(this.numToConvert);
+                    }
+                    else
+                    {
+                        operationAnswerString = lengthError.errorString;
                     }
                 }
             }
@@ -703,6 +707,10 @@ namespace IT_Calculator
                     if (lengthError.isError != true)
                     {
                         operationAnswerString = methods.base10ToDotOct(this.numToConvert);
+                    }
+                    else
+                    {
+                        operationAnswerString = lengthError.errorString;
                     }
                 }
             }

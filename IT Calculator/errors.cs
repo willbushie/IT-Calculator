@@ -76,7 +76,7 @@ namespace IT_Calculator
                 {
                     // create an error and return 
                     error errorToReturn = new error();
-                    errorToReturn.errorString = ($"Input is incorrect length. Needs to be exactly {correctLength}. Input was of length {stringToCheck.Length}.");
+                    errorToReturn.errorString = ($"Input is incorrect length. Needs to be exactly {correctLength}. Input was of length {stringToCheck.Length}. Operation not completed.");
                     errorToReturn.isError = true;
                     return errorToReturn;
                 }
@@ -94,7 +94,7 @@ namespace IT_Calculator
                 {
                     // create an error and return 
                     error errorToReturn = new error();
-                    errorToReturn.errorString = ($"Input is incorrect length. Needs to be exactly {correctLength}. Input was of length {stringToCheck.Length}.");
+                    errorToReturn.errorString = ($"Input is incorrect length. Needs to {correctLength} or less. Input was of length {stringToCheck.Length}. Operation not completed.");
                     errorToReturn.isError = true;
                     return errorToReturn;
                 }
